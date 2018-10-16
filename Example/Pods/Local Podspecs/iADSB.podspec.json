@@ -1,0 +1,27 @@
+{
+  "name": "iADSB",
+  "version": "0.1.0",
+  "summary": "A wrapper for ADS-B hardware that obtains location, speed, course, attitude, traffic, weather, etc.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/ckhsponge/iadsb",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Christopher Hobbs": "purposemc@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/ckhsponge/iadsb.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "iadsb/Classes/**/*",
+  "dependencies": {
+    "Alamofire": [
+      "~> 4.7"
+    ]
+  }
+}

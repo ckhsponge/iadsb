@@ -1,0 +1,6 @@
+framework module Pods_iADSB_Tests {
+  umbrella header "Pods-iADSB_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

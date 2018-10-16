@@ -1,0 +1,6 @@
+framework module iADSB {
+  umbrella header "iADSB-umbrella.h"
+
+  export *
+  module * { export * }
+}

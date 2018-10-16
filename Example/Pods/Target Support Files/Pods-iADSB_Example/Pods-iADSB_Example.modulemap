@@ -1,0 +1,6 @@
+framework module Pods_iADSB_Example {
+  umbrella header "Pods-iADSB_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
