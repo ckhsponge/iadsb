@@ -61,6 +61,9 @@
 		5FA81DFB21766D3D00F990BA /* GPSLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81DF821766D3D00F990BA /* GPSLocation.swift */; };
 		5FA81DFC21766D3D00F990BA /* GPSModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81DF921766D3D00F990BA /* GPSModel.swift */; };
 		5FA81DFD21766D3D00F990BA /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81DFA21766D3D00F990BA /* Delegate.swift */; };
+		5FA81DFF2176790800F990BA /* Barometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81DFE2176790800F990BA /* Barometer.swift */; };
+		5FA81E012176792800F990BA /* AHRS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E002176792800F990BA /* AHRS.swift */; };
+		5FA81E032176EDAC00F990BA /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E022176EDAC00F990BA /* Network.swift */; };
 		618C13D4020EBA363997EFB60A56AC20 /* DSL.h in Headers */ = {isa = PBXBuildFile; fileRef = DF34F5539D43CD29002BEB3E187BB857 /* DSL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		62A3D36B892ED9C9A3210134C97FE3F9 /* NimbleXCTestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF803CA3E0E46C9F05B5290EEA36190 /* NimbleXCTestHandler.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		64CCCD4CBD3FF30D5954345C63FCCEA6 /* QuickConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = DE5322CC2A10D5244AF25A148973CB3F /* QuickConfiguration.m */; };
@@ -255,6 +258,9 @@
 		5FA81DF821766D3D00F990BA /* GPSLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GPSLocation.swift; path = iADSB/Classes/GPSLocation.swift; sourceTree = "<group>"; };
 		5FA81DF921766D3D00F990BA /* GPSModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GPSModel.swift; path = iADSB/Classes/GPSModel.swift; sourceTree = "<group>"; };
 		5FA81DFA21766D3D00F990BA /* Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Delegate.swift; path = iADSB/Classes/Delegate.swift; sourceTree = "<group>"; };
+		5FA81DFE2176790800F990BA /* Barometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Barometer.swift; sourceTree = "<group>"; };
+		5FA81E002176792800F990BA /* AHRS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AHRS.swift; sourceTree = "<group>"; };
+		5FA81E022176EDAC00F990BA /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		5FF7B9338B132E73DE361982CBB98EF9 /* ErrorUtility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ErrorUtility.swift; path = Sources/Quick/ErrorUtility.swift; sourceTree = "<group>"; };
 		6049D32C747F3F9FC9602EAB81B105E5 /* AllPass.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AllPass.swift; path = Sources/Nimble/Matchers/AllPass.swift; sourceTree = "<group>"; };
 		60BA99CC53070AC58559021655D37CDC /* Pods-iADSB_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iADSB_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -540,6 +546,8 @@
 		5B97C2E747E335085FC1CAB8B0804E02 /* iADSB */ = {
 			isa = PBXGroup;
 			children = (
+				5FA81E002176792800F990BA /* AHRS.swift */,
+				5FA81DFE2176790800F990BA /* Barometer.swift */,
 				5FA81DFA21766D3D00F990BA /* Delegate.swift */,
 				5FA81DF821766D3D00F990BA /* GPSLocation.swift */,
 				5FA81DF921766D3D00F990BA /* GPSModel.swift */,
@@ -552,6 +560,7 @@
 				1739EC173FB6BD4D9619345FDE687C6C /* Pod */,
 				57223F02E31EF61C8477EA16CA74C7ED /* Stratux */,
 				9B037C241A4E2104A51AC6D68903A831 /* Support Files */,
+				5FA81E022176EDAC00F990BA /* Network.swift */,
 			);
 			name = iADSB;
 			path = ../..;
@@ -1137,11 +1146,14 @@
 			files = (
 				B616EAE742E9961AF47DC0031F5E3290 /* CoreLocation.swift in Sources */,
 				714D1BB47BF1AFA58AF89C39655C6DDA /* CoreLocationGPS.swift in Sources */,
+				5FA81E032176EDAC00F990BA /* Network.swift in Sources */,
 				AB55FD8F9DA7F881D6917D2168F3F853 /* GPS.swift in Sources */,
 				8C8562A3314412544D96F388D7D276E0 /* iADSB-dummy.m in Sources */,
 				C4B7A246597DAB0E2917FBF358A7B3C8 /* IADSB.swift in Sources */,
+				5FA81DFF2176790800F990BA /* Barometer.swift in Sources */,
 				3162B41E35A347684AE8268544CFC67B /* Manager.swift in Sources */,
 				5FA81DFB21766D3D00F990BA /* GPSLocation.swift in Sources */,
+				5FA81E012176792800F990BA /* AHRS.swift in Sources */,
 				49E99CB715741D7C42E82175E22CF2E6 /* Model.swift in Sources */,
 				5FA81DFD21766D3D00F990BA /* Delegate.swift in Sources */,
 				5FA81DFC21766D3D00F990BA /* GPSModel.swift in Sources */,

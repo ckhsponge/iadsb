@@ -17,13 +17,14 @@ public extension IADSB {
         public var verticalAccuracy:Double? { return doubleFrom( key: "verticalAccuracy" ) }
         public var speed:Double? { return doubleFrom( key: "speed" ) }
         public var verticalSpeed:Double? { return doubleFrom( key: "verticalSpeed" ) }
-        public var trueCourse:Double? { return doubleFrom( key: "trueCourse" ) }
+        public var courseTrue:Double? { return doubleFrom( key: "courseTrue" ) }
         public var turnRate:Double? { return doubleFrom( key: "turnRate" ) }
+        public var timestamp:Date? { return dateFrom( key: "timestamp" ) }
         public var location:CLLocation? {
             if let latitude = self.latitude, let longitude = self.longitude {
                 if let altitude = self.altitude, let horizontalAccuracy = self.horizontalAccuracy,
                     let verticalAccuracy = self.verticalAccuracy {
-                    if let course = self.trueCourse, let speed = self.speed {
+                    if let course = self.courseTrue, let speed = self.speed {
                         return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, course: course, speed: speed, timestamp: Date())
                     }
                     return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),

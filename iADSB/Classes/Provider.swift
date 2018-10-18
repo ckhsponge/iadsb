@@ -13,8 +13,11 @@ public extension IADSB {
         public init( _ manager:Manager ) {
             self.manager = manager
         }
-        public func startGPS() {
+        public func start() {
             
         }
+        public var gps:IADSBGPS? = nil
+        public var ahrs:IADSBAHRS? = nil
+        public var barometer:IADSBBarometer? = nil
     }
 }

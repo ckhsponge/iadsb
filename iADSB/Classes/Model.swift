@@ -46,5 +46,9 @@ public extension IADSB {
             }
             return nil
         }
+        
+        func dateFrom( key:String ) -> Date? {
+            return nil
+        }
     }
 }

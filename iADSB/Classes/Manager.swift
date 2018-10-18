@@ -14,16 +14,16 @@ public extension IADSB {
         
         public init() {}
         
-        public func startGPS() {
+        public func start() {
             for provider in providers {
-                provider.startGPS()
+                provider.start()
             }
         }
         
-        func update( gps:IADSBGPS ) {
+        func update( provider:IADSB.Provider ) {
 //            print("\(String(describing: gps.verticalSpeedFPM))")
             for delegate in delegates {
-                delegate.update(gps: gps)
+                delegate.update(provider: provider)
             }
         }
         

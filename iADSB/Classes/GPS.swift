@@ -16,9 +16,10 @@ public protocol IADSBGPS {
     var verticalAccuracy:Double? { get }
     var speed:Double? { get }
     var verticalSpeed:Double? { get }
-    var trueCourse:Double? { get }
+    var courseTrue:Double? { get }
     var turnRate:Double? { get }
     var location:CLLocation? { get }
+    var timestamp:Date? { get }
 }
 
 public extension IADSBGPS {
@@ -39,7 +40,7 @@ public extension IADSBGPS {
 //        public var verticalAccuracy:Double? { return nil }
 //        public var speed:Double? { return nil }
 //        public var verticalSpeed:Double? { return nil }
-//        public var trueCourse:Double? { return nil }
+//        public var courseTrue:Double? { return nil }
 //        public var turnRate:Double? { return nil }
 //        public var location:CLLocation? { return nil }
 //    }

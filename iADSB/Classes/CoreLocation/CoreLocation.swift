@@ -16,18 +16,19 @@ public extension IADSB.CoreLocation {
                 self.provider = provider
             }
             func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-                if locations.isEmpty {
-                    return
+                if let location = locations.last {
+                    provider.previousGPS = provider.gps
+                    provider.gps = IADSB.CoreLocation.GPS( location:location, previousGPS: provider.previousGPS )
+                    provider.manager.update( provider:provider )
                 }
-                let gps = IADSB.CoreLocation.GPS( location:locations[0] )
-                provider.manager.update( gps:gps )
             }
         }
         
         lazy var delegate = Delegate( self )
         var locationManager:CLLocationManager = CLLocationManager()
         public static var requestAlwaysAuthorization = false
-        override public func startGPS() {
+        var previousGPS:IADSBGPS? = nil
+        override public func start() {
             let status = CLLocationManager.authorizationStatus()
             if status == CLAuthorizationStatus.notDetermined {
                 if IADSB.CoreLocation.Provider.requestAlwaysAuthorization {
@@ -42,6 +43,5 @@ public extension IADSB.CoreLocation {
             locationManager.delegate = delegate
             locationManager.startUpdatingLocation()
         }
-        
     }
 }

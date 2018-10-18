@@ -12,8 +12,8 @@ public extension IADSB.Stratux {
     public class GPS: IADSB.GPSModel {
         override var keyMapping:[String:String]? { return  ["latitude":"GPSLatitude", "longitude":"GPSLongitude",
                           "altitude":"GPSLongitude", "horizontalAccuracy":"GPSHorizontalAccuracy", "verticalAccuracy":"GPSVerticalAccuracy",
-                          "speed":"GPSGroundSpeed", "verticalSpeed":"GPSVerticalSpeed", "trueCourse":"GPSTrueCourse",
-                          "turnRate":"GPSTurnRate"
+                          "speed":"GPSGroundSpeed", "verticalSpeed":"GPSVerticalSpeed", "courseTrue":"GPSTrueCourse",
+                          "turnRate":"GPSTurnRate", "timestamp":"GPSTime"
             ]}
     }
 }
