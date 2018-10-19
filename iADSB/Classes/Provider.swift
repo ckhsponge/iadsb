@@ -17,7 +17,7 @@ public extension IADSB {
             
         }
         public var gps:IADSB.GPS? = nil
-        public var ahrs:IADSBAHRS? = nil
-        public var barometer:IADSBBarometer? = nil
+        public var ahrs:IADSB.AHRS? = nil
+        public var barometer:IADSB.Barometer? = nil
     }
 }

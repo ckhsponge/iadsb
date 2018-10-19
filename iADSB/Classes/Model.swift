@@ -25,15 +25,17 @@ public extension IADSB.Model {
     public class func from<T>( _ type:T.Type, attributes:[String:Any] ) -> T where T : IADSB.Model & Codable {
         print("jsonData \(attributes)")
         let jsonData = try? JSONSerialization.data(withJSONObject: attributes, options: .prettyPrinted)
-        return from( T.self, jsonData: jsonData!)
+        return from( T.self, data: jsonData!)
     }
     
-    public class func from<T>( _ type:T.Type, jsonData:Data ) -> T where T : IADSB.Model & Codable {
+    public class func from<T>( _ type:T.Type, data:Data ) -> T where T : IADSB.Model & Codable {
         let decoder = JSONDecoder()
         //            if let keyMapping = T.keyMapping {
         if let keyMapping = T.keyMapping {
             print("got mapping \(keyMapping.count)")
+            var i = 0
             decoder.keyDecodingStrategy = JSONDecoder.KeyDecodingStrategy.custom({ (keys) -> CodingKey in
+                i += 1
                 if let key = keys.last {
                     print( "key \(key.stringValue)")
                     //                StratuxCodingKeys.latitude.r
@@ -46,12 +48,35 @@ public extension IADSB.Model {
                 return AnyKey(stringValue: "")
             })
         }
-        if let model = try? decoder.decode(T.self, from: jsonData) {
-            return model
+        decoder.dateDecodingStrategy = .custom({ (decoder) -> Date in
+            let container = try decoder.singleValueContainer()
+            let dateStr = try container.decode(String.self)
+            
+            let formatter = DateFormatter()
+            formatter.calendar = Calendar(identifier: .iso8601)
+            formatter.locale = Locale(identifier: "en_US_POSIX")
+            formatter.timeZone = TimeZone(secondsFromGMT: 0)
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
+            if let date = formatter.date(from: dateStr) {
+                return date
+            }
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssXXXXX"
+            if let date = formatter.date(from: dateStr) {
+                return date
+            }
+            return Date(timeIntervalSince1970: 0)
+        })
+        do {
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            print("DECODE ERROR \(error)")
         }
         return T()
     }
     
+    public func nilifyOldDates() {
+        // TODO set 1970 dates to nil
+    }
 }
 
 //public extension IADSB {

@@ -17,7 +17,7 @@ public extension IADSB {
                 print("Request: \(String(describing: response.request))")   // original url request
                 print("Response: \(String(describing: response.response))") // http url response
                 print("Result: \(response.result)")                         // response serialization result
-                 
+                
                 if let json = response.result.value {
                     print("class: \(type(of:json))")
                     print("JSON: \(json)") // serialized json response
@@ -31,6 +31,19 @@ public extension IADSB {
                 
                 if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
                     print("Data: \(utf8Text)") // original server data as UTF8 string
+                }
+            }
+        }
+        
+        public func data() {
+            Alamofire.request("http://localhost:3000/stratux.json").responseData { (response) in
+                print("Request: \(String(describing: response.request))")   // original url request
+                print("Response: \(String(describing: response.response))") // http url response
+                print("Result: \(response.result)")                         // response serialization result
+                
+                if let data = response.data {
+                    let gps = IADSB.Stratux.GPS.from(IADSB.Stratux.GPS.self, data: data)
+                    print("Alamo data: \(String(describing: gps.location))")
                 }
             }
         }

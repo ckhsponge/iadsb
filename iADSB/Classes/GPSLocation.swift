@@ -53,10 +53,10 @@ public extension IADSB.GPS {
             if let altitude = self.altitude, let horizontalAccuracy = self.horizontalAccuracy,
                 let verticalAccuracy = self.verticalAccuracy {
                 if let course = self.courseTrue, let speed = self.speed {
-                    return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, course: course, speed: speed, timestamp: Date())
+                    return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, course: course, speed: speed, timestamp: self.timestamp ?? Date())
                 }
                 return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
-                                  altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, timestamp: Date())
+                                  altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, timestamp: self.timestamp ?? Date())
             }
             return CLLocation(latitude: latitude, longitude: longitude)
         }

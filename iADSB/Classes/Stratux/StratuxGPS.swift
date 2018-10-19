@@ -26,7 +26,7 @@ import Foundation
 public extension IADSB.Stratux {
     public class GPS: IADSB.GPS {
         override public class var keyMapping:[String:String]? { return  ["GPSLatitude":"latitude", "GPSLongitude":"longitude",
-                                                           "GPSAltitude":"altitude", "GPSHorizontalAccuracy":"horizontalAccuracy", "GPSVerticalAccuracy":"verticalAccuracy",
+                                                           "GPSAltitudeMSL":"altitude", "GPSHorizontalAccuracy":"horizontalAccuracy", "GPSVerticalAccuracy":"verticalAccuracy",
                                                            "GPSGroundSpeed":"speed", "GPSVerticalSpeed":"verticalSpeed", "GPSTrueCourse":"courseTrue",
                                                            "GPSTurnRate":"turnRate", "GPSTime":"timestamp"
             ]}
