@@ -16,7 +16,7 @@ public extension IADSB {
         public func start() {
             
         }
-        public var gps:IADSBGPS? = nil
+        public var gps:IADSB.GPS? = nil
         public var ahrs:IADSBAHRS? = nil
         public var barometer:IADSBBarometer? = nil
     }

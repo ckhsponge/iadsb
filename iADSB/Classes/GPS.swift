@@ -7,29 +7,70 @@
 
 import Foundation
 import CoreLocation
+//
+//public extension IADSB {
+//    public class Model: Codable {
+//        public class var keyMapping:[String:String]? { return nil }
+//        public init() {}
+//    }
+//}
 
-public protocol IADSBGPS {
-    var latitude:Double? { get }
-    var longitude:Double? { get }
-    var altitude:Double? { get }
-    var horizontalAccuracy:Double? { get }
-    var verticalAccuracy:Double? { get }
-    var speed:Double? { get }
-    var verticalSpeed:Double? { get }
-    var courseTrue:Double? { get }
-    var turnRate:Double? { get }
-    var location:CLLocation? { get }
-    var timestamp:Date? { get }
-}
-
-public extension IADSBGPS {
-    public var verticalSpeedFPM:Double? {
-        if let vs = verticalSpeed {
-            return vs * 1000.0;
+public extension IADSB {
+    public class GPS: Model,Codable {
+        
+        public var latitude:Double? = nil
+        public var longitude:Double? = nil
+        public var altitude:Double? = nil
+        public var horizontalAccuracy:Double? = nil
+        public var verticalAccuracy:Double? = nil
+        public var speed:Double? = nil
+        public var verticalSpeed:Double? = nil
+        public var courseTrue:Double? = nil
+        public var turnRate:Double? = nil
+        public var timestamp:Date? = nil
+        
+        public var verticalSpeedFPM:Double? {
+            if let vs = verticalSpeed {
+                return vs * 1000.0;
+            }
+            return nil
         }
-        return nil
+        
+//        public init() {}
+
+//        required public init(from decoder: Decoder) throws {
+//            let values = try decoder.container(keyedBy: CodingKeys.self)
+//            latitude = try values.decode(Double?.self, forKey: .latitude)
+//            longitude = try values.decode(Double?.self, forKey: .longitude)
+//        }
+//
+//        public static func keyType() -> Key.Type {
+//            return CodingKeys.self
+//        }
+        
+        
+//        enum CodingKeys: String, CodingKey
+//        {
+//            case latitude = "GPSLatitude"
+//            case longitude = "GPSLongitude"
+//        }
+        
+//        public class func from( attributes:[String:Any] ) -> Self {
+//            var mapped = [String:Any]()
+//            for (key,value) in attributes {
+//                mapped[ key ] = value
+////                mapped[ keyMapping[key] ?? key ] = value
+//            }
+//            let jsonData = try? JSONSerialization.data(withJSONObject: mapped, options: .prettyPrinted)
+//            let gps = try? JSONDecoder().decode(self, from: jsonData!)
+//            return gps!
+//        }
     }
 }
+
+//public extension IADSB.GPS {
+//    var location:CLLocation? = nil
+//}
 
 //public extension IADSB {
 //    public class GPS {

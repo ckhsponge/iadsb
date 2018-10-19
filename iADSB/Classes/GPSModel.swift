@@ -8,35 +8,35 @@
 import Foundation
 import CoreLocation
 
-public extension IADSB {
-    public class GPSModel: Model, IADSBGPS {
-        public var latitude:Double? { return doubleFrom( key: "latitude" ) }
-        public var longitude:Double? { return doubleFrom( key: "longitude" ) }
-        public var altitude:Double? { return doubleFrom( key: "altitude" ) }
-        public var horizontalAccuracy:Double? { return doubleFrom( key: "horizontalAccuracy" ) }
-        public var verticalAccuracy:Double? { return doubleFrom( key: "verticalAccuracy" ) }
-        public var speed:Double? { return doubleFrom( key: "speed" ) }
-        public var verticalSpeed:Double? { return doubleFrom( key: "verticalSpeed" ) }
-        public var courseTrue:Double? { return doubleFrom( key: "courseTrue" ) }
-        public var turnRate:Double? { return doubleFrom( key: "turnRate" ) }
-        public var timestamp:Date? { return dateFrom( key: "timestamp" ) }
-        public var location:CLLocation? {
-            if let latitude = self.latitude, let longitude = self.longitude {
-                if let altitude = self.altitude, let horizontalAccuracy = self.horizontalAccuracy,
-                    let verticalAccuracy = self.verticalAccuracy {
-                    if let course = self.courseTrue, let speed = self.speed {
-                        return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, course: course, speed: speed, timestamp: Date())
-                    }
-                    return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
-                                      altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, timestamp: Date())
-                }
-                return CLLocation(latitude: latitude, longitude: longitude)
-            }
-            return nil
-        }
-        
-    }
-}
+//public extension IADSB {
+//    public class GPSModel: Model, IADSBGPS {
+//        public var latitude:Double? { return doubleFrom( key: "latitude" ) }
+//        public var longitude:Double? { return doubleFrom( key: "longitude" ) }
+//        public var altitude:Double? { return doubleFrom( key: "altitude" ) }
+//        public var horizontalAccuracy:Double? { return doubleFrom( key: "horizontalAccuracy" ) }
+//        public var verticalAccuracy:Double? { return doubleFrom( key: "verticalAccuracy" ) }
+//        public var speed:Double? { return doubleFrom( key: "speed" ) }
+//        public var verticalSpeed:Double? { return doubleFrom( key: "verticalSpeed" ) }
+//        public var courseTrue:Double? { return doubleFrom( key: "courseTrue" ) }
+//        public var turnRate:Double? { return doubleFrom( key: "turnRate" ) }
+//        public var timestamp:Date? { return dateFrom( key: "timestamp" ) }
+//        public var location:CLLocation? {
+//            if let latitude = self.latitude, let longitude = self.longitude {
+//                if let altitude = self.altitude, let horizontalAccuracy = self.horizontalAccuracy,
+//                    let verticalAccuracy = self.verticalAccuracy {
+//                    if let course = self.courseTrue, let speed = self.speed {
+//                        return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, course: course, speed: speed, timestamp: Date())
+//                    }
+//                    return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+//                                      altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, timestamp: Date())
+//                }
+//                return CLLocation(latitude: latitude, longitude: longitude)
+//            }
+//            return nil
+//        }
+//        
+//    }
+//}
 
 
 //"GPSLastFixSinceMidnightUTC": 78047.7,

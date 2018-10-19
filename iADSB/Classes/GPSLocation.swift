@@ -8,50 +8,58 @@
 import Foundation
 import CoreLocation
 
-public extension IADSB {
-    public class GPSLocation: IADSBGPS {
-        public var latitude:Double? { return positiveOrNil(location?.coordinate.latitude) }
-        public var longitude:Double? { return positiveOrNil(location?.coordinate.longitude) }
-        public var altitude:Double? { return positiveOrNil(location?.altitude) }
-        public var horizontalAccuracy:Double? { return positiveOrNil(location?.horizontalAccuracy) }
-        public var verticalAccuracy:Double? { return positiveOrNil(location?.verticalAccuracy) }
-        public var speed:Double? { return positiveOrNil(location?.speed) }
-        public var courseTrue:Double? { return positiveOrNil(location?.course) }
-        public var timestamp:Date? { return location?.timestamp }
-        public var location:CLLocation?
-        var previousGPS:IADSBGPS?
-//        override public var location: CLLocation? { return self.location }
-        init( location:CLLocation ) {
-            self.location = location
+public extension IADSB.GPS {
+    convenience init( location:CLLocation, previousGPS:IADSB.GPS? = nil ) {
+        self.init()
+        horizontalAccuracy = positiveOrNil(location.horizontalAccuracy)
+        verticalAccuracy = positiveOrNil(location.verticalAccuracy)
+        latitude = horizontalAccuracy == nil ? nil : location.coordinate.latitude
+        longitude = horizontalAccuracy == nil ? nil : location.coordinate.longitude
+        altitude = verticalAccuracy == nil ? nil : location.altitude
+        speed = positiveOrNil(location.speed)
+        courseTrue = positiveOrNil(location.course)
+        timestamp = location.timestamp
+        verticalSpeed = verticalSpeedFrom( previousGPS:previousGPS )
+        turnRate = turnRate( previousGPS:previousGPS )
+    }
+    
+    func verticalSpeedFrom( previousGPS:IADSB.GPS? ) -> Double? {
+        guard let previousGPS = previousGPS,
+            let h1 = self.altitude, let h2 = previousGPS.altitude,
+            let t1 = self.timestamp, let t2 = previousGPS.timestamp else {
+                return nil
         }
-        convenience init( location:CLLocation, previousGPS:IADSBGPS? ) {
-            self.init(location: location)
-            self.previousGPS = previousGPS
+        return (h1 - h2) / (t2.timeIntervalSince(t1))
+    }
+    
+    func turnRate( previousGPS:IADSB.GPS? ) -> Double? {
+        guard let previousGPS = previousGPS,
+            let c1 = self.courseTrue, let c2 = previousGPS.courseTrue,
+            let t1 = self.timestamp, let t2 = previousGPS.timestamp else {
+                return nil
         }
-        
-        public var verticalSpeed:Double? {
-            guard let previousGPS = previousGPS,
-                let h1 = self.altitude, let h2 = previousGPS.altitude,
-                let t1 = self.timestamp, let t2 = previousGPS.timestamp else {
-                    return nil
+        return (c1 - c2) / (t2.timeIntervalSince(t1))
+    }
+    
+    func positiveOrNil(_ double:Double? ) -> Double? {
+        if let double = double, double >= 0.0 {
+            return double
+        }
+        return nil
+    }
+    
+    public var location:CLLocation? {
+        if let latitude = self.latitude, let longitude = self.longitude {
+            if let altitude = self.altitude, let horizontalAccuracy = self.horizontalAccuracy,
+                let verticalAccuracy = self.verticalAccuracy {
+                if let course = self.courseTrue, let speed = self.speed {
+                    return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, course: course, speed: speed, timestamp: Date())
+                }
+                return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+                                  altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, timestamp: Date())
             }
-            return (h1 - h2) / (t2.timeIntervalSince(t1))
+            return CLLocation(latitude: latitude, longitude: longitude)
         }
-        
-        public var turnRate:Double? {
-            guard let previousGPS = previousGPS,
-                let c1 = self.courseTrue, let c2 = previousGPS.courseTrue,
-                let t1 = self.timestamp, let t2 = previousGPS.timestamp else {
-                    return nil
-            }
-            return (c1 - c2) / (t2.timeIntervalSince(t1))
-        }
-        
-        func positiveOrNil(_ double:Double? ) -> Double? {
-            if let double = double, double >= 0.0 {
-                return double
-            }
-            return nil
-        }
+        return nil
     }
 }
