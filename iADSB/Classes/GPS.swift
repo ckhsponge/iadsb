@@ -36,6 +36,10 @@ public extension IADSB {
             return nil
         }
         
+        public var description:String {
+            return "\(String(describing: location)) -- altitude: \(String(describing: altitude)), VS: \(String(describing: verticalSpeed)), turnRate: \(String(describing: turnRate)), accuracy: \(String(describing: horizontalAccuracy))x\(String(describing: verticalAccuracy))"
+        }
+        
 //        public init() {}
 
 //        required public init(from decoder: Decoder) throws {

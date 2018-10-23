@@ -11,7 +11,11 @@ import iADSB
 
 class ViewController: UIViewController,IADSBDelegate {
 
-    @IBOutlet var textView: UITextView!
+    @IBOutlet var internalTextView: UITextView!
+    @IBOutlet var stratuxGPSTextView: UITextView!
+    @IBOutlet var stratuxBaroTextView: UITextView!
+    @IBOutlet var stratuxAHRSTextView: UITextView!
+    
     
     var manager = IADSB.Manager()
     
@@ -19,7 +23,7 @@ class ViewController: UIViewController,IADSBDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 //        IADSB.Network().go()
-        IADSB.Network().data()
+//        IADSB.Network().data()
 //        let gps = IADSB.Stratux.GPS().create( attributes: ["GPSLatitude":1.0, "GPSLongitude":2.0] )
 //        let klass = IADSB.Stratux.GPS.self
 //        print("klass \(klass) \(type(of:klass))")
@@ -32,6 +36,7 @@ class ViewController: UIViewController,IADSBDelegate {
 //        print("launch \(String(describing: gps.longitude))")
 //        print("launch \(String(describing: gps.location))")
 //        textView.text = "\(gps.attributes) \(String(describing: gps.location))"
+        //manager.providers = [IADSB.Stratux.Provider(manager)]
         manager.add(delegate: self)
         manager.start()
     }
@@ -43,7 +48,13 @@ class ViewController: UIViewController,IADSBDelegate {
 
     func update(provider: IADSB.Provider) {
 //        print("GPS Update: \(gps)")
-        textView.text = String(describing: provider.gps?.location)
+        if let internalProvider = provider as? IADSB.CoreLocation.Provider {
+            internalTextView.text = String(describing: internalProvider.gps?.description)
+        } else if let stratuxProvider = provider as? IADSB.Stratux.Provider {
+            stratuxGPSTextView.text = String(describing: stratuxProvider.gps?.description)
+            stratuxBaroTextView.text = String(describing: stratuxProvider.barometer?.description)
+            stratuxAHRSTextView.text = String(describing: stratuxProvider.ahrs?.description)
+        }
     }
 }
 
