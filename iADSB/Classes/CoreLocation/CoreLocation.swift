@@ -18,11 +18,16 @@ public extension IADSB.CoreLocation {
             func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
                 if let location = locations.last {
                     provider.previousGPS = provider.gps
-                    provider.gps = IADSB.GPS(location: location, previousGPS: provider.previousGPS)
+                    provider.gps = IADSB.CoreLocation.GPS(location: location, previousGPS: provider.previousGPS, provider:provider)
                     provider.manager.update( provider:provider )
                 }
             }
+            func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+                print("CLLocationManager error: \(error)")
+            }
         }
+        
+        override public var name:String { return "Internal" }
         
         lazy var delegate = Delegate( self )
         var locationManager:CLLocationManager = CLLocationManager()

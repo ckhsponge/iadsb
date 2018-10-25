@@ -9,8 +9,10 @@ import Foundation
 
 public extension IADSB.Stratux {
     public class Provider: IADSB.Provider {
-        let urls:[String:[(IADSB.Model & Codable).Type]] = ["http://192.168.10.1/getSituation":[IADSB.Stratux.GPS.self]]
-//        let urls:[String:[(IADSB.Model & Codable).Type]] = ["http://localhost:3000/stratux.json":[IADSB.Stratux.GPS.self]]
+//        let urls:[String:[(IADSB.Model & Codable).Type]] = ["http://192.168.10.1/getSituation":[IADSB.Stratux.GPS.self]]
+        let urls:[String:[(IADSB.Model & Codable).Type]] = ["http://localhost:3000/stratux.json":[IADSB.Stratux.GPS.self]]
+        
+        override public var name:String { return "Stratux" }
         
         var timer:Timer?
         

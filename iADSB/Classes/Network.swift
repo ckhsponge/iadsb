@@ -35,17 +35,17 @@ public extension IADSB {
             }
         }
         
-        public func data() {
-            Alamofire.request("http://localhost:3000/stratux.json").responseData { (response) in
-                print("Request: \(String(describing: response.request))")   // original url request
-                print("Response: \(String(describing: response.response))") // http url response
-                print("Result: \(response.result)")                         // response serialization result
-                
-                if let data = response.data {
-                    let gps = IADSB.Stratux.GPS.from(IADSB.Stratux.GPS.self, data: data)
-                    print("Alamo data: \(String(describing: gps.location))")
-                }
-            }
-        }
+//        public func data() {
+//            Alamofire.request("http://localhost:3000/stratux.json").responseData { (response) in
+//                print("Request: \(String(describing: response.request))")   // original url request
+//                print("Response: \(String(describing: response.response))") // http url response
+//                print("Result: \(response.result)")                         // response serialization result
+//                
+//                if let data = response.data {
+//                    let gps = IADSB.Stratux.GPS.from(IADSB.Stratux.GPS.self, data: data)
+//                    print("Alamo data: \(String(describing: gps.location))")
+//                }
+//            }
+//        }
     }
 }

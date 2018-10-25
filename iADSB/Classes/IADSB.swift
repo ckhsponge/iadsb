@@ -5,5 +5,6 @@ public struct IADSB {
     public class Model {
         public class var keyMapping:[String:String]? { return nil }
         public required init() {}
+        public var provider:IADSB.Provider?
     }
 }

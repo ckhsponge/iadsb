@@ -9,8 +9,9 @@ import Foundation
 import CoreLocation
 
 public extension IADSB.GPS {
-    convenience init( location:CLLocation, previousGPS:IADSB.GPS? = nil ) {
+    convenience init( location:CLLocation, previousGPS:IADSB.GPS? = nil, provider:IADSB.Provider ) {
         self.init()
+        self.provider = provider
         horizontalAccuracy = positiveOrNil(location.horizontalAccuracy)
         verticalAccuracy = positiveOrNil(location.verticalAccuracy)
         latitude = horizontalAccuracy == nil ? nil : location.coordinate.latitude

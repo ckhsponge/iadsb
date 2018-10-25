@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1C60AE2B5AF7660E2DE0CE28 /* Pods_iADSB_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D5BC8F0337F5B0B1E3B39 /* Pods_iADSB_Example.framework */; };
+		5FA81E11217ED8A600F990BA /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E10217ED8A600F990BA /* TableViewController.swift */; };
+		5FA81E13217EDB3000F990BA /* GPSTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E12217EDB3000F990BA /* GPSTableViewCell.swift */; };
+		5FA81E15218177F800F990BA /* ModelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E14218177F800F990BA /* ModelTableViewCell.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -30,6 +33,9 @@
 /* Begin PBXFileReference section */
 		0B811B48A67C9CE8CCA81170 /* Pods_iADSB_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iADSB_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BDE3172FC12C644533C6FA0 /* iADSB.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = iADSB.podspec; path = ../iADSB.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		5FA81E10217ED8A600F990BA /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		5FA81E12217EDB3000F990BA /* GPSTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTableViewCell.swift; sourceTree = "<group>"; };
+		5FA81E14218177F800F990BA /* ModelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTableViewCell.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* iADSB_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iADSB_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +116,9 @@
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
+				5FA81E10217ED8A600F990BA /* TableViewController.swift */,
+				5FA81E12217EDB3000F990BA /* GPSTableViewCell.swift */,
+				5FA81E14218177F800F990BA /* ModelTableViewCell.swift */,
 			);
 			name = "Example for iADSB";
 			path = iADSB;
@@ -363,7 +372,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FA81E15218177F800F990BA /* ModelTableViewCell.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				5FA81E11217ED8A600F990BA /* TableViewController.swift in Sources */,
+				5FA81E13217EDB3000F990BA /* GPSTableViewCell.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

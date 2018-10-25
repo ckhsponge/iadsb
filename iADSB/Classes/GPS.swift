@@ -27,12 +27,35 @@ public extension IADSB {
         public var verticalSpeed:Double? = nil
         public var courseTrue:Double? = nil
         public var turnRate:Double? = nil
+        public var satelliteCount:Int? = nil
         public var timestamp:Date? = nil
         
+        public var speedKnots:Double? {
+            guard let speed = speed else { return nil }
+            return speed * 1000.0;
+        }
+        
         public var verticalSpeedFPM:Double? {
-            if let vs = verticalSpeed {
-                return vs * 1000.0;
-            }
+            guard let verticalSpeed = verticalSpeed else { return nil }
+            return verticalSpeed * 1000.0;
+        }
+        
+        public var altitudeFeet:Double? {
+            guard let altitude = altitude else { return nil }
+            return altitude * 1000.0;
+        }
+        
+        public var horizontalAccuracyFeet:Double? {
+            guard let horizontalAccuracy = horizontalAccuracy else { return nil }
+            return horizontalAccuracy * 1000.0;
+        }
+        
+        public var verticalAccuracyFeet:Double? {
+            guard let verticalAccuracy = verticalAccuracy else { return nil }
+            return verticalAccuracy * 1000.0;
+        }
+        
+        public var courseMagnetic:Double? {
             return nil
         }
         

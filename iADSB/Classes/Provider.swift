@@ -21,6 +21,8 @@ public extension IADSB {
         public var ahrs:IADSB.AHRS? = nil
         public var barometer:IADSB.Barometer? = nil
         
+        public var name:String { return "UNDEFINED" }
+        
         public func dataFrom(url:String, completionHandler: @escaping (Data) -> Void) {
             Alamofire.request(url).responseData { (response) in
                 print("Request: \(String(describing: response.request))")   // original url request
@@ -45,6 +47,12 @@ public extension IADSB {
                 self.stringValue = String(intValue)
                 self.intValue = intValue
             }
+        }
+        
+        public func modelFrom<T>(_ type:T.Type, attributes:[String:Any]) -> T? where T : IADSB.Model & Codable {
+            print("jsonData \(attributes)")
+            let jsonData = try? JSONSerialization.data(withJSONObject: attributes, options: .prettyPrinted)
+            return modelFrom(T.self, data: jsonData!)
         }
         
         public func modelFrom<T>(_ type:T.Type, data:Data) -> T? where T : IADSB.Model & Codable {
@@ -86,7 +94,9 @@ public extension IADSB {
                 return Date(timeIntervalSince1970: 0)
             })
             do {
-                return try decoder.decode(T.self, from: data)
+                let model = try decoder.decode(T.self, from: data)
+                model.provider = self
+                return model
             } catch {
                 print("DECODE ERROR \(error)")
             }
