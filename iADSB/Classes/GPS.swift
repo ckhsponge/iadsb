@@ -29,6 +29,14 @@ public extension IADSB {
         public var turnRate:Double? = nil
         public var satelliteCount:Int? = nil
         public var timestamp:Date? = nil
+        static let inaccurate:Double = 99999
+        
+        override public func lessThan(_ rhs: IADSB.Model) -> Bool {
+            guard let gps = rhs as? IADSB.GPS else {
+                return super.lessThan(rhs)
+            }
+            return self.horizontalAccuracy ?? IADSB.GPS.inaccurate < gps.horizontalAccuracy ?? IADSB.GPS.inaccurate
+        }
         
         public var speedKnots:Double? {
             guard let speed = speed else { return nil }

@@ -29,17 +29,9 @@ class TableViewController: UITableViewController, IADSBDelegate {
     
     func update(provider: IADSB.Provider) {
         models = []
-        for provider in manager.providers {
-            if let gps = provider.gps {
-                models.append(gps)
-            }
-            if let barometer = provider.barometer {
-                models.append(barometer)
-            }
-            if let ahrs = provider.ahrs {
-                models.append(ahrs)
-            }
-        }
+        models.append(contentsOf: manager.gpses)
+        models.append(contentsOf: manager.ahrses)
+        models.append(contentsOf: manager.barometers)
         self.tableView.reloadData()
     }
 

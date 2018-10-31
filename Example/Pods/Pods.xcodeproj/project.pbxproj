@@ -65,6 +65,7 @@
 		5FA81E0B217A4E4300F990BA /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E0A217A4E4200F990BA /* Network.swift */; };
 		5FA81E0D217A773100F990BA /* StratuxBarometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E0C217A773000F990BA /* StratuxBarometer.swift */; };
 		5FA81E0F217A77BA00F990BA /* StratuxAHRS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E0E217A77BA00F990BA /* StratuxAHRS.swift */; };
+		5FA81E1B2183D4DF00F990BA /* ModelSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E1A2183D4DF00F990BA /* ModelSet.swift */; };
 		5FBAC14F1D5AD4601E4E3FE870C0B0E0 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F02A739100B7422F36AE23783BE8C24 /* Alamofire.framework */; };
 		618C13D4020EBA363997EFB60A56AC20 /* DSL.h in Headers */ = {isa = PBXBuildFile; fileRef = DF34F5539D43CD29002BEB3E187BB857 /* DSL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		62A3D36B892ED9C9A3210134C97FE3F9 /* NimbleXCTestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF803CA3E0E46C9F05B5290EEA36190 /* NimbleXCTestHandler.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
@@ -263,6 +264,7 @@
 		5FA81E0A217A4E4200F990BA /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Network.swift; path = iADSB/Classes/Network.swift; sourceTree = "<group>"; };
 		5FA81E0C217A773000F990BA /* StratuxBarometer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StratuxBarometer.swift; sourceTree = "<group>"; };
 		5FA81E0E217A77BA00F990BA /* StratuxAHRS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StratuxAHRS.swift; sourceTree = "<group>"; };
+		5FA81E1A2183D4DF00F990BA /* ModelSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSet.swift; sourceTree = "<group>"; };
 		5FF7B9338B132E73DE361982CBB98EF9 /* ErrorUtility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ErrorUtility.swift; path = Sources/Quick/ErrorUtility.swift; sourceTree = "<group>"; };
 		6049D32C747F3F9FC9602EAB81B105E5 /* AllPass.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AllPass.swift; path = Sources/Nimble/Matchers/AllPass.swift; sourceTree = "<group>"; };
 		60BA99CC53070AC58559021655D37CDC /* Pods-iADSB_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iADSB_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -556,6 +558,7 @@
 				F48621156A189CDD78792E57CC652B99 /* IADSB.swift */,
 				2CB01C0B585E14EFFE805902EEE32E7F /* Manager.swift */,
 				BE8E293EB0B1931F0B6052D75B7E77B5 /* Model.swift */,
+				5FA81E1A2183D4DF00F990BA /* ModelSet.swift */,
 				44C24BEEAE15473187DFE1B4A8606568 /* Provider.swift */,
 				475C5D6EB39BD46E427016F758D61833 /* CoreLocation */,
 				146277FB57DD819D3538A0B520EDBFC6 /* Pod */,
@@ -1166,6 +1169,7 @@
 				A12E4BAB954ED517B438F5C24683390B /* Model.swift in Sources */,
 				0069742770291F825B63303B9FEE879D /* Provider.swift in Sources */,
 				8D2D5432591C8ECB7294F8614EA6F4DC /* Stratux.swift in Sources */,
+				5FA81E1B2183D4DF00F990BA /* ModelSet.swift in Sources */,
 				5FA81E0D217A773100F990BA /* StratuxBarometer.swift in Sources */,
 				A4F91BDCD7C3C592F9352774C847E307 /* StratuxGPS.swift in Sources */,
 			);

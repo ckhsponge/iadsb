@@ -9,13 +9,14 @@ import Foundation
 
 public extension IADSB {
     public class AHRS: Model,Codable {
-        var pitch:Double? = nil
-        var roll:Double? = nil
-        var headingGyro:Double? = nil
-        var headingMagnetic:Double? = nil
-        var slipSkid:Double? = nil
-        var turnRate:Double? = nil
-        var gLoad:Double? = nil
+        public var pitch:Double? = nil
+        public var roll:Double? = nil
+        public var headingGyro:Double? = nil
+        public var headingMagnetic:Double? = nil
+        public var slipSkid:Double? = nil
+        public var turnRate:Double? = nil
+        public var gLoad:Double? = nil
+        public var timestamp:Date? = nil
         
         public var description:String {
             return "pitch: \(String(describing: pitch)), roll: \(String(describing: roll)), headingGyro: \(String(describing: headingGyro)), "

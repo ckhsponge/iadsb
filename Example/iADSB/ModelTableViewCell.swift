@@ -24,4 +24,19 @@ class ModelTableViewCell: UITableViewCell {
     func update(_ model:IADSB.Model) {
         
     }
+    
+    func format(_ i:Int?, suffix:String="", prefix:String="") -> String {
+        guard let i = i else { return "" }
+        return "\(prefix)\(String(format: "%d", i))\(suffix)"
+    }
+    
+    func format(_ d:Double?, precision:Int, suffix:String="", prefix:String="") -> String {
+        guard let d = d else { return "" }
+        return "\(prefix)\(String(format: "%.\(precision)f", d))\(suffix)"
+    }
+    
+    func format(_ d:Date?) -> String {
+        guard let d = d else { return "" }
+        return "\(d)"
+    }
 }
