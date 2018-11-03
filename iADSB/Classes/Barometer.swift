@@ -15,17 +15,17 @@ public extension IADSB {
         
         public var temperatureFarenheit:Double? {
             guard let temperature = temperature else { return nil }
-            return temperature * 9.0/5.0 + 32.0;
+            return IADSB.Constants.farenheit(celsius: temperature)
         }
         
         public var verticalSpeedFPM:Double? {
             guard let verticalSpeed = verticalSpeed else { return nil }
-            return verticalSpeed * 1000.0;
+            return IADSB.Constants.feetPerMinute(metersPerSecond: verticalSpeed);
         }
         
         public var pressureAltitudeFeet:Double? {
             guard let pressureAltitude = pressureAltitude else { return nil }
-            return pressureAltitude * 1000.0;
+            return IADSB.Constants.feet(meters: pressureAltitude);
         }
         
         public var description:String {

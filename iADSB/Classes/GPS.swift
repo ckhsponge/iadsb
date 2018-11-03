@@ -40,27 +40,28 @@ public extension IADSB {
         
         public var speedKnots:Double? {
             guard let speed = speed else { return nil }
-            return speed * 1000.0;
+            return IADSB.Constants.knots(metersPerSecond: speed);
         }
         
         public var verticalSpeedFPM:Double? {
             guard let verticalSpeed = verticalSpeed else { return nil }
-            return verticalSpeed * 1000.0;
+            // m/s -> f/min
+            return IADSB.Constants.feetPerMinute(metersPerSecond: verticalSpeed);
         }
         
         public var altitudeFeet:Double? {
             guard let altitude = altitude else { return nil }
-            return altitude * 1000.0;
+            return IADSB.Constants.feet(meters:altitude);
         }
         
         public var horizontalAccuracyFeet:Double? {
             guard let horizontalAccuracy = horizontalAccuracy else { return nil }
-            return horizontalAccuracy * 1000.0;
+            return IADSB.Constants.feet(meters:horizontalAccuracy);
         }
         
         public var verticalAccuracyFeet:Double? {
             guard let verticalAccuracy = verticalAccuracy else { return nil }
-            return verticalAccuracy * 1000.0;
+            return IADSB.Constants.feet(meters:verticalAccuracy);
         }
         
         public var courseMagnetic:Double? {

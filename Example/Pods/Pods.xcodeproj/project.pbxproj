@@ -60,6 +60,7 @@
 		5EBE7EC8B098DD198719FA62B1193635 /* Behavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4BB91E8654C20F8A34C5948DB68883 /* Behavior.swift */; };
 		5EE5FED83B90A606A763CF1114D1D6FB /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553E22F10A62268AC86DF11D6004DD41 /* ResponseSerialization.swift */; };
 		5F27B7F8627228A95D49202ADE47516A /* GPSLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4309966441824FA415F8E3B92FB9C34D /* GPSLocation.swift */; };
+		5F3FF40221897739002C24D0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3FF40121897739002C24D0 /* Constants.swift */; };
 		5FA81E08217A4DB500F990BA /* AHRS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E06217A4DB500F990BA /* AHRS.swift */; };
 		5FA81E09217A4DB500F990BA /* Barometer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E07217A4DB500F990BA /* Barometer.swift */; };
 		5FA81E0B217A4E4300F990BA /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E0A217A4E4200F990BA /* Network.swift */; };
@@ -259,6 +260,7 @@
 		5CE9B5AD877AA4061D438236274A1207 /* CwlMachBadInstructionHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CwlMachBadInstructionHandler.m; path = Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlMachBadInstructionHandler/CwlMachBadInstructionHandler.m; sourceTree = "<group>"; };
 		5DD0F52570CE9088454775E661D4BD47 /* DSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DSL.swift; path = Sources/Nimble/DSL.swift; sourceTree = "<group>"; };
 		5E9230A7B03D566B8C025A2C558A5CEA /* BeGreaterThan.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BeGreaterThan.swift; path = Sources/Nimble/Matchers/BeGreaterThan.swift; sourceTree = "<group>"; };
+		5F3FF40121897739002C24D0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = iADSB/Classes/Constants.swift; sourceTree = "<group>"; };
 		5FA81E06217A4DB500F990BA /* AHRS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AHRS.swift; path = iADSB/Classes/AHRS.swift; sourceTree = "<group>"; };
 		5FA81E07217A4DB500F990BA /* Barometer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Barometer.swift; path = iADSB/Classes/Barometer.swift; sourceTree = "<group>"; };
 		5FA81E0A217A4E4200F990BA /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Network.swift; path = iADSB/Classes/Network.swift; sourceTree = "<group>"; };
@@ -551,6 +553,7 @@
 				5FA81E0A217A4E4200F990BA /* Network.swift */,
 				5FA81E06217A4DB500F990BA /* AHRS.swift */,
 				5FA81E07217A4DB500F990BA /* Barometer.swift */,
+				5F3FF40121897739002C24D0 /* Constants.swift */,
 				379229FBEEAE32A5D898142EC2EF893A /* Delegate.swift */,
 				CA478383A964064CCE07531A39D63FF9 /* GPS.swift */,
 				4309966441824FA415F8E3B92FB9C34D /* GPSLocation.swift */,
@@ -1168,6 +1171,7 @@
 				ED6BBB5A523FDD23D6FA87093644990E /* Manager.swift in Sources */,
 				A12E4BAB954ED517B438F5C24683390B /* Model.swift in Sources */,
 				0069742770291F825B63303B9FEE879D /* Provider.swift in Sources */,
+				5F3FF40221897739002C24D0 /* Constants.swift in Sources */,
 				8D2D5432591C8ECB7294F8614EA6F4DC /* Stratux.swift in Sources */,
 				5FA81E1B2183D4DF00F990BA /* ModelSet.swift in Sources */,
 				5FA81E0D217A773100F990BA /* StratuxBarometer.swift in Sources */,
