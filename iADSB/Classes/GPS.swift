@@ -65,7 +65,8 @@ public extension IADSB {
         }
         
         public var courseMagnetic:Double? {
-            return nil
+            guard let courseTrue = courseTrue, let latitude = latitude, let longitude = longitude else { return nil }
+            return courseTrue - Declination.at(latitude: latitude, longitude: longitude, elevation: altitude, date: timestamp)
         }
         
         public var description:String {

@@ -1,0 +1,6 @@
+framework module ObjectiveWMM {
+  umbrella header "ObjectiveWMM-umbrella.h"
+
+  export *
+  module * { export * }
+}

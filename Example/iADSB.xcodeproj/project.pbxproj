@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1C60AE2B5AF7660E2DE0CE28 /* Pods_iADSB_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A94D5BC8F0337F5B0B1E3B39 /* Pods_iADSB_Example.framework */; };
+		5F3E6A1821967CD400A3B900 /* ObjectiveWMM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F3E6A1721967CD400A3B900 /* ObjectiveWMM.framework */; };
 		5FA81E11217ED8A600F990BA /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E10217ED8A600F990BA /* TableViewController.swift */; };
 		5FA81E13217EDB3000F990BA /* GPSTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E12217EDB3000F990BA /* GPSTableViewCell.swift */; };
 		5FA81E15218177F800F990BA /* ModelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E14218177F800F990BA /* ModelTableViewCell.swift */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		0B811B48A67C9CE8CCA81170 /* Pods_iADSB_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iADSB_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BDE3172FC12C644533C6FA0 /* iADSB.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = iADSB.podspec; path = ../iADSB.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		5F3E6A1721967CD400A3B900 /* ObjectiveWMM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ObjectiveWMM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FA81E10217ED8A600F990BA /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		5FA81E12217EDB3000F990BA /* GPSTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTableViewCell.swift; sourceTree = "<group>"; };
 		5FA81E14218177F800F990BA /* ModelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTableViewCell.swift; sourceTree = "<group>"; };
@@ -72,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5F3E6A1821967CD400A3B900 /* ObjectiveWMM.framework in Frameworks */,
 				6B7C6E7E9ABD00A8F325EC0C /* Pods_iADSB_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -168,6 +171,7 @@
 		6774F3FC3569FE50E18FD5ED /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5F3E6A1721967CD400A3B900 /* ObjectiveWMM.framework */,
 				A94D5BC8F0337F5B0B1E3B39 /* Pods_iADSB_Example.framework */,
 				0B811B48A67C9CE8CCA81170 /* Pods_iADSB_Tests.framework */,
 			);
@@ -357,6 +361,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-iADSB_Example/Pods-iADSB_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectiveWMM/ObjectiveWMM.framework",
 				"${BUILT_PRODUCTS_DIR}/iADSB/iADSB.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -364,6 +369,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectiveWMM.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iADSB.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -586,6 +592,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";

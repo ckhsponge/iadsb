@@ -2,12 +2,15 @@ PODS:
   - Alamofire (4.7.3)
   - iADSB (0.1.0):
     - Alamofire (~> 4.7)
+    - ObjectiveWMM
   - Nimble (7.3.1)
+  - ObjectiveWMM (0.1.0)
   - Quick (1.3.2)
 
 DEPENDENCIES:
   - iADSB (from `../`)
   - Nimble (~> 7.3.1)
+  - "ObjectiveWMM (from `git@github.com:ckhsponge/ObjectiveWMM.git`, branch `ckhsponge/cocoapod`)"
   - Quick (~> 1.3.2)
 
 SPEC REPOS:
@@ -19,13 +22,22 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   iADSB:
     :path: "../"
+  ObjectiveWMM:
+    :branch: ckhsponge/cocoapod
+    :git: "git@github.com:ckhsponge/ObjectiveWMM.git"
+
+CHECKOUT OPTIONS:
+  ObjectiveWMM:
+    :commit: 653a973df752f21ebdf30d133f67e59449aea7b1
+    :git: "git@github.com:ckhsponge/ObjectiveWMM.git"
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  iADSB: fe15ce8a47f44050e49e0b8faaee1d345b6bf83d
+  iADSB: 3f4b7d64776673959879270e77d738e0ea760e08
   Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
+  ObjectiveWMM: 6af7051ce3d4ae41aa40067a975341dabfd0b515
   Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
 
-PODFILE CHECKSUM: 4e3161fad0177437d792e47ad769ad48bbd48d0c
+PODFILE CHECKSUM: 8621f721faf354ba877ae37e48dd55e325e7bc68
 
 COCOAPODS: 1.5.3

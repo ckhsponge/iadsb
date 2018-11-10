@@ -46,6 +46,7 @@ public extension IADSB.CoreLocation {
                 return
             }
             locationManager.delegate = delegate
+            locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
             locationManager.startUpdatingLocation()
         }
     }
