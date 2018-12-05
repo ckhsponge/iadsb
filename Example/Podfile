@@ -3,6 +3,7 @@ use_frameworks!
 target 'iADSB_Example' do
   pod 'iADSB', :path => '../'
   pod 'ObjectiveWMM', git: 'git@github.com:ckhsponge/ObjectiveWMM.git', branch: 'ckhsponge/cocoapod'
+#  pod 'ObjectiveWMM', :path => '../../ObjectiveWMM'
 
   target 'iADSB_Tests' do
     inherit! :search_paths

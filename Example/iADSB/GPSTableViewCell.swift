@@ -11,6 +11,7 @@ import iADSB
 
 class GPSTableViewCell: ModelTableViewCell {
     @IBOutlet var providerLabel: UILabel!
+    @IBOutlet var activeLabel: UILabel!
     @IBOutlet var latitudeLabel: UILabel!
     @IBOutlet var longitudeLabel: UILabel!
     @IBOutlet var speedLabel: UILabel!
@@ -25,6 +26,7 @@ class GPSTableViewCell: ModelTableViewCell {
     @IBOutlet var timestampLabel: UILabel!
     
     override func update(_ model:IADSB.Model) {
+        updateActive(activeLabel, model.provider)
         providerLabel.text = model.providerName
         guard let gps = model as? IADSB.GPS else {
             providerLabel.text = "none"

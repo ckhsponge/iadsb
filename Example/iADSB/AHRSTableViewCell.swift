@@ -11,6 +11,7 @@ import iADSB
 
 class AHRSTableViewCell: ModelTableViewCell {
     @IBOutlet var providerLabel: UILabel!
+    @IBOutlet var activeLabel: UILabel!
     @IBOutlet var pitchLabel: UILabel!
     @IBOutlet var rollLabel: UILabel!
     @IBOutlet var skidSlipLabel: UILabel!
@@ -21,6 +22,7 @@ class AHRSTableViewCell: ModelTableViewCell {
     @IBOutlet var timestampLabel: UILabel!
     
     override func update(_ model:IADSB.Model) {
+        updateActive(activeLabel, model.provider)
         providerLabel.text = model.providerName
         guard let ahrs = model as? IADSB.AHRS else {
             providerLabel.text = "none"

@@ -7,15 +7,21 @@
 //
 
 import UIKit
+import iADSB
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let manager = IADSB.Manager()
+    let defaults = AppDefaults()
 
+    static var instance:AppDelegate { return (UIApplication.shared.delegate! as! AppDelegate) }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        manager.providers = [IADSB.CoreLocation.Provider(manager), IADSB.Stratux.Provider(manager)]
+        defaults.initSettings()
         return true
     }
 

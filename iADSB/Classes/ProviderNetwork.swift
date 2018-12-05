@@ -23,8 +23,15 @@ public extension IADSB {
         }
         
         override public func start() {
+            super.start()
             checkOnce()
             startTimer()
+        }
+        
+        override public func stop() {
+            super.stop()
+            self.timer?.invalidate()
+            self.timer = nil
         }
         
         public func setModelFrom<T>(_ type:T.Type, data:Data) where T : IADSB.Model & Codable {
@@ -46,9 +53,15 @@ public extension IADSB {
                 //                print("Response: \(String(describing: response.response))") // http url response
                 //                print("Result: \(response.result)")                         // response serialization result
                 
-                if let data = response.data {
-                    completionHandler(data)
+                guard let data = response.data else {
+                    print("No data from \(url)")
+                    return
                 }
+                if data.isEmpty {
+                    print("Empty data from \(url)")
+                    return
+                }
+                completionHandler(data)
             }
         }
         

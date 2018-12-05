@@ -34,6 +34,7 @@ public extension IADSB.CoreLocation {
         public static var requestAlwaysAuthorization = false
         var previousGPS:IADSB.GPS? = nil
         override public func start() {
+            super.start()
             let status = CLLocationManager.authorizationStatus()
             if status == CLAuthorizationStatus.notDetermined {
                 if IADSB.CoreLocation.Provider.requestAlwaysAuthorization {
@@ -48,6 +49,11 @@ public extension IADSB.CoreLocation {
             locationManager.delegate = delegate
             locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
             locationManager.startUpdatingLocation()
+        }
+        
+        override public func stop() {
+            super.stop()
+            locationManager.stopUpdatingLocation()
         }
     }
 }

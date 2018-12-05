@@ -25,6 +25,21 @@ class ModelTableViewCell: UITableViewCell {
         
     }
     
+    func updateActive(_ label:UILabel, _ provider:IADSB.Provider?) {
+        guard let provider = provider else {
+            label.text = "-"
+            label.textColor = UIColor.darkGray
+            return
+        }
+        if provider.active {
+            label.text = "ACTIVE"
+            label.textColor = UIColor.green
+        } else {
+            label.text = "STOPPED"
+            label.textColor = UIColor.red
+        }
+    }
+    
     func format(_ i:Int?, suffix:String="", prefix:String="") -> String {
         guard let i = i else { return "" }
         return "\(prefix)\(String(format: "%d", i))\(suffix)"

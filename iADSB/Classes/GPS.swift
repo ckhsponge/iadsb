@@ -30,12 +30,11 @@ public extension IADSB {
         public var satelliteCount:Int? = nil
         public var timestamp:Date? = nil
         static let inaccurate:Double = 99999
+        static let untimely:TimeInterval = 5.0 // seconds
         
-        override public func lessThan(_ rhs: IADSB.Model) -> Bool {
-            guard let gps = rhs as? IADSB.GPS else {
-                return super.lessThan(rhs)
-            }
-            return self.horizontalAccuracy ?? IADSB.GPS.inaccurate < gps.horizontalAccuracy ?? IADSB.GPS.inaccurate
+        override var comparableArray:[Double] {
+            let age = -1.0 * createdAt.timeIntervalSinceNow
+            return [age < IADSB.GPS.untimely ? 0 : 1, self.horizontalAccuracy ?? IADSB.GPS.inaccurate]
         }
         
         public var speedKnots:Double? {
@@ -65,8 +64,8 @@ public extension IADSB {
         }
         
         public var courseMagnetic:Double? {
-            guard let courseTrue = courseTrue, let latitude = latitude, let longitude = longitude else { return nil }
-            return courseTrue - Declination.at(latitude: latitude, longitude: longitude, elevation: altitude, date: timestamp)
+            guard let courseTrue = courseTrue, let coordinate = coordinate else { return nil }
+            return courseTrue - Declination.at(coordinate: coordinate, elevation: altitude, date: timestamp)
         }
         
         public var description:String {

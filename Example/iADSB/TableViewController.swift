@@ -11,12 +11,11 @@ import iADSB
 
 class TableViewController: UITableViewController, IADSBDelegate {
     
-    var manager = IADSB.Manager()
+    var manager:IADSB.Manager { return AppDelegate.instance.manager }
     var models = [IADSB.Model]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        manager.providers = [IADSB.CoreLocation.Provider(manager), IADSB.Stratux.Provider(manager)]
         manager.add(delegate: self)
         manager.start()
 
@@ -24,7 +23,7 @@ class TableViewController: UITableViewController, IADSBDelegate {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+//        self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     func update(provider: IADSB.Provider) {

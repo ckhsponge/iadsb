@@ -18,3 +18,11 @@ FOUNDATION_EXPORT const unsigned char ObjectiveWMMVersionString[];
 
 #import <ObjectiveWMM/CCMagneticDeclination.h>
 #import <ObjectiveWMM/CCMagneticModel.h>
+
+@interface ObjectiveWMM : NSObject
+
++(CLLocationDirection) declinationForLocation:(CLLocation *) location NS_SWIFT_NAME(declination(location:));
++(CLLocationDirection) declinationForCoordinate:(CLLocationCoordinate2D)coordinate elevation:(double)elevation date:(NSDate * _Nullable)date NS_SWIFT_NAME(declination(coordinate:elevation:date:));
++(CLLocationDirection) declinationForCoordinate:(CLLocationCoordinate2D)coordinate NS_SWIFT_NAME(declination(coordinate:));
+
+@end
