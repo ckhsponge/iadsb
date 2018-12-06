@@ -15,13 +15,16 @@
     "git": "https://github.com/Christopher Hobbs/ObjectiveWMM.git",
     "tag": "0.1.0"
   },
-  "platforms": {
-    "ios": "8.0"
-  },
   "source_files": "ObjectiveWMM/Classes/**/*",
   "resource_bundles": {
     "ObjectiveWMM": [
       "ObjectiveWMM/Assets/*"
     ]
+  },
+  "platforms": {
+    "ios": "10.0",
+    "osx": "10.9",
+    "tvos": "9.0",
+    "watchos": "3.0"
   }
 }

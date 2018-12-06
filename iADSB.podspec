@@ -28,8 +28,6 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/ckhsponge/iadsb.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
   
-  s.ios.deployment_target = '10.0'
-  
   s.source_files = 'iadsb/Classes/**/*'
   
   # s.resource_bundles = {
@@ -40,4 +38,9 @@ Pod::Spec.new do |s|
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'Alamofire', '~> 4.7'
   s.dependency 'ObjectiveWMM'
+  
+  s.ios.deployment_target = '10.0'
+  s.osx.deployment_target = '10.9'
+  s.tvos.deployment_target = '9.0'
+  s.watchos.deployment_target = '3.0'
 end

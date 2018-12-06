@@ -28,14 +28,14 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   ObjectiveWMM:
-    :commit: a521d92ee05d9c8b77feac817bcee6d972c85fb2
+    :commit: 576f880cb0f02d303fddec5093cefad12ae346be
     :git: "git@github.com:ckhsponge/ObjectiveWMM.git"
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  iADSB: 3f4b7d64776673959879270e77d738e0ea760e08
+  iADSB: 2dd8e525ed998f59b1094dbdced3dbd4c1883892
   Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
-  ObjectiveWMM: 6af7051ce3d4ae41aa40067a975341dabfd0b515
+  ObjectiveWMM: 11ae210410473005f41506488069f1ba32bc2efe
   Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
 
 PODFILE CHECKSUM: a9e32087e7974371e758ffb958837a4ffb0bc883

@@ -15,9 +15,6 @@
     "git": "https://github.com/ckhsponge/iadsb.git",
     "tag": "0.1.0"
   },
-  "platforms": {
-    "ios": "10.0"
-  },
   "source_files": "iadsb/Classes/**/*",
   "dependencies": {
     "Alamofire": [
@@ -26,5 +23,11 @@
     "ObjectiveWMM": [
 
     ]
+  },
+  "platforms": {
+    "ios": "10.0",
+    "osx": "10.9",
+    "tvos": "9.0",
+    "watchos": "3.0"
   }
 }
