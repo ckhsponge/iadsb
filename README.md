@@ -27,3 +27,13 @@ Christopher Hobbs, purposemc@gmail.com
 ## License
 
 iADSB is available under the MIT license. See the LICENSE file for more info.
+
+## Info.plist Settings
+
+Create a row in your Info.plist for "App Transport Security Settings". Add a child row to that fow for "Allow Arbitrary Loads" and set it to Yes.
+
+Add prompt text for each of the below in your Info.plist e.g. "Let's find a nearby airport!":
+Privacy - Location Always and When In Use Usage Description
+Privacy - Location Always Usage Description
+Privacy - Location Usage Description
+Privacy - Location When In Use Usage Description

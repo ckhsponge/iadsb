@@ -51,9 +51,9 @@ class GPSTableViewCell: ModelTableViewCell {
         altitudeLabel.text = format( gps.altitudeFeet, precision: 0, suffix:"'" )
         verticalSpeedLabel.text = format( gps.verticalSpeedFPM, precision:0, suffix:" fpm")
         verticalAccuracyLabel.text = format( gps.verticalAccuracyFeet, precision: 0, suffix:"'", prefix:"±")
-        courseTrueLabel.text =  format( gps.courseTrue, precision: 0, suffix:"°T")
-        courseMagneticLabel.text =  format( gps.courseMagnetic, precision: 0, suffix:"°M")
-        turnRateLabel.text = format( gps.turnRate, precision: 0, suffix:"°/s")
+        courseTrueLabel.text =  format( gps.courseTrue, precision: 0, suffix:"°True")
+        courseMagneticLabel.text =  format( gps.courseMagnetic, precision: 0, suffix:"°Mag")
+        turnRateLabel.text = format( gps.turnRate, precision: 1, suffix:"°/s")
         satelliteCountLabel.text = format( gps.satelliteCount )
         timestampLabel.text = format( gps.timestamp )
     }

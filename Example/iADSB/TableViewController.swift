@@ -26,11 +26,11 @@ class TableViewController: UITableViewController, IADSBDelegate {
 //        self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
-    func update(provider: IADSB.Provider) {
+    func update(manager:IADSB.Manager, provider:IADSB.Provider) {
         models = []
-        models.append(contentsOf: manager.gpses)
-        models.append(contentsOf: manager.ahrses)
-        models.append(contentsOf: manager.barometers)
+        models.append(contentsOf: manager.gpses.array)
+        models.append(contentsOf: manager.ahrses.array)
+        models.append(contentsOf: manager.barometers.array)
         self.tableView.reloadData()
     }
 

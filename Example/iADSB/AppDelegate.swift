@@ -20,7 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        manager.providers = [IADSB.CoreLocation.Provider(manager), IADSB.Stratux.Provider(manager)]
+        let stratux = IADSB.Stratux.Provider(manager)
+        stratux.url = "http://localhost:3000/stratux.json"
+        manager.providers = [IADSB.CoreLocation.Provider(manager), stratux]
         defaults.initSettings()
         return true
     }

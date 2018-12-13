@@ -38,9 +38,9 @@ class AHRSTableViewCell: ModelTableViewCell {
         }
         pitchLabel.text = format(ahrs.pitch, precision:1, suffix:"°")
         rollLabel.text = format(ahrs.roll, precision:1, suffix:"°")
-        skidSlipLabel.text = format(ahrs.slipSkid, precision:1)
-        headingGyroLabel.text = format(ahrs.headingGyro, precision:0, suffix:"°G")
-        headingMagneticLabel.text = format(ahrs.headingMagnetic, precision:0, suffix:"°M")
+        skidSlipLabel.text = format(ahrs.slipSkid, precision:1, suffix:"°")
+        headingGyroLabel.text = format(ahrs.headingGyro, precision:0, suffix:"°Gyro")
+        headingMagneticLabel.text = format(ahrs.headingMagnetic, precision:0, suffix:"°Mag")
         turnRateLabel.text = format(ahrs.turnRate, precision:1, suffix:"°/s")
         gLoadLabel.text = format(ahrs.gLoad, precision:2)
         timestampLabel.text = format(ahrs.timestamp)

@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol IADSBDelegate: class {
-    func update( provider:IADSB.Provider )
+    func update(manager:IADSB.Manager, provider:IADSB.Provider )
 }
 
 //public extension IADSBDelegate {

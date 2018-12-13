@@ -15,6 +15,12 @@ public extension IADSB.Stratux {
                                                                          "BaroLastMeasurementTime": "timestamp"
             ]}
 
+        override public func afterDecode() {
+            super.afterDecode()
+            if let altitude = self.pressureAltitude {
+                self.pressureAltitude = IADSB.Constants.meters(feet: altitude)
+            }
+        }
         
 //        enum StratuxCodingKeys: String, CodingKey
 //        {

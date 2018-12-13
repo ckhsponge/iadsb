@@ -30,7 +30,7 @@ public extension IADSB.GPS {
             let t1 = self.timestamp, let t2 = previousGPS.timestamp else {
                 return nil
         }
-        return (h1 - h2) / (t2.timeIntervalSince(t1))
+        return (h2 - h1) / (t2.timeIntervalSince(t1))
     }
     
     func turnRate( previousGPS:IADSB.GPS? ) -> Double? {
@@ -39,7 +39,7 @@ public extension IADSB.GPS {
             let t1 = self.timestamp, let t2 = previousGPS.timestamp else {
                 return nil
         }
-        return (c1 - c2) / (t2.timeIntervalSince(t1))
+        return (c2 - c1) / (t2.timeIntervalSince(t1))
     }
     
     func positiveOrNil(_ double:Double? ) -> Double? {

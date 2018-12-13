@@ -23,13 +23,13 @@ public extension IADSB {
                 IADSB.CoreLocation.Provider(self, priority: 0)
             ])
         }()
-        var gpsSet = ModelSet<IADSB.GPS>()
-        var barometerSet = ModelSet<IADSB.Barometer>()
-        var ahrsSet = ModelSet<IADSB.AHRS>()
+        public var gpses = ModelSet<IADSB.GPS>()
+        public var barometers = ModelSet<IADSB.Barometer>()
+        public var ahrses = ModelSet<IADSB.AHRS>()
+        public var gps:GPS? { return gpses.first }
+        public var barometer:Barometer? { return barometers.first }
+        public var ahrs:AHRS? { return ahrses.first }
         var delegates = ProtocolSet<IADSBDelegate>()
-        public var gpses:[IADSB.GPS] { return gpsSet.models }
-        public var barometers:[IADSB.Barometer] { return barometerSet.models }
-        public var ahrses:[IADSB.AHRS] { return ahrsSet.models }
         
         public var warmupInterval:TimeInterval? = 1 //5*60
         public var peerRetryInterval:TimeInterval? = 15
@@ -70,24 +70,14 @@ public extension IADSB {
                 providers.insert(gpsProvider)
             }
             let ahrses = self.ahrses
-            if let ahrsProvider = ahrses.first?.provider, isDisjoint(providers:providers, models:ahrses) {
+            if let ahrsProvider = ahrses.first?.provider, providers.isDisjoint(with: ahrses.providers) {
                 providers.insert(ahrsProvider)
             }
             let barometers = self.barometers
-            if let barometerProvider = barometers.first?.provider, isDisjoint(providers:providers, models:barometers) {
+            if let barometerProvider = barometers.first?.provider, providers.isDisjoint(with: barometers.providers) {
                 providers.insert(barometerProvider)
             }
             return providers
-        }
-        
-        // returns true if there is no overlap of the providers and models providers
-        func isDisjoint(providers:Set<Provider>, models:[Model]) -> Bool {
-            for model in models {
-                if let provider = model.provider, providers.contains(provider) {
-                    return false
-                }
-            }
-            return true
         }
         
         // checks same priority providers
@@ -147,15 +137,15 @@ public extension IADSB {
         // all data available should be stored in case it is the best
         func update( provider:IADSB.Provider ) {
 //            print("\(String(describing: gps.verticalSpeedFPM))")
-            if let gps = provider.gps { gpsSet.add(gps) }
-            if let barometer = provider.barometer { barometerSet.add(barometer) }
-            if let ahrs = provider.ahrs { ahrsSet.add(ahrs) }
+            if let gps = provider.gps { gpses.insert(gps) }
+            if let barometer = provider.barometer { barometers.insert(barometer) }
+            if let ahrs = provider.ahrs { ahrses.insert(ahrs) }
             let requiredProviders = self.requiredProviders()
             checkPeers(requiredProviders)
             checkSuperiors(requiredProviders)
             checkRequired(requiredProviders)
             for delegate in delegates {
-                delegate.update(provider: provider)
+                delegate.update(manager:self, provider: provider)
             }
         }
         

@@ -38,11 +38,9 @@ public extension IADSB {
             let model = self.modelFrom(type, data: data)
             if let gps = model as? IADSB.GPS {
                 self.gps = gps
-            }
-            if let barometer = model as? IADSB.Barometer {
+            } else if let barometer = model as? IADSB.Barometer {
                 self.barometer = barometer
-            }
-            if let ahrs = model as? IADSB.AHRS {
+            } else if let ahrs = model as? IADSB.AHRS {
                 self.ahrs = ahrs
             }
         }
@@ -126,6 +124,7 @@ public extension IADSB {
             do {
                 let model = try decoder.decode(T.self, from: data)
                 model.provider = self
+                model.afterDecode()
                 return model
             } catch {
                 print("DECODE ERROR \(error)")

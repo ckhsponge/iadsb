@@ -4,15 +4,58 @@
 //
 //  Created by Christopher Hobbs on 10/11/18.
 //
+// IMPORTANT!!! All data transport extends from this class.
 
 import Foundation
 
-public extension IADSB.Model {
-    
-    public var providerName:String { return provider?.name ?? ""}
-    
-    public func nilifyOldDates() {
-        // TODO set 1970 dates to nil
+public struct IADSB {
+    public class Model: Comparable {
+        public class var keyMapping:[String:String]? { return nil }
+        
+        // models 
+        public var provider:IADSB.Provider?
+        
+        // when this model was instantiated
+        public var createdAt:Date = {Date()}()
+        
+        //
+        public var age:TimeInterval { return -1.0 * createdAt.timeIntervalSinceNow }
+        
+        // override this to specify how models are sorted
+        var comparableArray:[Double] { return [Double]() }
+        
+        public init() {
+        }
+        
+//        public init(from decoder:Decoder) {
+//            
+//        }
+        
+        public static func < (lhs: IADSB.Model, rhs: IADSB.Model) -> Bool {
+            return lhs.lessThan( rhs )
+        }
+        public func lessThan(_ rhs: IADSB.Model) -> Bool {
+            return comparableArray.lexicographicallyPrecedes(rhs.comparableArray) || self.providerName < rhs.providerName
+        }
+        
+        public static func == (lhs: IADSB.Model, rhs: IADSB.Model) -> Bool {
+            return lhs.isEqual(rhs)
+        }
+        public func isEqual(_ rhs: IADSB.Model) -> Bool {
+            return comparableArray == rhs.comparableArray && self.providerName == rhs.providerName
+        }
+        
+        public var providerName:String {
+            return provider?.name ?? ""
+        }
+        
+        func nilifyOldDates() {
+            // TODO set 1970 dates to nil
+        }
+        
+        func afterDecode() {
+            nilifyOldDates()
+        }
     }
 }
 

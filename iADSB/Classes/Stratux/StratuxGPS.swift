@@ -31,6 +31,15 @@ public extension IADSB.Stratux {
                                                            "GPSTurnRate":"turnRate", "GPSSatellites":"satelliteCount", "GPSTime":"timestamp"
             ]}
 
+        override public func afterDecode() {
+            super.afterDecode()
+            self.horizontalAccuracy = IADSB.Constants.metersNil(feet: horizontalAccuracy)
+            self.verticalAccuracy = IADSB.Constants.metersNil(feet: verticalAccuracy)
+            self.speed = IADSB.Constants.metersPerSecondNil(knots: speed)
+            self.altitude = IADSB.Constants.metersNil(feet: altitude)
+            self.verticalSpeed = IADSB.Constants.metersPerSecondNil(feetPerMinute: self.verticalSpeed)
+            // turn rate units? minutesPerTurn -> degreesPerSecond
+        }
         
 //        enum StratuxCodingKeys: String, CodingKey
 //        {
