@@ -9,57 +9,86 @@ import Foundation
 
 extension IADSB {
     public struct Constants {
-        static let metersPerNM = 1852.0
-        static func nm(meters:Double) -> Double {
-            return (round(meters/metersPerNM))
-        }
-        static let metersPerKnot = metersPerNM/3600.0 // meters/second -> nm/hour
+        public static let metersPerNM = 1852.0
+        public static let metersPerKnot = metersPerNM/3600.0 // meters/second -> nm/hour
+        public static let nmPerDegree = 60.0
+        public static let feetPerMeter = 3.28084
         
-        static func knots(metersPerSecond:Double) -> Double {
-            return metersPerSecond / metersPerKnot
+        public struct Nonnull {
+            public static func nm(meters:Double) -> Double {
+                return meters/metersPerNM
+            }
+            public static func knots(metersPerSecond:Double) -> Double {
+                return metersPerSecond / metersPerKnot
+            }
+            public static func metersPerSecond(knots:Double) -> Double {
+                return knots * metersPerKnot
+            }
+            public static func nm(degrees:Double) -> Double {
+                return (degrees/nmPerDegree)
+            }
+            public static func feet(nm:Double) -> Double {
+                return (nm * 6076.12)
+            }
+            public static func nm(feet:Double) -> Double {
+                return (feet / 6076.12)
+            }
+            public static func feet(meters:Double) -> Double {
+                return meters * feetPerMeter
+            }
+            public static func meters(feet:Double) -> Double {
+                return feet / feetPerMeter
+            }
+            public static func feetPerMinute(metersPerSecond:Double) -> Double {
+                return feet(meters: metersPerSecond) * 60.0
+            }
+            public static func metersPerSecond(feetPerMinute:Double) -> Double {
+                return meters(feet: feetPerMinute) / 60.0
+            }
+            public static func farenheit(celsius:Double) -> Double {
+                return celsius * 9.0/5.0 + 32.0
+            }
         }
-        static func metersPerSecond(knots:Double) -> Double {
-            return knots * metersPerKnot
+        
+        public static func nm(meters:Double?) -> Double? {
+            guard let meters = meters else { return nil }
+            return Nonnull.nm(meters: meters)
         }
-        static func metersPerSecondNil(knots:Double?) -> Double? {
+        public static func knots(metersPerSecond:Double?) -> Double? {
+            guard let metersPerSecond = metersPerSecond else { return nil }
+            return Nonnull.knots(metersPerSecond: metersPerSecond)
+        }
+        public static func metersPerSecond(knots:Double?) -> Double? {
             guard let knots = knots else { return nil }
-            return metersPerSecond(knots:knots)
+            return Nonnull.metersPerSecond(knots:knots)
         }
-        static let nmPerDegree = 60.0
-        static func nm(degrees:Double) -> Double {
-            return (degrees/nmPerDegree)
+        public static func feet(nm:Double?) -> Double? {
+            guard let nm = nm else { return nil }
+            return Nonnull.feet(nm: nm)
         }
-        static func feet(nm:Double) -> Double {
-            return (nm * 6076.12)
-        }
-        static func nm(feet:Double) -> Double {
-            return (feet / 6076.12)
-        }
-        
-        static let feetPerMeter = 3.28084
-        static func feet(meters:Double) -> Double {
-            return meters * feetPerMeter
-        }
-        static func meters(feet:Double) -> Double {
-            return feet / feetPerMeter
-        }
-        static func metersNil(feet:Double?) -> Double? {
+        public static func nm(feet:Double?) -> Double? {
             guard let feet = feet else { return nil }
-            return meters(feet: feet)
+            return Nonnull.nm(feet: feet)
         }
-        static func feetPerMinute(metersPerSecond:Double) -> Double {
-            return feet(meters: metersPerSecond) * 60.0
+        public static func feet(meters:Double?) -> Double? {
+            guard let meters = meters else { return nil }
+            return Nonnull.feet(meters: meters)
         }
-        static func metersPerSecond(feetPerMinute:Double) -> Double {
-            return meters(feet: feetPerMinute) / 60.0
+        public static func meters(feet:Double?) -> Double? {
+            guard let feet = feet else { return nil }
+            return Nonnull.meters(feet: feet)
         }
-        static func metersPerSecondNil(feetPerMinute:Double?) -> Double? {
+        public static func feetPerMinute(metersPerSecond:Double?) -> Double? {
+            guard let metersPerSecond = metersPerSecond else { return nil }
+            return Nonnull.feet(meters: metersPerSecond) * 60.0
+        }
+        public static func metersPerSecond(feetPerMinute:Double?) -> Double? {
             guard let feetPerMinute = feetPerMinute else { return nil }
-            return metersPerSecond(feetPerMinute: feetPerMinute)
+            return Nonnull.metersPerSecond(feetPerMinute: feetPerMinute)
         }
-        
-        static func farenheit(celsius:Double) -> Double {
-            return celsius * 9.0/5.0 + 32.0
+        public static func farenheit(celsius:Double?) -> Double? {
+            guard let celsius = celsius else { return nil }
+            return Nonnull.farenheit(celsius: celsius)
         }
     }
 }

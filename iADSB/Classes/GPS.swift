@@ -39,13 +39,11 @@ public extension IADSB {
         }
         
         public var speedKnots:Double? {
-            guard let speed = speed else { return nil }
-            return IADSB.Constants.knots(metersPerSecond: speed);
+            get { return IADSB.Constants.knots(metersPerSecond: speed) }
+            set { speed = IADSB.Constants.metersPerSecond(knots: newValue) }
         }
         
         public var verticalSpeedFPM:Double? {
-            guard let verticalSpeed = verticalSpeed else { return nil }
-            // m/s -> f/min
             return IADSB.Constants.feetPerMinute(metersPerSecond: verticalSpeed);
         }
         
@@ -55,16 +53,10 @@ public extension IADSB {
         }
         
         public var horizontalAccuracyFeet:Double? {
-            guard let horizontalAccuracy = horizontalAccuracy else {
-                return nil
-            }
             return IADSB.Constants.feet(meters:horizontalAccuracy);
         }
         
         public var verticalAccuracyFeet:Double? {
-            guard let verticalAccuracy = verticalAccuracy else {
-                return nil
-            }
             return IADSB.Constants.feet(meters:verticalAccuracy);
         }
         

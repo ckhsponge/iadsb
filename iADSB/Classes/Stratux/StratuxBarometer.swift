@@ -17,9 +17,8 @@ public extension IADSB.Stratux {
 
         override public func afterDecode() {
             super.afterDecode()
-            if let altitude = self.pressureAltitude {
-                self.pressureAltitude = IADSB.Constants.meters(feet: altitude)
-            }
+            self.pressureAltitude = IADSB.Constants.meters(feet: pressureAltitude)
+            self.verticalSpeed = IADSB.Constants.metersPerSecond(feetPerMinute: verticalSpeed)
         }
         
 //        enum StratuxCodingKeys: String, CodingKey
