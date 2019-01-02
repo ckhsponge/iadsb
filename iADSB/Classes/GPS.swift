@@ -34,8 +34,7 @@ public extension IADSB {
         static let untimely:TimeInterval = 5.0 // seconds
         
         override var comparableArray:[Double] {
-            let age = -1.0 * createdAt.timeIntervalSinceNow
-            return [age < IADSB.GPS.untimely ? 0 : 1, self.horizontalAccuracy ?? IADSB.GPS.inaccurate, self.verticalAccuracy ?? IADSB.GPS.inaccurate]
+            return [createdAt.timeIntervalBeforeNow < IADSB.GPS.untimely ? 0 : 1, self.horizontalAccuracy ?? IADSB.GPS.inaccurate, self.verticalAccuracy ?? IADSB.GPS.inaccurate]
         }
         
         public var speedKnots:Double? {

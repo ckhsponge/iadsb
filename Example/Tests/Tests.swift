@@ -5,20 +5,52 @@ import Nimble
 import iADSB
 
 class TableOfContentsSpec: QuickSpec {
+    class Delegate: IADSBDelegate {
+        var updateCount:Int = 0
+        func update(manager: IADSB.Manager, provider: IADSB.Provider) {
+            updateCount += 1
+        }
+    }
+    let delegate = Delegate()
+    
+    func expectChange(increment:Int, _ value: () -> Int, _ block: () -> Void ) {
+        let originalValue = value()
+        block()
+        let newValue = value()
+        expect(newValue) == originalValue + increment
+    }
+    
+    func expectUpdate(increment:Int = 1, _ block: () -> Void ) {
+        expectChange(increment: increment, { return self.delegate.updateCount}) {
+            block()
+        }
+    }
+    
     override func spec() {
+        let manager = IADSB.Manager()
+        let provider = IADSB.Provider(manager)
+        manager.add(delegate: self.delegate)
+        
+        describe("has gps") {
+            it("can update") {
+                self.expectUpdate() {
+                    manager.update(provider:provider)
+                }
+            }
+        }
         describe("these will fail") {
 
-            it("can do maths") {
-                expect(1) == 2
-            }
-
-            it("can read") {
-                expect("number") == "string"
-            }
-
-            it("will eventually fail") {
-                expect("time").toEventually( equal("done") )
-            }
+//            it("can do maths") {
+//                expect(1) == 2
+//            }
+//
+//            it("can read") {
+//                expect("number") == "string"
+//            }
+//
+//            it("will eventually fail") {
+//                expect("time").toEventually( equal("done") )
+//            }
             
             context("these will pass") {
 

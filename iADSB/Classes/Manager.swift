@@ -64,6 +64,9 @@ public extension IADSB {
         }
         
         // return the provider of the best GPS and any other providers needed to cover AHRS and Barometer
+        // e.g. if CoreLocation has best GPS and Stratux has best AHRS and Barometer then [CoreLocation,Stratux]
+        // e.g. if Stratux has best GPS, AHRS and Barometer then [Stratux]
+        // (Stratux is higher priority than CoreLocation so most likely will have a higher ranked GPS)
         func requiredProviders() -> Set<Provider> {
             var providers = Set<Provider>()
             if let gpsProvider = gpses.first?.provider {
@@ -83,7 +86,7 @@ public extension IADSB {
         // checks same priority providers
         func checkPeers(_ requiredProviders:Set<Provider>) {
             guard !requiredProviders.isEmpty, let peerRetryInterval = peerRetryInterval else { return }
-            if let retriedAt = peerRetriedAt, -1.0 * retriedAt.timeIntervalSinceNow < peerRetryInterval {
+            if let retriedAt = peerRetriedAt, retriedAt.timeIntervalBeforeNow < peerRetryInterval {
                 return
             }
             let priorities = Set<Int>(requiredProviders.map({ (provider) -> Int in
@@ -103,7 +106,7 @@ public extension IADSB {
             guard let topPriority = requiredProviders.map({ (provider) -> Int in
                 provider.priority
             }).max() else { return }
-            if let retriedAt = superiorRetriedAt, -1.0 * retriedAt.timeIntervalSinceNow < superiorRetryInterval {
+            if let retriedAt = superiorRetriedAt, retriedAt.timeIntervalBeforeNow < superiorRetryInterval {
                 return
             }
             for otherProvider in providerCollection.objectsGreaterThan(priority: topPriority) {
@@ -123,7 +126,7 @@ public extension IADSB {
                     provider.start() // officially start the required provider if it's not already active
                 }
             }
-            if let warmupInterval = self.warmupInterval, let warmupStartedAt = self.warmupStartedAt, -1.0 * warmupStartedAt.timeIntervalSinceNow < warmupInterval {
+            if let warmupInterval = self.warmupInterval, let warmupStartedAt = self.warmupStartedAt, warmupStartedAt.timeIntervalBeforeNow < warmupInterval {
                 return // we are still warming up, allow all providers to keep providing
             }
             for otherProvider in providerCollection {
@@ -135,7 +138,7 @@ public extension IADSB {
         
         // a provider has new data, let's store it
         // all data available should be stored in case it is the best
-        func update( provider:IADSB.Provider ) {
+        public func update( provider:IADSB.Provider ) {
 //            print("\(String(describing: gps.verticalSpeedFPM))")
             if let gps = provider.gps { gpses.insert(gps) }
             if let barometer = provider.barometer { barometers.insert(barometer) }
@@ -146,6 +149,12 @@ public extension IADSB {
             checkRequired(requiredProviders)
             for delegate in delegates {
                 delegate.update(manager:self, provider: provider)
+            }
+        }
+        
+        public func fireInactive() {
+            for case let delegate as IADSBDelegateInactive in delegates {
+                delegate.iadsbInactive()
             }
         }
         

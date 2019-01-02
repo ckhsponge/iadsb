@@ -8,8 +8,10 @@
 import Foundation
 
 extension IADSB {
-    struct ProtocolSet<T>:Sequence {
+    public struct ProtocolSet<T>:Sequence {
         private var objects = [T]()
+        
+        public init() {}
         
         public mutating func add(_ object:T ) {
             if contains( object ) {
@@ -42,6 +44,10 @@ extension IADSB {
                 }
             }
             return nil
+        }
+        
+        public var count:Int {
+            return objects.count
         }
         
         public func toArray() -> Array<T> {

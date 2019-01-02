@@ -19,17 +19,16 @@ public struct IADSB {
         public var createdAt:Date = {Date()}()
         
         //
-        public var age:TimeInterval { return -1.0 * createdAt.timeIntervalSinceNow }
+        public var age:TimeInterval { return createdAt.timeIntervalBeforeNow }
         
         // override this to specify how models are sorted
-        var comparableArray:[Double] { return [Double]() }
+        // defaults to negative of provider priority so higher priorities are firt
+        var comparableArray:[Double] {
+            return [ Double(-1 * providerPriority) ]
+        }
         
         public init() {
         }
-        
-//        public init(from decoder:Decoder) {
-//            
-//        }
         
         public static func < (lhs: IADSB.Model, rhs: IADSB.Model) -> Bool {
             return lhs.lessThan( rhs )
@@ -47,6 +46,10 @@ public struct IADSB {
         
         public var providerName:String {
             return provider?.name ?? ""
+        }
+        
+        public var providerPriority:Int {
+            return provider?.priority ?? 0
         }
         
         func nilifyOldDates() {

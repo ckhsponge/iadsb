@@ -16,7 +16,8 @@ extension IADSB {
         }
         
         public var array:[T] {
-            return models.values.sorted()
+            let sorted = models.values.sorted()
+            return sorted
         }
         
         public func makeIterator() -> IndexingIterator<[T]> {

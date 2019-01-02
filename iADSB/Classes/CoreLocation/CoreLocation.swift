@@ -24,7 +24,7 @@ public extension IADSB {
                     }
                 }
                 func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-                    print("CLLocationManager error: \(error)")
+                    print("CLLocationManager ERROR: \(error)")
                 }
             }
             

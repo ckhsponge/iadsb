@@ -7,10 +7,10 @@
 
 import Foundation
 
-public protocol IADSBDelegate: class {
+public protocol IADSBDelegate {
     func update(manager:IADSB.Manager, provider:IADSB.Provider )
 }
 
-//public extension IADSBDelegate {
-//    public func hash
-//}
+public protocol IADSBDelegateInactive: IADSBDelegate {
+    func iadsbInactive()
+}
