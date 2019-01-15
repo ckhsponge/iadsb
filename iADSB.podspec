@@ -38,6 +38,7 @@ Pod::Spec.new do |s|
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'Alamofire', '~> 4.7'
   s.dependency 'ObjectiveWMM'
+  s.dependency 'Starscream', '~> 3.0.2'
   
   s.ios.deployment_target = '10.0'
   s.osx.deployment_target = '10.9'

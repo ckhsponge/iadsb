@@ -6,60 +6,36 @@
 //
 
 import Foundation
-import Alamofire
 
 public extension IADSB {
     public class ProviderNetwork: IADSB.Provider {
         
-        var timer:Timer?
-        
-        func startTimer() {
-            if self.timer == nil {
-                self.timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true, block: { (timer) in
-                    self.checkOnce()
-                })
-                self.timer?.tolerance = 0.1
-            }
-        }
-        
         override public func start() {
             super.start()
             checkOnce()
-            startTimer()
         }
         
         override public func stop() {
             super.stop()
-            self.timer?.invalidate()
-            self.timer = nil
+        }
+        
+        public func setModelFrom<T>(_ type:T.Type, jsonString:String) where T : IADSB.Model & Codable {
+            add(model:modelFrom(type, jsonString: jsonString))
         }
         
         public func setModelFrom<T>(_ type:T.Type, data:Data) where T : IADSB.Model & Codable {
-            let model = self.modelFrom(type, data: data)
+            add(model:modelFrom(type, data: data))
+        }
+        
+        public func add(model:IADSB.Model?) {
+            guard let model = model else { return }
+            
             if let gps = model as? IADSB.GPS {
                 self.gps = gps
             } else if let barometer = model as? IADSB.Barometer {
                 self.barometer = barometer
             } else if let ahrs = model as? IADSB.AHRS {
                 self.ahrs = ahrs
-            }
-        }
-        
-        public func dataFrom(url:String, completionHandler: @escaping (Data) -> Void) {
-            Alamofire.request(url).responseData { (response) in
-                print("Request: \(String(describing: response.request))")   // original url request
-                //                print("Response: \(String(describing: response.response))") // http url response
-                //                print("Result: \(response.result)")                         // response serialization result
-                
-                guard let data = response.data else {
-                    print("No data from \(url)")
-                    return
-                }
-                if data.isEmpty {
-                    print("Empty data from \(url)")
-                    return
-                }
-                completionHandler(data)
             }
         }
         
@@ -83,11 +59,18 @@ public extension IADSB {
             return modelFrom(T.self, data: jsonData!)
         }
         
+        public func modelFrom<T>(_ type:T.Type, jsonString:String) -> T? where T : IADSB.Model & Codable {
+            print("jsonString \(jsonString)")
+            //let data = try? JSONSerialization.data(withJSONObject: jsonString, options: [])
+            let data = jsonString.data(using: .utf8)
+            return modelFrom(T.self, data: data ?? Data())
+        }
+        
         public func modelFrom<T>(_ type:T.Type, data:Data) -> T? where T : IADSB.Model & Codable {
             let decoder = JSONDecoder()
             //            if let keyMapping = T.keyMapping {
             if let keyMapping = T.keyMapping {
-                //print("got mapping \(keyMapping.count)")
+                print("got mapping \(keyMapping.count)")
                 var i = 0
                 decoder.keyDecodingStrategy = JSONDecoder.KeyDecodingStrategy.custom({ (keys) -> CodingKey in
                     i += 1
@@ -96,7 +79,7 @@ public extension IADSB {
                         //                StratuxCodingKeys.latitude.r
                         //StratuxCodingKeys.init(stringValue: key.stringValue).
                         if let mapped = keyMapping[key.stringValue] {
-                            //print( "mapped \(mapped)")
+                            print( "mapped \(mapped)")
                             return AnyKey(stringValue: mapped )
                         }
                     }

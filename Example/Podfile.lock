@@ -3,21 +3,25 @@ PODS:
   - iADSB (0.1.0):
     - Alamofire (~> 4.7)
     - ObjectiveWMM
+    - Starscream (~> 3.0.2)
   - Nimble (7.3.1)
   - ObjectiveWMM (0.1.0)
   - Quick (1.3.2)
+  - Starscream (3.0.6)
 
 DEPENDENCIES:
   - iADSB (from `../`)
   - Nimble (~> 7.3.1)
   - "ObjectiveWMM (from `git@github.com:ckhsponge/ObjectiveWMM.git`, branch `ckhsponge/cocoapod`)"
   - Quick (~> 1.3.2)
+  - Starscream (~> 3.0.2)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Nimble
     - Quick
+    - Starscream
 
 EXTERNAL SOURCES:
   iADSB:
@@ -33,11 +37,12 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  iADSB: 2dd8e525ed998f59b1094dbdced3dbd4c1883892
+  iADSB: 16d629a54baa1837c9aa3e3d8e59cf77574b2f70
   Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
   ObjectiveWMM: 11ae210410473005f41506488069f1ba32bc2efe
   Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
+  Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
 
-PODFILE CHECKSUM: a9e32087e7974371e758ffb958837a4ffb0bc883
+PODFILE CHECKSUM: 8a5a2a8ec1dc560d163b487fdcaa64d8c9cb16b3
 
 COCOAPODS: 1.5.3

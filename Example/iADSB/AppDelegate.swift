@@ -15,17 +15,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let manager = IADSB.Manager()
     let defaults = AppDefaults()
+    var providerWebSocket:IADSB.ProviderWebSocket?
 
     static var instance:AppDelegate { return (UIApplication.shared.delegate! as! AppDelegate) }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let stratux = IADSB.Stratux.Provider(manager, priority: 1)
-        stratux.url = "http://localhost:3000/stratux.json"
-        manager.providers = [IADSB.CoreLocation.Provider(manager), stratux]
+        stratux.url = "http://localhost:3000/stratux/situation.json"
+//        manager.providers = [IADSB.CoreLocation.Provider(manager), stratux]
 //        manager.providers = [IADSB.CoreLocation.Provider(manager)]
+        manager.providers = []
         defaults.initSettings()
+        providerWebSocket = IADSB.ProviderWebSocket(manager)
+        providerWebSocket?.url = "ws://localhost:3000/cable"
+        providerWebSocket?.subscribeChannel = "StratuxChannel"
+        providerWebSocket?.start()
+        testAttributes()
+        testJson()
         return true
+    }
+    
+    func testAttributes() {
+        let attributes:[String:Any] = ["GPSLatitude": 37.7749,"GPSLongitude":-122.4194,"GPSVerticalAccuracy": 0,"GPSHorizontalAccuracy": 0]
+        let provider = IADSB.ProviderNetwork(manager)
+        let gps = provider.modelFrom(IADSB.Stratux.GPS.self, attributes: attributes)
+        print("GPS attributes \(String(describing: gps?.description))")
+    }
+    
+    func testJson() {
+        let s = "      { \"GPSLastFixSinceMidnightUTC\": 78047.7,\n\"GPSLatitude\": 37.7749,\n\"GPSLongitude\":-122.4194,\n\"GPSVerticalAccuracy\": 0,\n\"GPSHorizontalAccuracy\": 0\n}"
+        let provider = IADSB.ProviderNetwork(manager)
+        let gps = provider.modelFrom(IADSB.Stratux.GPS.self, jsonString: s)
+        print("GPS json \(String(describing: gps?.description))")
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

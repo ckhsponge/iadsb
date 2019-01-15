@@ -365,6 +365,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-iADSB_Example/Pods-iADSB_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectiveWMM/ObjectiveWMM.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
 				"${BUILT_PRODUCTS_DIR}/iADSB/iADSB.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -373,6 +374,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectiveWMM.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iADSB.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

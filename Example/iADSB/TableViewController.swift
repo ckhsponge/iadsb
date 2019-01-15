@@ -26,6 +26,10 @@ class TableViewController: UITableViewController, IADSBDelegate {
 //        self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     func update(manager:IADSB.Manager, provider:IADSB.Provider) {
         models = []
         models.append(contentsOf: manager.gpses.array)

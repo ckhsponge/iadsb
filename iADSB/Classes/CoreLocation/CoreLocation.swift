@@ -56,6 +56,10 @@ public extension IADSB {
                 super.stop()
                 locationManager.stopUpdatingLocation()
             }
+            
+            override public func checkOnce() {
+                // TODO
+            }
         }
     }
 }
