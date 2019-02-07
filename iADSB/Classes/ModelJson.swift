@@ -26,11 +26,10 @@ public extension IADSB {
         }
         
         // uses keyMapping from subclass to create an instance
-        override public class func createFrom(data:Data, provider:IADSB.Provider) -> ModelCodable? {
-            let T = self
+        override public class func createFrom(data:Data?, provider:IADSB.Provider) -> ModelCodable? {
+            guard let data = data else { return nil }
             let decoder = JSONDecoder()
-            //            if let keyMapping = T.keyMapping {
-            if let keyMapping = T.keyMapping {
+            if let keyMapping = self.keyMapping {
                 print("got mapping \(keyMapping.count)")
                 var i = 0
                 decoder.keyDecodingStrategy = JSONDecoder.KeyDecodingStrategy.custom({ (keys) -> CodingKey in

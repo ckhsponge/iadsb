@@ -33,6 +33,7 @@ public extension IADSB {
         static let inaccurate:Double = 99999
         static let untimely:TimeInterval = 5.0 // seconds
         
+        // constructs an instance from json data, MUST be defined in this class because Codable is on this class
         override public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ModelCodable? {
             return try decoder.decode(self, from: data)
         }

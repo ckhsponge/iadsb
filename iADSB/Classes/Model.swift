@@ -62,7 +62,7 @@ public struct IADSB {
             nilifyOldDates()
         }
         
-        class func createFrom(data:Data, provider:Provider) -> ModelCodable? {
+        class func createFrom(data:Data?, provider:Provider) -> ModelCodable? {
             return nil
         }
     }
