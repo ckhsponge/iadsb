@@ -11,7 +11,7 @@ public extension IADSB {
     public struct Stratux {}
 }
 public extension IADSB.Stratux {
-    public class Target: IADSB.Traffic.Target {
+    public class Target: IADSB.Target {
         override public class var keyMapping:[String:String]? {
             return  [   "Lat":"latitude",
                         "Lng":"longitude",

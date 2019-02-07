@@ -13,6 +13,8 @@ public extension IADSB {
         public var gps:IADSB.GPS? = nil
         public var ahrs:IADSB.AHRS? = nil
         public var barometer:IADSB.Barometer? = nil
+        public var traffic:IADSB.Traffic? = nil
+        
         var manager:Manager
         var priority:Int
         var alwaysOn:Bool

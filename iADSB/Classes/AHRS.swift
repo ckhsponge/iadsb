@@ -8,7 +8,7 @@
 import Foundation
 
 public extension IADSB {
-    public class AHRS: Model,Codable {
+    public class AHRS: ModelJson,Codable {
         public var pitch:Double? = nil
         public var roll:Double? = nil
         public var headingGyro:Double? = nil
@@ -17,6 +17,10 @@ public extension IADSB {
         public var turnRate:Double? = nil
         public var gLoad:Double? = nil
         public var timestamp:Date? = nil
+        
+        override public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ModelCodable? {
+            return try decoder.decode(self, from: data)
+        }
         
         public var description:String {
             return "pitch: \(String(describing: pitch)), roll: \(String(describing: roll)), headingGyro: \(String(describing: headingGyro)), "

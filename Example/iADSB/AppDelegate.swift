@@ -21,15 +21,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let stratux = IADSB.Stratux.Provider(manager, priority: 1)
-        stratux.url = "http://localhost:3000/stratux/situation.json"
+//        let stratuxHttp = IADSB.Stratux.Provider(manager, priority: 1)
+//        stratux.url = "http://localhost:3000/stratux/situation.json"
 //        manager.providers = [IADSB.CoreLocation.Provider(manager), stratux]
 //        manager.providers = [IADSB.CoreLocation.Provider(manager)]
-        manager.providers = []
+        let stratux = IADSB.Stratux.Provider(manager, priority: 0)
+        stratux.subscribeChannel = "StratuxChannel"
+        manager.providers = [stratux]
         defaults.initSettings()
-        providerWebSocket = IADSB.ProviderWebSocket(manager)
-        providerWebSocket?.url = "ws://localhost:3000/cable"
-        providerWebSocket?.subscribeChannel = "StratuxChannel"
+//        providerWebSocket = IADSB.ProviderWebSocket(manager, )
+//        providerWebSocket?.url = "ws://localhost:3000/cable"
+//        providerWebSocket?.subscribeChannel = "StratuxChannel"
         providerWebSocket?.start()
         testAttributes()
         testJson()

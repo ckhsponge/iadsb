@@ -15,6 +15,7 @@
 		5FA81E15218177F800F990BA /* ModelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E14218177F800F990BA /* ModelTableViewCell.swift */; };
 		5FA81E172182645D00F990BA /* AHRSTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E162182645D00F990BA /* AHRSTableViewCell.swift */; };
 		5FA81E1921827D3D00F990BA /* BarometerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E1821827D3D00F990BA /* BarometerTableViewCell.swift */; };
+		5FB50C07220B663C005E9FE5 /* TrafficTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB50C06220B663C005E9FE5 /* TrafficTableViewCell.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 		5FA81E14218177F800F990BA /* ModelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTableViewCell.swift; sourceTree = "<group>"; };
 		5FA81E162182645D00F990BA /* AHRSTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AHRSTableViewCell.swift; sourceTree = "<group>"; };
 		5FA81E1821827D3D00F990BA /* BarometerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarometerTableViewCell.swift; sourceTree = "<group>"; };
+		5FB50C06220B663C005E9FE5 /* TrafficTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficTableViewCell.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* iADSB_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iADSB_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				5FA81E14218177F800F990BA /* ModelTableViewCell.swift */,
 				5FA81E162182645D00F990BA /* AHRSTableViewCell.swift */,
 				5FA81E1821827D3D00F990BA /* BarometerTableViewCell.swift */,
+				5FB50C06220B663C005E9FE5 /* TrafficTableViewCell.swift */,
 				5F2CAB9F21B39F5A0031A4F7 /* AppDefaults.swift */,
 			);
 			name = "Example for iADSB";
@@ -396,6 +399,7 @@
 				5FA81E11217ED8A600F990BA /* TableViewController.swift in Sources */,
 				5FA81E13217EDB3000F990BA /* GPSTableViewCell.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				5FB50C07220B663C005E9FE5 /* TrafficTableViewCell.swift in Sources */,
 				5FA81E172182645D00F990BA /* AHRSTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

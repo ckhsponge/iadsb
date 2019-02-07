@@ -79,6 +79,8 @@
 		5F5F1DF721DD568B00C446AD /* ProviderWebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5F1DF621DD568B00C446AD /* ProviderWebSocket.swift */; };
 		5F5F1DF921DDC9C000C446AD /* Traffic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5F1DF821DDC9C000C446AD /* Traffic.swift */; };
 		5F5F1DFB21DDD28400C446AD /* StratuxTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5F1DFA21DDD28400C446AD /* StratuxTarget.swift */; };
+		5FB50C09220B9384005E9FE5 /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB50C08220B9384005E9FE5 /* Target.swift */; };
+		5FB50C0B220BA43E005E9FE5 /* ModelJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB50C0A220BA43E005E9FE5 /* ModelJson.swift */; };
 		618C13D4020EBA363997EFB60A56AC20 /* DSL.h in Headers */ = {isa = PBXBuildFile; fileRef = 8504BE736E51729D1FF2838CEF77C517 /* DSL.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		62A3D36B892ED9C9A3210134C97FE3F9 /* NimbleXCTestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8C73D526F0619F354AB295E20B8EA1 /* NimbleXCTestHandler.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		62CD918C73F3A09115808C67CFABF812 /* Pods-iADSB_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6646D36DC0BDCA4EF9530A758A770763 /* Pods-iADSB_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -364,6 +366,8 @@
 		5F5F1DF621DD568B00C446AD /* ProviderWebSocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProviderWebSocket.swift; path = iADSB/Classes/ProviderWebSocket.swift; sourceTree = "<group>"; };
 		5F5F1DF821DDC9C000C446AD /* Traffic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Traffic.swift; path = iADSB/Classes/Traffic.swift; sourceTree = "<group>"; };
 		5F5F1DFA21DDD28400C446AD /* StratuxTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StratuxTarget.swift; sourceTree = "<group>"; };
+		5FB50C08220B9384005E9FE5 /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Target.swift; path = iADSB/Classes/Target.swift; sourceTree = "<group>"; };
+		5FB50C0A220BA43E005E9FE5 /* ModelJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ModelJson.swift; path = iADSB/Classes/ModelJson.swift; sourceTree = "<group>"; };
 		601D211B2682BE4C3749BEE8128B25E4 /* ProtocolSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProtocolSet.swift; sourceTree = "<group>"; };
 		603826554F0095CAD7AC5EF71EF09418 /* Nimble.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Nimble.modulemap; sourceTree = "<group>"; };
 		60BA99CC53070AC58559021655D37CDC /* Pods-iADSB_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iADSB_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1003,12 +1007,14 @@
 				371B5F24964EC6084E08E8CE4BEA3D56 /* GPSModel.swift */,
 				C2A6E501472EB3C8105B50B020110B7A /* Manager.swift */,
 				2C52E206C000D649B52B7AB394B0021A /* Model.swift */,
+				5FB50C0A220BA43E005E9FE5 /* ModelJson.swift */,
 				B7BAA981C427644E98648EEDF0757A64 /* Network.swift */,
 				D3DAEB68F9E524DAB906B12F9899812B /* PriorityCollection.swift */,
 				5E467B4EE93B8E2DF5F3934A43CC63A6 /* Provider.swift */,
 				393367514C12EB28722F4E42D009F7C3 /* ProviderNetwork.swift */,
 				5F5579EB21E8692500D1DB34 /* ProviderHttp.swift */,
 				5F5F1DF621DD568B00C446AD /* ProviderWebSocket.swift */,
+				5FB50C08220B9384005E9FE5 /* Target.swift */,
 				5F5F1DF821DDC9C000C446AD /* Traffic.swift */,
 				3D101BDC6340D7D187B01E56BA6EA19D /* CoreLocation */,
 				0678288FD7B8AFDC8B208F7CF666191A /* lib */,
@@ -1568,6 +1574,7 @@
 				82287376BB4BB254FCE3FCAA7CE0DA08 /* Constants.swift in Sources */,
 				116FB5C4B7D00A7F05828511D5809C7E /* CoreLocation.swift in Sources */,
 				D3EC1BBA877922CC2AE64F56F1C25ABE /* CoreLocationGPS.swift in Sources */,
+				5FB50C0B220BA43E005E9FE5 /* ModelJson.swift in Sources */,
 				7B9B985A2AF5CDEA657D6D073CAC2416 /* Date.swift in Sources */,
 				5F5F1DFB21DDD28400C446AD /* StratuxTarget.swift in Sources */,
 				5F5F1DF721DD568B00C446AD /* ProviderWebSocket.swift in Sources */,
@@ -1586,6 +1593,7 @@
 				B91A080FE8CF62ADDA15EDA8EF6102F8 /* PriorityCollection.swift in Sources */,
 				98554A5078B1EAE10B3673B349CF5BC5 /* ProtocolSet.swift in Sources */,
 				4FBCBC413350060152DDEF2872B08CB0 /* Provider.swift in Sources */,
+				5FB50C09220B9384005E9FE5 /* Target.swift in Sources */,
 				437531670C7A55614ED34E20931DF776 /* ProviderNetwork.swift in Sources */,
 				AA52B6708CDE8722CF059D17EDC5CB17 /* StratuxHttp.swift in Sources */,
 				27A380877EB180779B58B936E168D01C /* StratuxAHRS.swift in Sources */,

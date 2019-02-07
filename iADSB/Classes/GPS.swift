@@ -16,7 +16,7 @@ import CoreLocation
 //}
 
 public extension IADSB {
-    public class GPS: IADSB.Model,Codable {
+    public class GPS: IADSB.ModelJson,Codable {
         
         public var latitude:Double? = nil
         public var longitude:Double? = nil
@@ -32,6 +32,10 @@ public extension IADSB {
         public static var minimumAccuracy:Double = 1000
         static let inaccurate:Double = 99999
         static let untimely:TimeInterval = 5.0 // seconds
+        
+        override public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ModelCodable? {
+            return try decoder.decode(self, from: data)
+        }
         
         override var comparableArray:[Double] {
             return [createdAt.timeIntervalBeforeNow < IADSB.GPS.untimely ? 0 : 1, self.horizontalAccuracy ?? IADSB.GPS.inaccurate, self.verticalAccuracy ?? IADSB.GPS.inaccurate]

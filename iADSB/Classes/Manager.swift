@@ -26,9 +26,11 @@ public extension IADSB {
         public var gpses = ModelSet<IADSB.GPS>()
         public var barometers = ModelSet<IADSB.Barometer>()
         public var ahrses = ModelSet<IADSB.AHRS>()
+        public var traffics = ModelSet<IADSB.Traffic>()
         public var gps:GPS? { return gpses.first }
         public var barometer:Barometer? { return barometers.first }
         public var ahrs:AHRS? { return ahrses.first }
+        public var traffic:Traffic? { return traffics.first }
         var delegates = ProtocolSet<IADSBDelegate>()
         
         public var warmupInterval:TimeInterval? = 1 //5*60
@@ -79,6 +81,9 @@ public extension IADSB {
             let barometers = self.barometers
             if let barometerProvider = barometers.first?.provider, providers.isDisjoint(with: barometers.providers) {
                 providers.insert(barometerProvider)
+            }
+            if let trafficProvider = traffics.first?.provider {
+                providers.insert(trafficProvider)
             }
             return providers
         }
@@ -143,6 +148,7 @@ public extension IADSB {
             if let gps = provider.gps { gpses.insert(gps) }
             if let barometer = provider.barometer { barometers.insert(barometer) }
             if let ahrs = provider.ahrs { ahrses.insert(ahrs) }
+            if let traffic = provider.traffic { traffics.insert(traffic) }
             let requiredProviders = self.requiredProviders()
             checkPeers(requiredProviders)
             checkSuperiors(requiredProviders)

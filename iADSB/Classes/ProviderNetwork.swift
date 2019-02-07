@@ -10,6 +10,10 @@ import Foundation
 public extension IADSB {
     public class ProviderNetwork: IADSB.Provider {
         
+        public var urlTypes:[String:[ModelCodable.Type]] {
+            return [String:[ModelCodable.Type]]()
+        }
+        
         override public func start() {
             super.start()
             checkOnce()
@@ -19,12 +23,30 @@ public extension IADSB {
             super.stop()
         }
         
-        public func setModelFrom<T>(_ type:T.Type, jsonString:String) where T : IADSB.Model & Codable {
-            add(model:modelFrom(type, jsonString: jsonString))
+        public func setModelFrom(_ type:ModelCodable.Type, jsonString:String) {
+            if let data = jsonString.data(using: .utf8) {
+                setModelFrom(type, data:data)
+            }
         }
         
-        public func setModelFrom<T>(_ type:T.Type, data:Data) where T : IADSB.Model & Codable {
-            add(model:modelFrom(type, data: data))
+        // Creates a model from the data and stores it
+        public func setModelFrom(_ type:ModelCodable.Type, data:Data) {
+            let model = type.createFrom(data: data, provider: self)
+            switch model {
+            case let gps as IADSB.GPS:
+                self.gps = gps
+            case let barometer as IADSB.Barometer:
+                self.barometer = barometer
+            case let ahrs as IADSB.AHRS:
+                self.ahrs = ahrs
+            case let target as IADSB.Target:
+                if traffic == nil {
+                    traffic = IADSB.Traffic()
+                    traffic?.provider = self
+                }
+                traffic?.add(target)
+            default: let _ = 0
+            }
         }
         
         public func add(model:IADSB.Model?) {
@@ -53,20 +75,21 @@ public extension IADSB {
             }
         }
         
-        public func modelFrom<T>(_ type:T.Type, attributes:[String:Any]) -> T? where T : IADSB.Model & Codable {
+        public func modelFrom<T>(_ type:T.Type, attributes:[String:Any]) -> T? where T : ModelCodable {
             print("jsonData \(attributes)")
             let jsonData = try? JSONSerialization.data(withJSONObject: attributes, options: .prettyPrinted)
             return modelFrom(T.self, data: jsonData!)
         }
         
-        public func modelFrom<T>(_ type:T.Type, jsonString:String) -> T? where T : IADSB.Model & Codable {
+        public func modelFrom<T>(_ type:T.Type, jsonString:String) -> T? where T : ModelCodable {
             print("jsonString \(jsonString)")
             //let data = try? JSONSerialization.data(withJSONObject: jsonString, options: [])
             let data = jsonString.data(using: .utf8)
             return modelFrom(T.self, data: data ?? Data())
         }
         
-        public func modelFrom<T>(_ type:T.Type, data:Data) -> T? where T : IADSB.Model & Codable {
+        // uses keyMapping from subclass to create an instance
+        public func modelFrom<T>(_ type:T.Type, data:Data) -> T? where T : ModelCodable {
             let decoder = JSONDecoder()
             //            if let keyMapping = T.keyMapping {
             if let keyMapping = T.keyMapping {
@@ -79,7 +102,7 @@ public extension IADSB {
                         //                StratuxCodingKeys.latitude.r
                         //StratuxCodingKeys.init(stringValue: key.stringValue).
                         if let mapped = keyMapping[key.stringValue] {
-                            print( "mapped \(mapped)")
+                            print( "mapped \(mapped) \(key)")
                             return AnyKey(stringValue: mapped )
                         }
                     }

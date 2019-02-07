@@ -35,6 +35,7 @@ class TableViewController: UITableViewController, IADSBDelegate {
         models.append(contentsOf: manager.gpses.array)
         models.append(contentsOf: manager.ahrses.array)
         models.append(contentsOf: manager.barometers.array)
+        models.append(contentsOf: manager.traffics.array)
         self.tableView.reloadData()
     }
 
@@ -62,6 +63,8 @@ class TableViewController: UITableViewController, IADSBDelegate {
             identifier = "BarometerTableViewCell"
         case is IADSB.AHRS:
             identifier = "AHRSTableViewCell"
+        case is IADSB.Traffic:
+            identifier = "TrafficTableViewCell"
         default:
             identifier = "GPSTableViewCell"
         }

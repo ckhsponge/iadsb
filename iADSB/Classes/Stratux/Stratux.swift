@@ -9,6 +9,17 @@ import Foundation
 
 public extension IADSB.Stratux {
     public class Provider: IADSB.ProviderWebSocket {
-        override public var defaultUrl:String { return "ws://localhost:3000/stratux_channel" }
+        let urlBase = "ws://localhost:3000"
+        
+        override public var name:String { return "Stratux" }
+        
+        override public var urlTypes:[String:[IADSB.ModelCodable.Type]] {
+            return [
+                "\(urlBase)/cable": [IADSB.Stratux.GPS.self,IADSB.Stratux.Barometer.self,IADSB.Stratux.AHRS.self,IADSB.Stratux.Target.self]
+//                "\(urlBase)/situation": [IADSB.Stratux.GPS.self,IADSB.Stratux.Barometer.self,IADSB.Stratux.AHRS.self],
+//                "\(urlBase)/traffic":[IADSB.Stratux.Target.self]
+            ]
+        }
+        
     }
 }

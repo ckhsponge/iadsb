@@ -33,6 +33,17 @@ public extension IADSB {
             self.timer = nil
         }
         
+        override public func checkOnce() {
+            for url in urlTypes.keys {
+                dataFrom(url: url) { (data) in
+                    for type in self.urlTypes[url] ?? [] {
+                        self.setModelFrom(type.self, data: data)
+                    }
+                    self.manager.update(provider: self)
+                }
+            }
+        }
+        
         public func dataFrom(url:String, completionHandler: @escaping (Data) -> Void) {
             Alamofire.request(url).responseData { (response) in
                 print("Request: \(String(describing: response.request))")   // original url request

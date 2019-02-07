@@ -9,6 +9,8 @@
 import Foundation
 
 public struct IADSB {
+    public typealias ModelCodable = Model & Codable
+    // This superclass must NOT be Codable, no vars live here
     public class Model: Comparable {
         public class var keyMapping:[String:String]? { return nil }
         
@@ -27,7 +29,7 @@ public struct IADSB {
             return [ Double(-1 * providerPriority) ]
         }
         
-        public init() {
+        required public init() {
         }
         
         public static func < (lhs: IADSB.Model, rhs: IADSB.Model) -> Bool {
@@ -59,8 +61,20 @@ public struct IADSB {
         func afterDecode() {
             nilifyOldDates()
         }
+        
+        class func createFrom(data:Data, provider:Provider) -> ModelCodable? {
+            return nil
+        }
     }
 }
+
+//public extension IADSB {
+//    public extension Model {
+//        func createIt(data:Data, provider:Provider) -> ModelCodable? {
+//            return nil
+//        }
+//    }
+//}
 
 //public extension IADSB {
 //    public class Model: Codable {

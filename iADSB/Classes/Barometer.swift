@@ -7,11 +7,15 @@
 
 import Foundation
 public extension IADSB {
-    public class Barometer: Model,Codable {
+    public class Barometer: ModelJson,Codable {
         public var temperature:Double? = nil
         public var pressureAltitude:Double? = nil
         public var verticalSpeed:Double? = nil
         public var timestamp:Date? = nil
+        
+        override public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ModelCodable? {
+            return try decoder.decode(self, from: data)
+        }
         
         public var temperatureFarenheit:Double? {
             return IADSB.Constants.farenheit(celsius: temperature)

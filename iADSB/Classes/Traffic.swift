@@ -9,28 +9,34 @@ import Foundation
 
 public extension IADSB {
     public class Traffic: IADSB.Model {
-        public class Target: IADSB.Model,Codable {
-            public var latitude:Double? = nil
-            public var longitude:Double? = nil
-            public var altitude:Double? = nil
-            public var speed:Double? = nil
-            public var verticalSpeed:Double? = nil
-            public var bearingTrue:Double? = nil
-            public var trackTrue:Double? = nil
-            public var positionValid:Bool = true
-            public var bearingValid:Bool = true
-            public var speedValid:Bool = true
-            public var onGround:Bool = false
-            public var icaoAddress:String? = nil
-            public var registraion:String? = nil
-            public var tailNumber:String? = nil
-            public var squawk:Int? = nil
-            public var altitudeAt:Date? = nil
-            public var positionAt:Date? = nil
-            public var speedAt:Date? = nil
-            public var timestamp:Date? = nil
+        
+        public var timestamp:Date?
+        var targetsMap = [Int:Target]()
+        
+        public func add(_ target:IADSB.Target) {
+            guard let icao = target.icaoAddress else { return }
+            
+            targetsMap[icao] = target
+            timestamp = Date()
         }
         
-        var targetsMap = [String:Target]()
+        public var targetsText:String {
+            let targets = targetsMap.values
+            let strings = targets.map { (target) -> String in
+                var array:[String?] = [target.tailNumber]
+                if let squawk = target.squawk {
+                    array.append(String(squawk))
+                }
+                if let altitude = target.altitude {
+                    array.append(String(altitude))
+                }
+                return array.compactMap({$0}).joined(separator: "-")
+            }
+            return strings.joined(separator:" ")
+        }
+        
+        public var count:Int {
+            return targetsMap.count
+        }
     }
 }
