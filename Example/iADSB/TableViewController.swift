@@ -12,6 +12,7 @@ import iADSB
 class TableViewController: UITableViewController, IADSBDelegate {
     
     var manager:IADSB.Manager { return AppDelegate.instance.manager }
+    var defaults:AppDefaults { return AppDelegate.instance.defaults }
     var models = [IADSB.Model]()
 
     override func viewDidLoad() {
@@ -28,14 +29,24 @@ class TableViewController: UITableViewController, IADSBDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        manager.setAll(alwaysOn: defaults.allProvidersAlwaysOn)
+        manager.start()
     }
     
     func update(manager:IADSB.Manager, provider:IADSB.Provider) {
         models = []
-        models.append(contentsOf: manager.gpses.array)
-        models.append(contentsOf: manager.ahrses.array)
-        models.append(contentsOf: manager.barometers.array)
-        models.append(contentsOf: manager.traffics.array)
+        for service in defaults.enabledServices {
+            switch service {
+            case .gps:
+                models.append(contentsOf: manager.gpses.array)
+            case .barometer:
+                models.append(contentsOf: manager.barometers.array)
+            case .ahrs:
+                models.append(contentsOf: manager.ahrses.array)
+            case .traffic:
+                models.append(contentsOf: manager.traffics.array)
+            }
+        }
         self.tableView.reloadData()
     }
 

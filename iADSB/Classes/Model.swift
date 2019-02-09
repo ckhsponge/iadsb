@@ -14,6 +14,10 @@ public struct IADSB {
     public class Model: Comparable {
         public class var keyMapping:[String:String]? { return nil }
         
+        public enum Service: String, CaseIterable {
+            case gps, barometer, ahrs, traffic
+        }
+        
         // models 
         public var provider:IADSB.Provider?
         

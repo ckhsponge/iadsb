@@ -10,6 +10,10 @@ import Foundation
 public extension IADSB {
     public class Provider:Hashable {
         
+        public enum Implementation: String, CaseIterable {
+            case coreLocation, stratux, stratuxHttp
+        }
+        
         public var gps:IADSB.GPS? = nil
         public var ahrs:IADSB.AHRS? = nil
         public var barometer:IADSB.Barometer? = nil

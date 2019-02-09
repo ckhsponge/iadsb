@@ -20,22 +20,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var instance:AppDelegate { return (UIApplication.shared.delegate! as! AppDelegate) }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-//        let stratuxHttp = IADSB.Stratux.Provider(manager, priority: 1)
-//        stratux.url = "http://localhost:3000/stratux/situation.json"
-//        manager.providers = [IADSB.CoreLocation.Provider(manager), stratux]
-//        manager.providers = [IADSB.CoreLocation.Provider(manager)]
-        let stratux = IADSB.Stratux.Provider(manager, priority: 0)
-        stratux.subscribeChannel = "StratuxChannel"
-        manager.providers = [stratux]
-        defaults.initSettings()
-//        providerWebSocket = IADSB.ProviderWebSocket(manager, )
-//        providerWebSocket?.url = "ws://localhost:3000/cable"
-//        providerWebSocket?.subscribeChannel = "StratuxChannel"
-        providerWebSocket?.start()
-        testAttributes()
-        testJson()
+        initProviders()
+//        testAttributes()
+//        testJson()
         return true
+    }
+    
+    func initProviders() {
+        var providers = [IADSB.Provider]()
+        for implementation in defaults.enabledProviders {
+            switch implementation {
+            case .stratux:
+//                providers.append(IADSB.Stratux.Provider(manager, priority: 10))
+                providers.append(IADSB.Stratux.ProviderLocal(manager, priority: 10))
+            case .stratuxHttp:
+                providers.append(IADSB.Stratux.ProviderHttp(manager, priority: 9))
+            case .coreLocation:
+                providers.append(IADSB.CoreLocation.Provider(manager, priority: 8))
+            }
+        }
+        manager.providers = providers
     }
     
     func testAttributes() {
