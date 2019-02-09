@@ -13,13 +13,26 @@ public extension IADSB.Stratux {
         
         override public var name:String { return "Stratux" }
         
-        override public var urlTypes:[String:[IADSB.ModelCodable.Type]] {
+        override public var connections:[Connection] {
             return [
-                "\(urlBase)/cable": [IADSB.Stratux.GPS.self,IADSB.Stratux.Barometer.self,IADSB.Stratux.AHRS.self,IADSB.Stratux.Target.self]
-//                "\(urlBase)/situation": [IADSB.Stratux.GPS.self,IADSB.Stratux.Barometer.self,IADSB.Stratux.AHRS.self],
-//                "\(urlBase)/traffic":[IADSB.Stratux.Target.self]
+                IADSB.ProviderNetwork.Connection(url:"\(urlBase)/situation", types:[IADSB.Stratux.GPS.self,IADSB.Stratux.Barometer.self,IADSB.Stratux.AHRS.self]),
+                IADSB.ProviderNetwork.Connection(url:"\(urlBase)/traffic", type:IADSB.Stratux.Target.self)
             ]
         }
+    }
+}
+
+public extension IADSB.Stratux {
+    public class ProviderLocal: IADSB.Stratux.Provider {
+        let url = "ws://localhost:3000/cable"
         
+        override public var name:String { return "StratuxL" }
+        
+        override public var connections:[Connection] {
+            return [
+                IADSB.ProviderNetwork.Connection(url:url, types:[IADSB.Stratux.GPS.self,IADSB.Stratux.Barometer.self,IADSB.Stratux.AHRS.self], subscribeChannel:"StratuxSituationChannel"),
+                IADSB.ProviderNetwork.Connection(url:url, types:[IADSB.Stratux.Target.self], subscribeChannel:"StratuxTrafficChannel")
+            ]
+        }
     }
 }

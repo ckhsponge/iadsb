@@ -9,9 +9,23 @@ import Foundation
 
 public extension IADSB {
     public class ProviderNetwork: IADSB.Provider {
+        public struct Connection {
+            public var url:String
+            public var types:[ModelCodable.Type]
+            public var subscribeChannel:String?
+            init(url:String, types:[ModelCodable.Type], subscribeChannel:String? = nil) {
+                self.url = url
+                self.types = types
+                self.subscribeChannel = subscribeChannel
+            }
+            
+            init(url:String, type:ModelCodable.Type) {
+                self.init(url:url, types:[type])
+            }
+        }
         
-        public var urlTypes:[String:[ModelCodable.Type]] {
-            return [String:[ModelCodable.Type]]()
+        public var connections:[Connection] {
+            return [Connection]()
         }
         
         override public func start() {

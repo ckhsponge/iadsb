@@ -24,6 +24,7 @@ public extension IADSB {
                 self.url = url
                 self.types = types
                 self.provider = provider
+                self.subscribeChannel = subscribeChannel
                 if let urlConnection = URL(string: url) {
                     socket = WebSocket(url: urlConnection)
                     socket.delegate = self
@@ -81,7 +82,24 @@ public extension IADSB {
                     print("ping")
                     return
                 }
-                print("got some text: \(text)")
+                var text = text
+                if subscribeChannel != nil { // if json has a channel e.g. Ruby on Rails, take the "message" root from the response
+                    if let data = text.data(using: .utf8), let parsedData = try? JSONSerialization.jsonObject(with: data) as? [String:String] {
+                        if "confirm_subscription" == parsedData?["type"] {
+                            print("CONFIRMED: \(parsedData?["identifier"] ?? "")")
+                            return
+                        } else if let message = parsedData?["message"] {
+                            print("MESSAGE: \(text)")
+                            text = message
+                        } else {
+                            print("NO MESSAGE: \(text)")
+                            return
+                        }
+                    }
+                } else {
+                    print("RECEIVE: \(text)")
+                }
+
                 for type in types {
                     provider.setModelFrom(type.self, jsonString: text)
                 }
@@ -98,8 +116,8 @@ public extension IADSB {
         public override init(_ manager:Manager, priority:Int = 0, alwaysOn:Bool = false ) {
             super.init(manager, priority: priority, alwaysOn: alwaysOn)
             
-            for (url, types) in self.urlTypes {
-                if let delegate = Delegate(url: url, types: types, provider: self, subscribeChannel:subscribeChannel) {
+            for connection in self.connections {
+                if let delegate = Delegate(url: connection.url, types: connection.types, provider: self, subscribeChannel:connection.subscribeChannel) {
                     delegates.append(delegate)
                 }
             }

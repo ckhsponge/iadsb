@@ -34,9 +34,9 @@ public extension IADSB {
         }
         
         override public func checkOnce() {
-            for url in urlTypes.keys {
-                dataFrom(url: url) { (data) in
-                    for type in self.urlTypes[url] ?? [] {
+            for connection in connections {
+                dataFrom(url: connection.url) { (data) in
+                    for type in connection.types {
                         self.setModelFrom(type.self, data: data)
                     }
                     self.manager.update(provider: self)

@@ -9,22 +9,16 @@ import Foundation
 
 public extension IADSB.Stratux {
     public class ProviderHttp: IADSB.ProviderHttp {
-        public var url = "http://192.168.10.1/getSituation"
+        public var urlBase = "http://192.168.10.1/"
         // for testing: "http://localhost:3000/stratux/situation.json"
         
         override public var name:String { return "StratuxH" }
         
-        override public var urlTypes:[String : [IADSB.ModelCodable.Type]] {
-            return [url: [IADSB.Stratux.GPS.self,IADSB.Stratux.Barometer.self,IADSB.Stratux.AHRS.self]]
+        override public var connections:[Connection] {
+            return [
+                IADSB.ProviderNetwork.Connection(url:"\(urlBase)/getSituation", types:[IADSB.Stratux.GPS.self,IADSB.Stratux.Barometer.self,IADSB.Stratux.AHRS.self]),
+                IADSB.ProviderNetwork.Connection(url:"\(urlBase)/getTraffic", type:IADSB.Stratux.Target.self)
+            ]
         }
-        
-//        override public func checkOnce() {
-//            dataFrom(url: url) { (data) in
-//                self.setModelFrom(IADSB.Stratux.GPS.self, data: data)
-//                self.setModelFrom(IADSB.Stratux.Barometer.self, data: data)
-//                self.setModelFrom(IADSB.Stratux.AHRS.self, data: data)
-//                self.manager.update(provider: self)
-//            }
-//        }
     }
 }
