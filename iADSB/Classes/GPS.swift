@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 public extension IADSB {
-    public class GPS: IADSB.ServiceJson,Codable {
+    public class GPS: ServiceJson,Codable {
         
         public var latitude:Double? = nil
         public var longitude:Double? = nil

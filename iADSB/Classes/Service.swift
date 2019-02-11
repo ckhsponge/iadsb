@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct IADSB {
+public extension IADSB {
     public typealias ServiceCodable = Service & Codable
     // This superclass must NOT be Codable, no vars live here
     public class Service: Comparable {
