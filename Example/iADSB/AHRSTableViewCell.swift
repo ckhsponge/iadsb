@@ -9,8 +9,8 @@
 import UIKit
 import iADSB
 
-class AHRSTableViewCell: ModelTableViewCell {
-    @IBOutlet var providerLabel: UILabel!
+class AHRSTableViewCell: ServiceTableViewCell {
+    @IBOutlet var deviceLabel: UILabel!
     @IBOutlet var activeLabel: UILabel!
     @IBOutlet var pitchLabel: UILabel!
     @IBOutlet var rollLabel: UILabel!
@@ -21,11 +21,11 @@ class AHRSTableViewCell: ModelTableViewCell {
     @IBOutlet var gLoadLabel: UILabel!
     @IBOutlet var timestampLabel: UILabel!
     
-    override func update(_ model:IADSB.Model) {
-        updateActive(activeLabel, model.provider)
-        providerLabel.text = model.providerName
-        guard let ahrs = model as? IADSB.AHRS else {
-            providerLabel.text = "none"
+    override func update(_ service:IADSB.Service) {
+        updateActive(activeLabel, service.device)
+        deviceLabel.text = service.deviceName
+        guard let ahrs = service as? IADSB.AHRS else {
+            deviceLabel.text = "none"
             pitchLabel.text = ""
             rollLabel.text = ""
             skidSlipLabel.text = ""

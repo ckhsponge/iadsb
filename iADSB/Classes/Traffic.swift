@@ -8,7 +8,7 @@
 import Foundation
 
 public extension IADSB {
-    public class Traffic: IADSB.Model {
+    public class Traffic: IADSB.Service {
         
         public var timestamp:Date?
         var targetsMap = [Int:Target]()

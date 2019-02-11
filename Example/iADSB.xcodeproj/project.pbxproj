@@ -12,7 +12,7 @@
 		5F3E6A1821967CD400A3B900 /* ObjectiveWMM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F3E6A1721967CD400A3B900 /* ObjectiveWMM.framework */; };
 		5FA81E11217ED8A600F990BA /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E10217ED8A600F990BA /* TableViewController.swift */; };
 		5FA81E13217EDB3000F990BA /* GPSTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E12217EDB3000F990BA /* GPSTableViewCell.swift */; };
-		5FA81E15218177F800F990BA /* ModelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E14218177F800F990BA /* ModelTableViewCell.swift */; };
+		5FA81E15218177F800F990BA /* ServiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E14218177F800F990BA /* ServiceTableViewCell.swift */; };
 		5FA81E172182645D00F990BA /* AHRSTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E162182645D00F990BA /* AHRSTableViewCell.swift */; };
 		5FA81E1921827D3D00F990BA /* BarometerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA81E1821827D3D00F990BA /* BarometerTableViewCell.swift */; };
 		5FB50C07220B663C005E9FE5 /* TrafficTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB50C06220B663C005E9FE5 /* TrafficTableViewCell.swift */; };
@@ -42,7 +42,7 @@
 		5F3E6A1721967CD400A3B900 /* ObjectiveWMM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ObjectiveWMM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FA81E10217ED8A600F990BA /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		5FA81E12217EDB3000F990BA /* GPSTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSTableViewCell.swift; sourceTree = "<group>"; };
-		5FA81E14218177F800F990BA /* ModelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTableViewCell.swift; sourceTree = "<group>"; };
+		5FA81E14218177F800F990BA /* ServiceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTableViewCell.swift; sourceTree = "<group>"; };
 		5FA81E162182645D00F990BA /* AHRSTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AHRSTableViewCell.swift; sourceTree = "<group>"; };
 		5FA81E1821827D3D00F990BA /* BarometerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarometerTableViewCell.swift; sourceTree = "<group>"; };
 		5FB50C06220B663C005E9FE5 /* TrafficTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrafficTableViewCell.swift; sourceTree = "<group>"; };
@@ -129,7 +129,7 @@
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				5FA81E10217ED8A600F990BA /* TableViewController.swift */,
 				5FA81E12217EDB3000F990BA /* GPSTableViewCell.swift */,
-				5FA81E14218177F800F990BA /* ModelTableViewCell.swift */,
+				5FA81E14218177F800F990BA /* ServiceTableViewCell.swift */,
 				5FA81E162182645D00F990BA /* AHRSTableViewCell.swift */,
 				5FA81E1821827D3D00F990BA /* BarometerTableViewCell.swift */,
 				5FB50C06220B663C005E9FE5 /* TrafficTableViewCell.swift */,
@@ -394,7 +394,7 @@
 			files = (
 				5FA81E1921827D3D00F990BA /* BarometerTableViewCell.swift in Sources */,
 				5F2CABA021B39F5A0031A4F7 /* AppDefaults.swift in Sources */,
-				5FA81E15218177F800F990BA /* ModelTableViewCell.swift in Sources */,
+				5FA81E15218177F800F990BA /* ServiceTableViewCell.swift in Sources */,
 				607FACD81AFB9204008FA782 /* SettingsController.swift in Sources */,
 				5FA81E11217ED8A600F990BA /* TableViewController.swift in Sources */,
 				5FA81E13217EDB3000F990BA /* GPSTableViewCell.swift in Sources */,

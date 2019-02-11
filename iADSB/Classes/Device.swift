@@ -1,5 +1,5 @@
 //
-//  Provider.swift
+//  Device.swift
 //  iadsb
 //
 //  Created by Christopher Hobbs on 10/11/18.
@@ -8,9 +8,9 @@
 import Foundation
 
 public extension IADSB {
-    public class Provider:Hashable {
+    public class Device:Hashable {
         
-        public enum Implementation: String, CaseIterable {
+        public enum Identifier: String, CaseIterable {
             case coreLocation, stratux, stratuxHttp
         }
         
@@ -42,7 +42,7 @@ public extension IADSB {
         
         public var name:String { return "UNDEFINED" }
         
-        public static func == (lhs: IADSB.Provider, rhs: IADSB.Provider) -> Bool {
+        public static func == (lhs: IADSB.Device, rhs: IADSB.Device) -> Bool {
             return lhs.name == rhs.name
         }
         

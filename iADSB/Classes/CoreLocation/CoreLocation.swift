@@ -10,17 +10,17 @@ import CoreLocation
 
 public extension IADSB {
     public struct CoreLocation {
-        public class Provider: IADSB.ProviderNetwork {
+        public class Device: IADSB.DeviceNetwork {
             class Delegate: NSObject, CLLocationManagerDelegate {
-                var provider:Provider
-                init(_ provider:Provider ) {
-                    self.provider = provider
+                var device:Device
+                init(_ device:Device ) {
+                    self.device = device
                 }
                 func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
                     if let location = locations.last {
-                        provider.previousGPS = provider.gps
-                        provider.gps = IADSB.CoreLocation.GPS(location: location, previousGPS: provider.previousGPS, provider:provider)
-                        provider.manager.update( provider:provider )
+                        device.previousGPS = device.gps
+                        device.gps = IADSB.CoreLocation.GPS(location: location, previousGPS: device.previousGPS, device:device)
+                        device.manager.update( device:device )
                     }
                 }
                 func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -38,7 +38,7 @@ public extension IADSB {
                 super.start()
                 let status = CLLocationManager.authorizationStatus()
                 if status == CLAuthorizationStatus.notDetermined {
-                    if IADSB.CoreLocation.Provider.requestAlwaysAuthorization {
+                    if IADSB.CoreLocation.Device.requestAlwaysAuthorization {
                         locationManager.requestAlwaysAuthorization()
                     } else {
                         locationManager.requestWhenInUseAuthorization()

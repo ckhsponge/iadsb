@@ -11,7 +11,7 @@ import iADSB
 
 class SettingsController: UIViewController {
     @IBOutlet var alwaysOnSwitch: UISwitch!
-    @IBOutlet var providersStack: UIStackView!
+    @IBOutlet var devicesStack: UIStackView!
     @IBOutlet var servicesStack: UIStackView!
     
     var manager:IADSB.Manager { return AppDelegate.instance.manager }
@@ -19,8 +19,8 @@ class SettingsController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        alwaysOnSwitch.isOn = defaults.allProvidersAlwaysOn
-        initSwitches(view: providersStack, enums: defaults.enabledProviders)
+        alwaysOnSwitch.isOn = defaults.allDevicesAlwaysOn
+        initSwitches(view: devicesStack, enums: defaults.enabledDevices)
         initSwitches(view: servicesStack, enums: defaults.enabledServices)
     }
     
@@ -40,13 +40,13 @@ class SettingsController: UIViewController {
     }
     
     @IBAction func alwaysOnAction(_ sender: Any) {
-        AppDelegate.instance.defaults.allProvidersAlwaysOn = alwaysOnSwitch.isOn
+        AppDelegate.instance.defaults.allDevicesAlwaysOn = alwaysOnSwitch.isOn
     }
     
-    @IBAction func enableProvidersAction(_ sender: UISwitch) {
-        print("enableProvidersAction \(sender.accessibilityIdentifier ?? "")")
-        defaults.enableProvider(name: sender.accessibilityIdentifier, enabled: sender.isOn)
-        AppDelegate.instance.initProviders()
+    @IBAction func devicesAction(_ sender: UISwitch) {
+        print("enableDevicesAction \(sender.accessibilityIdentifier ?? "")")
+        defaults.enableDevice(name: sender.accessibilityIdentifier, enabled: sender.isOn)
+        AppDelegate.instance.initDevices()
     }
     
     @IBAction func servicesAction(_ sender: UISwitch) {

@@ -8,7 +8,7 @@
 import Foundation
 
 public extension IADSB {
-    public class AHRS: ModelJson,Codable {
+    public class AHRS: ServiceJson,Codable {
         public var pitch:Double? = nil
         public var roll:Double? = nil
         public var headingGyro:Double? = nil
@@ -19,7 +19,7 @@ public extension IADSB {
         public var timestamp:Date? = nil
         
         // constructs an instance from json data, MUST be defined in this class because Codable is on this class
-        override public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ModelCodable? {
+        override public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ServiceCodable? {
             return try decoder.decode(self, from: data)
         }
         

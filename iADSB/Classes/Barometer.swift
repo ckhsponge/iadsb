@@ -7,14 +7,14 @@
 
 import Foundation
 public extension IADSB {
-    public class Barometer: ModelJson,Codable {
+    public class Barometer: ServiceJson,Codable {
         public var temperature:Double? = nil
         public var pressureAltitude:Double? = nil
         public var verticalSpeed:Double? = nil
         public var timestamp:Date? = nil
         
         // constructs an instance from json data, MUST be defined in this class because Codable is on this class
-        override public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ModelCodable? {
+        override public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ServiceCodable? {
             return try decoder.decode(self, from: data)
         }
         

@@ -1,5 +1,5 @@
 //
-//  ProviderNetwork.swift
+//  DeviceNetwork.swift
 //  iADSB
 //
 //  Created by Christopher Hobbs on 11/6/18.
@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 public extension IADSB {
-    public class ProviderHttp: IADSB.ProviderNetwork {
+    public class DeviceHttp: IADSB.DeviceNetwork {
         
         var timer:Timer?
         
@@ -37,9 +37,9 @@ public extension IADSB {
             for connection in connections {
                 dataFrom(url: connection.url) { (data) in
                     for type in connection.types {
-                        self.setModelFrom(type.self, data: data)
+                        self.setServiceFrom(type.self, data: data)
                     }
-                    self.manager.update(provider: self)
+                    self.manager.update(device: self)
                 }
             }
         }

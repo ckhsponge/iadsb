@@ -1,5 +1,5 @@
 //
-//  ModelJson.swift
+//  ServiceJson.swift
 //  iADSB
 //
 //  Created by Christopher Hobbs on 2/6/19.
@@ -9,7 +9,7 @@ import Foundation
 
 public extension IADSB {
     // This superclass must NOT be Codable, no vars live here
-    public class ModelJson: Model {
+    public class ServiceJson: Service {
         
         struct AnyKey: CodingKey {
             public var stringValue: String
@@ -26,7 +26,7 @@ public extension IADSB {
         }
         
         // uses keyMapping from subclass to create an instance
-        override public class func createFrom(data:Data?, provider:IADSB.Provider) -> ModelCodable? {
+        override public class func createFrom(data:Data?, device:IADSB.Device) -> ServiceCodable? {
             guard let data = data else { return nil }
             let decoder = JSONDecoder()
             if let keyMapping = self.keyMapping {
@@ -65,12 +65,10 @@ public extension IADSB {
                 return Date(timeIntervalSince1970: 0)
             })
             do {
-                //                if let c = self.init() as? ModelCodable {
-                //                let model = try decoder.decode(T, from: data)
-                let model = try decoderClass(decoder, data:data)
-                model?.provider = provider
-                model?.afterDecode()
-                return model
+                let service = try decoderClass(decoder, data:data)
+                service?.device = device
+                service?.afterDecode()
+                return service
                 //                }
             } catch {
                 print("DECODE ERROR \(error)")
@@ -78,7 +76,7 @@ public extension IADSB {
             return nil
         }
         
-        public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ModelCodable? {
+        public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ServiceCodable? {
             return nil
         }
     }

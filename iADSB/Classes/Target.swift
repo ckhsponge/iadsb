@@ -9,7 +9,7 @@ import Foundation
 
 
 public extension IADSB {
-    public class Target: IADSB.ModelJson & Codable {
+    public class Target: IADSB.ServiceJson & Codable {
         public var latitude:Double? = nil
         public var longitude:Double? = nil
         public var altitude:Double? = nil
@@ -31,7 +31,7 @@ public extension IADSB {
         public var timestamp:Date? = nil
     
         // constructs an instance from json data, MUST be defined in this class because Codable is on this class
-        override public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ModelCodable? {
+        override public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ServiceCodable? {
             return try decoder.decode(self, from: data)
         }
     }

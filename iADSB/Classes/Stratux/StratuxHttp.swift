@@ -8,7 +8,7 @@
 import Foundation
 
 public extension IADSB.Stratux {
-    public class ProviderHttp: IADSB.ProviderHttp {
+    public class DeviceHttp: IADSB.DeviceHttp {
         public var urlBase = "http://192.168.10.1/"
         // for testing: "http://localhost:3000/stratux/situation.json"
         
@@ -16,8 +16,8 @@ public extension IADSB.Stratux {
         
         override public var connections:[Connection] {
             return [
-                IADSB.ProviderNetwork.Connection(url:"\(urlBase)/getSituation", types:[IADSB.Stratux.GPS.self,IADSB.Stratux.Barometer.self,IADSB.Stratux.AHRS.self]),
-                IADSB.ProviderNetwork.Connection(url:"\(urlBase)/getTraffic", type:IADSB.Stratux.Target.self)
+                IADSB.DeviceNetwork.Connection(url:"\(urlBase)/getSituation", types:[IADSB.Stratux.GPS.self,IADSB.Stratux.Barometer.self,IADSB.Stratux.AHRS.self]),
+                IADSB.DeviceNetwork.Connection(url:"\(urlBase)/getTraffic", type:IADSB.Stratux.Target.self)
             ]
         }
     }

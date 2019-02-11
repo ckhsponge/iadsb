@@ -1,5 +1,5 @@
 //
-//  ProviderNetwork.swift
+//  DeviceNetwork.swift
 //  iADSB
 //
 //  Created by Christopher Hobbs on 11/6/18.
@@ -8,18 +8,18 @@
 import Foundation
 
 public extension IADSB {
-    public class ProviderNetwork: IADSB.Provider {
+    public class DeviceNetwork: IADSB.Device {
         public struct Connection {
             public var url:String
-            public var types:[ModelCodable.Type]
+            public var types:[ServiceCodable.Type]
             public var subscribeChannel:String?
-            init(url:String, types:[ModelCodable.Type], subscribeChannel:String? = nil) {
+            init(url:String, types:[ServiceCodable.Type], subscribeChannel:String? = nil) {
                 self.url = url
                 self.types = types
                 self.subscribeChannel = subscribeChannel
             }
             
-            init(url:String, type:ModelCodable.Type) {
+            init(url:String, type:ServiceCodable.Type) {
                 self.init(url:url, types:[type])
             }
         }
@@ -37,19 +37,19 @@ public extension IADSB {
             super.stop()
         }
         
-        public func setModelFrom(_ type:ModelCodable.Type, jsonString:String) {
+        public func setServiceFrom(_ type:ServiceCodable.Type, jsonString:String) {
             if let data = jsonString.data(using: .utf8) {
-                setModelFrom(type, data:data)
+                setServiceFrom(type, data:data)
             }
         }
         
-        // Creates a model from the data and stores it
-        public func setModelFrom(_ type:ModelCodable.Type, data:Data?) {
-            add(model:type.createFrom(data: data, provider: self))
+        // Creates a service from the data and stores it
+        public func setServiceFrom(_ type:ServiceCodable.Type, data:Data?) {
+            add(service:type.createFrom(data: data, device: self))
         }
         
-        public func add(model:IADSB.Model?) {
-            switch model {
+        public func add(service:IADSB.Service?) {
+            switch service {
             case let gps as IADSB.GPS:
                 self.gps = gps
             case let barometer as IADSB.Barometer:
@@ -59,28 +59,28 @@ public extension IADSB {
             case let target as IADSB.Target:
                 if traffic == nil {
                     traffic = IADSB.Traffic()
-                    traffic?.provider = self
+                    traffic?.device = self
                 }
                 traffic?.add(target)
             default: let _ = 0
             }
         }
         
-        public func modelFrom<T>(_ type:T.Type, attributes:[String:Any]) -> T? where T : ModelCodable {
+        public func serviceFrom<T>(_ type:T.Type, attributes:[String:Any]) -> T? where T : ServiceCodable {
             print("jsonData \(attributes)")
             let jsonData = try? JSONSerialization.data(withJSONObject: attributes, options: .prettyPrinted)
-            return modelFrom(type, data:jsonData)
+            return serviceFrom(type, data:jsonData)
         }
         
-        public func modelFrom<T>(_ type:T.Type, jsonString:String) -> T? where T : ModelCodable {
+        public func serviceFrom<T>(_ type:T.Type, jsonString:String) -> T? where T : ServiceCodable {
             print("jsonString \(jsonString)")
             //let data = try? JSONSerialization.data(withJSONObject: jsonString, options: [])
             let data = jsonString.data(using: .utf8)
-            return modelFrom(type, data:data)
+            return serviceFrom(type, data:data)
         }
         
-        public func modelFrom<T>(_ type:T.Type, data:Data?) -> T? where T : ModelCodable {
-            return type.createFrom(data: data, provider: self) as? T
+        public func serviceFrom<T>(_ type:T.Type, data:Data?) -> T? where T : ServiceCodable {
+            return type.createFrom(data: data, device: self) as? T
         }
 
     }

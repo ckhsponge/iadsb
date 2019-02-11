@@ -7,16 +7,9 @@
 
 import Foundation
 import CoreLocation
-//
-//public extension IADSB {
-//    public class Model: Codable {
-//        public class var keyMapping:[String:String]? { return nil }
-//        public init() {}
-//    }
-//}
 
 public extension IADSB {
-    public class GPS: IADSB.ModelJson,Codable {
+    public class GPS: IADSB.ServiceJson,Codable {
         
         public var latitude:Double? = nil
         public var longitude:Double? = nil
@@ -34,7 +27,7 @@ public extension IADSB {
         static let untimely:TimeInterval = 5.0 // seconds
         
         // constructs an instance from json data, MUST be defined in this class because Codable is on this class
-        override public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ModelCodable? {
+        override public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ServiceCodable? {
             return try decoder.decode(self, from: data)
         }
         

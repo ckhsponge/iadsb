@@ -1,5 +1,5 @@
 //
-//  ModelTableViewCell.swift
+//  ServiceTableViewCell.swift
 //  iADSB_Example
 //
 //  Created by Christopher Hobbs on 10/24/18.
@@ -9,7 +9,7 @@
 import UIKit
 import iADSB
 
-class ModelTableViewCell: UITableViewCell {
+class ServiceTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,17 +21,17 @@ class ModelTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func update(_ model:IADSB.Model) {
-        
+    func update(_ service:IADSB.Service) {
+        // updates the service and trigger the redraw
     }
     
-    func updateActive(_ label:UILabel, _ provider:IADSB.Provider?) {
-        guard let provider = provider else {
+    func updateActive(_ label:UILabel, _ device:IADSB.Device?) {
+        guard let device = device else {
             label.text = "-"
             label.textColor = UIColor.darkGray
             return
         }
-        if provider.active {
+        if device.active {
             label.text = "ACTIVE"
             label.textColor = UIColor.green
         } else {

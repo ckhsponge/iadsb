@@ -9,37 +9,37 @@ import Foundation
 
 public extension IADSB {
     struct PriorityCollection:Sequence {
-        var array:[Provider]
+        var array:[Device]
         
         init() {
-            self.array = [Provider]()
+            self.array = [Device]()
         }
         
-        init(_ array:[Provider]) {
+        init(_ array:[Device]) {
             self.array = array
         }
         
-        func objectsGreaterThan(priority:Int) -> [Provider] {
-            return array.filter({ (provider) -> Bool in
-                provider.priority > priority
+        func objectsGreaterThan(priority:Int) -> [Device] {
+            return array.filter({ (device) -> Bool in
+                device.priority > priority
             })
         }
         
         
-        func objectsWith(priority:Int) -> [Provider] {
-            return array.filter({ (provider) -> Bool in
-                provider.priority == priority
+        func objectsWith(priority:Int) -> [Device] {
+            return array.filter({ (device) -> Bool in
+                device.priority == priority
             })
         }
         
         
-        func objectsLessThan(priority:Int) -> [Provider] {
-            return array.filter({ (provider) -> Bool in
-                provider.priority < priority
+        func objectsLessThan(priority:Int) -> [Device] {
+            return array.filter({ (device) -> Bool in
+                device.priority < priority
             })
         }
         
-        public func makeIterator() -> IndexingIterator<[Provider]> {
+        public func makeIterator() -> IndexingIterator<[Device]> {
             return array.makeIterator()
         }
     }

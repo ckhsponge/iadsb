@@ -9,8 +9,8 @@
 import UIKit
 import iADSB
 
-class GPSTableViewCell: ModelTableViewCell {
-    @IBOutlet var providerLabel: UILabel!
+class GPSTableViewCell: ServiceTableViewCell {
+    @IBOutlet var deviceLabel: UILabel!
     @IBOutlet var activeLabel: UILabel!
     @IBOutlet var latitudeLabel: UILabel!
     @IBOutlet var longitudeLabel: UILabel!
@@ -25,11 +25,11 @@ class GPSTableViewCell: ModelTableViewCell {
     @IBOutlet var satelliteCountLabel: UILabel!
     @IBOutlet var timestampLabel: UILabel!
     
-    override func update(_ model:IADSB.Model) {
-        updateActive(activeLabel, model.provider)
-        providerLabel.text = model.providerName
-        guard let gps = model as? IADSB.GPS else {
-            providerLabel.text = "none"
+    override func update(_ service:IADSB.Service) {
+        updateActive(activeLabel, service.device)
+        deviceLabel.text = service.deviceName
+        guard let gps = service as? IADSB.GPS else {
+            deviceLabel.text = "none"
             latitudeLabel.text = ""
             longitudeLabel.text = ""
             speedLabel.text = ""

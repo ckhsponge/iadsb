@@ -1,5 +1,5 @@
 //
-//  ModelSet.swift
+//  ServiceSet.swift
 //  iADSB
 //
 //  Created by Christopher Hobbs on 10/26/18.
@@ -8,15 +8,15 @@
 import Foundation
 
 extension IADSB {
-    public struct ModelSet<T>:Sequence where T:IADSB.Model {
-        public var models = [String:T]()
+    public struct ServiceSet<T>:Sequence where T:IADSB.Service {
+        public var services = [String:T]()
         
-        public mutating func insert(_ model:T) {
-            models[model.providerName] = model
+        public mutating func insert(_ service:T) {
+            services[service.deviceName] = service
         }
         
         public var array:[T] {
-            let sorted = models.values.sorted()
+            let sorted = services.values.sorted()
             return sorted
         }
         
@@ -28,9 +28,9 @@ extension IADSB {
             return array.first
         }
         
-        public var providers:Set<Provider> {
-            return Set<Provider>(models.values.compactMap({ (model) -> Provider? in
-                model.provider
+        public var devices:Set<Device> {
+            return Set<Device>(services.values.compactMap({ (service) -> Device? in
+                service.device
             }))
         }
     }

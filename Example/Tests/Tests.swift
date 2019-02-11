@@ -7,7 +7,7 @@ import iADSB
 class TableOfContentsSpec: QuickSpec {
     class Delegate: IADSBDelegate {
         var updateCount:Int = 0
-        func update(manager: IADSB.Manager, provider: IADSB.Provider) {
+        func update(manager: IADSB.Manager, device: IADSB.Device) {
             updateCount += 1
         }
     }
@@ -28,13 +28,13 @@ class TableOfContentsSpec: QuickSpec {
     
     override func spec() {
         let manager = IADSB.Manager()
-        let provider = IADSB.Provider(manager)
+        let device = IADSB.Device(manager)
         manager.add(delegate: self.delegate)
         
         describe("has gps") {
             it("can update") {
                 self.expectUpdate() {
-                    manager.update(provider:provider)
+                    manager.update(device:device)
                 }
             }
         }

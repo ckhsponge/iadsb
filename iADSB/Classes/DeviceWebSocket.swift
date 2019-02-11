@@ -1,5 +1,5 @@
 //
-//  ProviderWebSocket.swift
+//  DeviceWebSocket.swift
 //  iADSB
 //
 //  Created by Christopher Hobbs on 1/2/19.
@@ -10,20 +10,20 @@ import Starscream // web sockets
 
 
 public extension IADSB {
-    public class ProviderWebSocket: IADSB.ProviderNetwork {
+    public class DeviceWebSocket: IADSB.DeviceNetwork {
         class Delegate:WebSocketDelegate {
             
             var url:String
-            var types:[ModelCodable.Type]
+            var types:[ServiceCodable.Type]
             var subscribeChannel:String? = nil
             var socket:WebSocket
-            var provider:ProviderWebSocket
+            var device:DeviceWebSocket
             var connected = false
             
-            init?( url:String, types:[ModelCodable.Type], provider:ProviderWebSocket, subscribeChannel:String? = nil) {
+            init?( url:String, types:[ServiceCodable.Type], device:DeviceWebSocket, subscribeChannel:String? = nil) {
                 self.url = url
                 self.types = types
-                self.provider = provider
+                self.device = device
                 self.subscribeChannel = subscribeChannel
                 if let urlConnection = URL(string: url) {
                     socket = WebSocket(url: urlConnection)
@@ -101,9 +101,9 @@ public extension IADSB {
                 }
 
                 for type in types {
-                    provider.setModelFrom(type.self, jsonString: text)
+                    device.setServiceFrom(type.self, jsonString: text)
                 }
-                provider.manager.update(provider: provider)
+                device.manager.update(device: device)
             }
             
             public func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
@@ -117,7 +117,7 @@ public extension IADSB {
             super.init(manager, priority: priority, alwaysOn: alwaysOn)
             
             for connection in self.connections {
-                if let delegate = Delegate(url: connection.url, types: connection.types, provider: self, subscribeChannel:connection.subscribeChannel) {
+                if let delegate = Delegate(url: connection.url, types: connection.types, device: self, subscribeChannel:connection.subscribeChannel) {
                     delegates.append(delegate)
                 }
             }

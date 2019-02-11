@@ -10,8 +10,8 @@
 import UIKit
 import iADSB
 
-class BarometerTableViewCell: ModelTableViewCell {
-    @IBOutlet var providerLabel: UILabel!
+class BarometerTableViewCell: ServiceTableViewCell {
+    @IBOutlet var deviceLabel: UILabel!
     @IBOutlet var activeLabel: UILabel!
     @IBOutlet var temperatureLabel: UILabel!
     @IBOutlet var temperatureFarenheitLabel: UILabel!
@@ -19,11 +19,11 @@ class BarometerTableViewCell: ModelTableViewCell {
     @IBOutlet var verticalSpeedLabel: UILabel!
     @IBOutlet var timestampLabel: UILabel!
     
-    override func update(_ model:IADSB.Model) {
-        updateActive(activeLabel, model.provider)
-        providerLabel.text = model.providerName
-        guard let barometer = model as? IADSB.Barometer else {
-            providerLabel.text = "none"
+    override func update(_ service:IADSB.Service) {
+        updateActive(activeLabel, service.device)
+        deviceLabel.text = service.deviceName
+        guard let barometer = service as? IADSB.Barometer else {
+            deviceLabel.text = "none"
             temperatureLabel.text = ""
             temperatureFarenheitLabel.text = ""
             altitudeLabel.text = ""

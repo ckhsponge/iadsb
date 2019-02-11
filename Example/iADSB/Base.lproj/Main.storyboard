@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IEK-7e-NEU">
+                            <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IEK-7e-NEU">
                                 <rect key="frame" x="8" y="28" width="359" height="639"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="g8T-8E-Agq">
@@ -30,7 +30,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hQb-ky-Hkr">
                                                 <rect key="frame" x="0.0" y="0.0" width="359" height="31"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enabled Providers Always On" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Efh-Pj-N0c">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enabled Devices Always On" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Efh-Pj-N0c" userLabel="Enabled Devices Always On">
                                                         <rect key="frame" x="0.0" y="0.0" width="302" height="31"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
@@ -44,19 +44,19 @@
                                                     </switch>
                                                 </subviews>
                                             </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Otherwise providers are only on when needed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="I3M-NA-s8K" userLabel="Otherwise providers are only on when needed">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Otherwise devices are only on when needed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="I3M-NA-s8K" userLabel="description">
                                                 <rect key="frame" x="0.0" y="39" width="359" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enabled Providers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="O9R-Uv-qoc" userLabel="Enabled Providers providers are only on when needed">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Devices" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="O9R-Uv-qoc">
                                                 <rect key="frame" x="0.0" y="64" width="359" height="29"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2IP-Ci-usY" userLabel="Providers Stack View">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2IP-Ci-usY" userLabel="Devices Stack View">
                                                 <rect key="frame" x="0.0" y="101" width="359" height="109"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kNd-xo-ou6">
@@ -72,7 +72,7 @@
                                                                 <rect key="frame" x="310" y="0.0" width="51" height="31"/>
                                                                 <accessibility key="accessibilityConfiguration" identifier="coreLocation"/>
                                                                 <connections>
-                                                                    <action selector="enableProvidersAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="bUZ-Rs-rHL"/>
+                                                                    <action selector="devicesAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="bUZ-Rs-rHL"/>
                                                                 </connections>
                                                             </switch>
                                                         </subviews>
@@ -90,7 +90,7 @@
                                                                 <rect key="frame" x="310" y="0.0" width="51" height="31"/>
                                                                 <accessibility key="accessibilityConfiguration" identifier="stratux"/>
                                                                 <connections>
-                                                                    <action selector="enableProvidersAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="AJ5-hU-GST"/>
+                                                                    <action selector="devicesAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="AJ5-hU-GST"/>
                                                                 </connections>
                                                             </switch>
                                                         </subviews>
@@ -108,7 +108,7 @@
                                                                 <rect key="frame" x="310" y="0.0" width="51" height="31"/>
                                                                 <accessibility key="accessibilityConfiguration" identifier="stratuxHttp"/>
                                                                 <connections>
-                                                                    <action selector="enableProvidersAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="vPP-En-iz3"/>
+                                                                    <action selector="devicesAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="vPP-En-iz3"/>
                                                                 </connections>
                                                             </switch>
                                                         </subviews>
@@ -223,7 +223,7 @@
                     </view>
                     <connections>
                         <outlet property="alwaysOnSwitch" destination="PDK-py-Z5p" id="ETe-EX-9oH"/>
-                        <outlet property="providersStack" destination="2IP-Ci-usY" id="XxD-zL-Yyh"/>
+                        <outlet property="devicesStack" destination="2IP-Ci-usY" id="XxD-zL-Yyh"/>
                         <outlet property="servicesStack" destination="F29-WG-kT2" id="h8d-na-wX5"/>
                     </connections>
                 </viewController>
@@ -350,14 +350,12 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eio-6D-4hK">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="↻" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eio-6D-4hK">
                                             <rect key="frame" x="16" y="92" width="20" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="20" id="NMc-jX-4MK"/>
                                                 <constraint firstAttribute="height" constant="21" id="NqM-zH-d0a"/>
                                             </constraints>
-                                            <string key="text">↻
-    @IBOutlet var providerLabel: UILabel!</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -389,15 +387,13 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjy-Om-l1g">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🛰" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kjy-Om-l1g">
                                             <rect key="frame" x="16" y="119" width="25" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="A3J-0S-JYS"/>
                                                 <constraint firstAttribute="height" constant="21" id="Tia-wX-OnX"/>
                                                 <constraint firstAttribute="width" constant="25" id="aau-uf-Vc7"/>
                                             </constraints>
-                                            <string key="text">🛰
-    @IBOutlet var providerLabel: UILabel!</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -493,10 +489,10 @@
                                     <outlet property="altitudeLabel" destination="ayg-MH-LsW" id="jXW-3F-hh0"/>
                                     <outlet property="courseMagneticLabel" destination="tAR-Nu-Eid" id="nvY-Gx-AFL"/>
                                     <outlet property="courseTrueLabel" destination="dc7-6D-eD1" id="AYh-qm-JpS"/>
+                                    <outlet property="deviceLabel" destination="QHJ-a3-Y7R" id="7xc-6v-UgO"/>
                                     <outlet property="horizontalAccuracyLabel" destination="mpk-jM-zwH" id="gfY-dS-YBO"/>
                                     <outlet property="latitudeLabel" destination="MRc-nK-uW9" id="MEe-Hs-iar"/>
                                     <outlet property="longitudeLabel" destination="3dr-EY-ygV" id="Jro-26-ef8"/>
-                                    <outlet property="providerLabel" destination="QHJ-a3-Y7R" id="7xc-6v-UgO"/>
                                     <outlet property="satelliteCountLabel" destination="Y4i-qr-jnE" id="Nj6-PX-duq"/>
                                     <outlet property="speedLabel" destination="he4-af-K4j" id="LBB-3X-mCR"/>
                                     <outlet property="timestampLabel" destination="5SO-mb-D9o" id="Kl0-Y9-XWy"/>
@@ -588,14 +584,12 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tO-Mq-gHB">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="↻" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2tO-Mq-gHB">
                                             <rect key="frame" x="16" y="60" width="20" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="20" id="jPo-nJ-pbk"/>
                                                 <constraint firstAttribute="height" constant="21" id="ko5-g3-voF"/>
                                             </constraints>
-                                            <string key="text">↻
-    @IBOutlet var providerLabel: UILabel!</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -716,11 +710,11 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="activeLabel" destination="0fH-bw-PqK" id="iHI-XQ-nNI"/>
+                                    <outlet property="deviceLabel" destination="yVC-gn-gJD" id="aWj-BA-n4I"/>
                                     <outlet property="gLoadLabel" destination="eun-XB-U0t" id="a6b-hv-rPH"/>
                                     <outlet property="headingGyroLabel" destination="vV7-P1-l4J" id="Ww7-7l-KhU"/>
                                     <outlet property="headingMagneticLabel" destination="TwN-Xp-k1o" id="GwO-DT-dTx"/>
                                     <outlet property="pitchLabel" destination="5bo-Qg-wCN" id="TgI-xO-lab"/>
-                                    <outlet property="providerLabel" destination="yVC-gn-gJD" id="aWj-BA-n4I"/>
                                     <outlet property="rollLabel" destination="STj-eh-4dM" id="nai-cq-ndV"/>
                                     <outlet property="skidSlipLabel" destination="uOP-gS-Bay" id="up9-zr-gsT"/>
                                     <outlet property="timestampLabel" destination="Gdz-42-cdr" id="3IS-st-RPv"/>
@@ -867,7 +861,7 @@
                                 <connections>
                                     <outlet property="activeLabel" destination="f1y-Dc-a58" id="AX6-8p-W0W"/>
                                     <outlet property="altitudeLabel" destination="45U-k2-sRF" id="4uV-OG-NXA"/>
-                                    <outlet property="providerLabel" destination="B9I-Zy-5qz" id="h2K-lf-Fvq"/>
+                                    <outlet property="deviceLabel" destination="B9I-Zy-5qz" id="h2K-lf-Fvq"/>
                                     <outlet property="temperatureFarenheitLabel" destination="z1w-Ij-o8j" id="gl9-OV-CgH"/>
                                     <outlet property="temperatureLabel" destination="B6p-la-Ez5" id="mny-jc-t20"/>
                                     <outlet property="timestampLabel" destination="Cly-ej-8xm" id="y9u-WF-DyW"/>
@@ -973,7 +967,7 @@
                                 <connections>
                                     <outlet property="activeLabel" destination="OvQ-5c-luY" id="qBR-VT-4Zq"/>
                                     <outlet property="countLabel" destination="H5R-k2-T5T" id="otV-8Y-wnB"/>
-                                    <outlet property="providerLabel" destination="45z-17-zko" id="k9T-FG-KQ0"/>
+                                    <outlet property="deviceLabel" destination="45z-17-zko" id="k9T-FG-KQ0"/>
                                     <outlet property="targetsLabel" destination="uSc-nZ-eTY" id="EFp-6Z-6g5"/>
                                     <outlet property="timestampLabel" destination="LNv-aB-oju" id="EzU-er-Eit"/>
                                 </connections>

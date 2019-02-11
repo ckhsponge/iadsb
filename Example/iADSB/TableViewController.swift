@@ -13,7 +13,7 @@ class TableViewController: UITableViewController, IADSBDelegate {
     
     var manager:IADSB.Manager { return AppDelegate.instance.manager }
     var defaults:AppDefaults { return AppDelegate.instance.defaults }
-    var models = [IADSB.Model]()
+    var services = [IADSB.Service]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,22 +29,22 @@ class TableViewController: UITableViewController, IADSBDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        manager.setAll(alwaysOn: defaults.allProvidersAlwaysOn)
+        manager.setAll(alwaysOn: defaults.allDevicesAlwaysOn)
         manager.start()
     }
     
-    func update(manager:IADSB.Manager, provider:IADSB.Provider) {
-        models = []
+    func update(manager:IADSB.Manager, device:IADSB.Device) {
+        services = []
         for service in defaults.enabledServices {
             switch service {
             case .gps:
-                models.append(contentsOf: manager.gpses.array)
+                services.append(contentsOf: manager.gpses.array)
             case .barometer:
-                models.append(contentsOf: manager.barometers.array)
+                services.append(contentsOf: manager.barometers.array)
             case .ahrs:
-                models.append(contentsOf: manager.ahrses.array)
+                services.append(contentsOf: manager.ahrses.array)
             case .traffic:
-                models.append(contentsOf: manager.traffics.array)
+                services.append(contentsOf: manager.traffics.array)
             }
         }
         self.tableView.reloadData()
@@ -57,17 +57,17 @@ class TableViewController: UITableViewController, IADSBDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return models.count
+        return services.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let index = indexPath.row
-        if index < 0 || index >= models.count {
+        if index < 0 || index >= services.count {
             return tableView.dequeueReusableCell(withIdentifier: "GPSTableViewCell", for: indexPath)
         }
-        let model = models[index]
+        let service = services[index]
         var identifier:String
-        switch model {
+        switch service {
         case is IADSB.GPS:
             identifier = "GPSTableViewCell"
         case is IADSB.Barometer:
@@ -80,8 +80,8 @@ class TableViewController: UITableViewController, IADSBDelegate {
             identifier = "GPSTableViewCell"
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        if let modelCell = cell as? ModelTableViewCell {
-            modelCell.update(model)
+        if let serviceCell = cell as? ServiceTableViewCell {
+            serviceCell.update(service)
         }
         return cell
     }

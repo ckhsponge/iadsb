@@ -15,44 +15,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let manager = IADSB.Manager()
     let defaults = AppDefaults()
-    var providerWebSocket:IADSB.ProviderWebSocket?
 
     static var instance:AppDelegate { return (UIApplication.shared.delegate! as! AppDelegate) }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        initProviders()
+        initDevices()
 //        testAttributes()
 //        testJson()
         return true
     }
     
-    func initProviders() {
-        var providers = [IADSB.Provider]()
-        for implementation in defaults.enabledProviders {
-            switch implementation {
+    func initDevices() {
+        var devices = [IADSB.Device]()
+        for identifier in defaults.enabledDevices {
+            switch identifier {
             case .stratux:
-//                providers.append(IADSB.Stratux.Provider(manager, priority: 10))
-                providers.append(IADSB.Stratux.ProviderLocal(manager, priority: 10))
+//                devices(IADSB.Stratux.Device(manager, priority: 10))
+                devices.append(IADSB.Stratux.DeviceLocal(manager, priority: 10))
             case .stratuxHttp:
-                providers.append(IADSB.Stratux.ProviderHttp(manager, priority: 9))
+                devices.append(IADSB.Stratux.DeviceHttp(manager, priority: 9))
             case .coreLocation:
-                providers.append(IADSB.CoreLocation.Provider(manager, priority: 8))
+                devices.append(IADSB.CoreLocation.Device(manager, priority: 8))
             }
         }
-        manager.providers = providers
+        manager.devices = devices
     }
     
     func testAttributes() {
         let attributes:[String:Any] = ["GPSLatitude": 37.7749,"GPSLongitude":-122.4194,"GPSVerticalAccuracy": 0,"GPSHorizontalAccuracy": 0]
-        let provider = IADSB.ProviderNetwork(manager)
-        let gps = provider.modelFrom(IADSB.Stratux.GPS.self, attributes: attributes)
+        let device = IADSB.DeviceNetwork(manager)
+        let gps = device.serviceFrom(IADSB.Stratux.GPS.self, attributes: attributes)
         print("GPS attributes \(String(describing: gps?.description))")
     }
     
     func testJson() {
         let s = "      { \"GPSLastFixSinceMidnightUTC\": 78047.7,\n\"GPSLatitude\": 37.7749,\n\"GPSLongitude\":-122.4194,\n\"GPSVerticalAccuracy\": 0,\n\"GPSHorizontalAccuracy\": 0\n}"
-        let provider = IADSB.ProviderNetwork(manager)
-        let gps = provider.modelFrom(IADSB.Stratux.GPS.self, jsonString: s)
+        let device = IADSB.DeviceNetwork(manager)
+        let gps = device.serviceFrom(IADSB.Stratux.GPS.self, jsonString: s)
         print("GPS json \(String(describing: gps?.description))")
     }
 

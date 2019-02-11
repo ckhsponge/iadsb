@@ -9,24 +9,24 @@ import Foundation
 
 public extension IADSB {
     public class Manager {
-        public var providers:[Provider] {
+        public var devices:[Device] {
             get {
-                return providerCollection.array
+                return deviceCollection.array
             }
             set {
-                providerCollection = PriorityCollection(newValue)
+                deviceCollection = PriorityCollection(newValue)
             }
         }
-        lazy var providerCollection = {
+        lazy var deviceCollection = {
             PriorityCollection([
-                IADSB.Stratux.Provider(self, priority: 1),
-                IADSB.CoreLocation.Provider(self, priority: 0)
+                IADSB.Stratux.Device(self, priority: 1),
+                IADSB.CoreLocation.Device(self, priority: 0)
             ])
         }()
-        public var gpses = ModelSet<IADSB.GPS>()
-        public var barometers = ModelSet<IADSB.Barometer>()
-        public var ahrses = ModelSet<IADSB.AHRS>()
-        public var traffics = ModelSet<IADSB.Traffic>()
+        public var gpses = ServiceSet<IADSB.GPS>()
+        public var barometers = ServiceSet<IADSB.Barometer>()
+        public var ahrses = ServiceSet<IADSB.AHRS>()
+        public var traffics = ServiceSet<IADSB.Traffic>()
         public var gps:GPS? { return gpses.first }
         public var barometer:Barometer? { return barometers.first }
         public var ahrs:AHRS? { return ahrses.first }
@@ -44,117 +44,117 @@ public extension IADSB {
         
         public func start() {
             warmupStartedAt = Date()
-            for provider in providers {
-                provider.start()
+            for device in devices {
+                device.start()
             }
         }
         
         public func stop() {
             warmupStartedAt = nil
-            for provider in providers {
-                provider.stop()
+            for device in devices {
+                device.stop()
             }
         }
         
         public func setAll(alwaysOn:Bool) {
-            for provider in providers {
-                provider.alwaysOn = alwaysOn
+            for device in devices {
+                device.alwaysOn = alwaysOn
             }
             if alwaysOn {
                 start()
             }
         }
         
-        // return the provider of the best GPS and any other providers needed to cover AHRS and Barometer
+        // return the device of the best GPS and any other devices needed to cover AHRS and Barometer
         // e.g. if CoreLocation has best GPS and Stratux has best AHRS and Barometer then [CoreLocation,Stratux]
         // e.g. if Stratux has best GPS, AHRS and Barometer then [Stratux]
         // (Stratux is higher priority than CoreLocation so most likely will have a higher ranked GPS)
-        func requiredProviders() -> Set<Provider> {
-            var providers = Set<Provider>()
-            if let gpsProvider = gpses.first?.provider {
-                providers.insert(gpsProvider)
+        func requiredDevices() -> Set<Device> {
+            var devices = Set<Device>()
+            if let gpsDevice = gpses.first?.device {
+                devices.insert(gpsDevice)
             }
             let ahrses = self.ahrses
-            if let ahrsProvider = ahrses.first?.provider, providers.isDisjoint(with: ahrses.providers) {
-                providers.insert(ahrsProvider)
+            if let ahrsDevice = ahrses.first?.device, devices.isDisjoint(with: ahrses.devices) {
+                devices.insert(ahrsDevice)
             }
             let barometers = self.barometers
-            if let barometerProvider = barometers.first?.provider, providers.isDisjoint(with: barometers.providers) {
-                providers.insert(barometerProvider)
+            if let barometerDevice = barometers.first?.device, devices.isDisjoint(with: barometers.devices) {
+                devices.insert(barometerDevice)
             }
-            if let trafficProvider = traffics.first?.provider {
-                providers.insert(trafficProvider)
+            if let trafficDevice = traffics.first?.device {
+                devices.insert(trafficDevice)
             }
-            return providers
+            return devices
         }
         
-        // checks same priority providers
-        func checkPeers(_ requiredProviders:Set<Provider>) {
-            guard !requiredProviders.isEmpty, let peerRetryInterval = peerRetryInterval else { return }
+        // checks same priority devices
+        func checkPeers(_ requiredDevices:Set<Device>) {
+            guard !requiredDevices.isEmpty, let peerRetryInterval = peerRetryInterval else { return }
             if let retriedAt = peerRetriedAt, retriedAt.timeIntervalBeforeNow < peerRetryInterval {
                 return
             }
-            let priorities = Set<Int>(requiredProviders.map({ (provider) -> Int in
-                provider.priority
+            let priorities = Set<Int>(requiredDevices.map({ (device) -> Int in
+                device.priority
             }))
             for priority in priorities {
-                for otherProvider in providerCollection.objectsWith(priority:priority) {
-                    otherProvider.checkOnce()
+                for otherDevice in deviceCollection.objectsWith(priority:priority) {
+                    otherDevice.checkOnce()
                 }
             }
             peerRetriedAt = Date()
         }
         
-        // checks higher priority providers
-        func checkSuperiors(_ requiredProviders:Set<Provider>) {
+        // checks higher priority devices
+        func checkSuperiors(_ requiredDevices:Set<Device>) {
             guard let superiorRetryInterval = superiorRetryInterval else { return }
-            guard let topPriority = requiredProviders.map({ (provider) -> Int in
-                provider.priority
+            guard let topPriority = requiredDevices.map({ (device) -> Int in
+                device.priority
             }).max() else { return }
             if let retriedAt = superiorRetriedAt, retriedAt.timeIntervalBeforeNow < superiorRetryInterval {
                 return
             }
-            for otherProvider in providerCollection.objectsGreaterThan(priority: topPriority) {
-                otherProvider.checkOnce()
+            for otherDevice in deviceCollection.objectsGreaterThan(priority: topPriority) {
+                otherDevice.checkOnce()
             }
             superiorRetriedAt = Date()
         }
         
-        // officially starts the required providers and stops non-required providers
-        func checkRequired(_ requiredProviders:Set<Provider>) {
-            if requiredProviders.isEmpty {
-                start() // no best provider exists so start them all!
+        // officially starts the required devices and stops non-required devices
+        func checkRequired(_ requiredDevices:Set<Device>) {
+            if requiredDevices.isEmpty {
+                start() // no best device exists so start them all!
                 return
             }
-            for provider in requiredProviders {
-                if !provider.active {
-                    provider.start() // officially start the required provider if it's not already active
+            for device in requiredDevices {
+                if !device.active {
+                    device.start() // officially start the required device if it's not already active
                 }
             }
             if let warmupInterval = self.warmupInterval, let warmupStartedAt = self.warmupStartedAt, warmupStartedAt.timeIntervalBeforeNow < warmupInterval {
-                return // we are still warming up, allow all providers to keep providing
+                return // we are still warming up, allow all devices to keep providing
             }
-            for otherProvider in providerCollection {
-                if !requiredProviders.contains(otherProvider) && otherProvider.active && !otherProvider.alwaysOn {
-                    otherProvider.stop()
+            for otherDevice in deviceCollection {
+                if !requiredDevices.contains(otherDevice) && otherDevice.active && !otherDevice.alwaysOn {
+                    otherDevice.stop()
                 }
             }
         }
         
-        // a provider has new data, let's store it
+        // a device has new data, let's store it
         // all data available should be stored in case it is the best
-        public func update( provider:IADSB.Provider ) {
+        public func update( device:IADSB.Device ) {
 //            print("\(String(describing: gps.verticalSpeedFPM))")
-            if let gps = provider.gps { gpses.insert(gps) }
-            if let barometer = provider.barometer { barometers.insert(barometer) }
-            if let ahrs = provider.ahrs { ahrses.insert(ahrs) }
-            if let traffic = provider.traffic { traffics.insert(traffic) }
-            let requiredProviders = self.requiredProviders()
-            checkPeers(requiredProviders)
-            checkSuperiors(requiredProviders)
-            checkRequired(requiredProviders)
+            if let gps = device.gps { gpses.insert(gps) }
+            if let barometer = device.barometer { barometers.insert(barometer) }
+            if let ahrs = device.ahrs { ahrses.insert(ahrs) }
+            if let traffic = device.traffic { traffics.insert(traffic) }
+            let requiredDevices = self.requiredDevices()
+            checkPeers(requiredDevices)
+            checkSuperiors(requiredDevices)
+            checkRequired(requiredDevices)
             for delegate in delegates {
-                delegate.update(manager:self, provider: provider)
+                delegate.update(manager:self, device: device)
             }
         }
         
