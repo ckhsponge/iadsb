@@ -28,11 +28,11 @@ class ServiceTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func update(_ service:IADSB.Service) {
+    func update(_ service:Service) {
         // updates the service and trigger the redraw
     }
     
-    func updateActive(_ label:UILabel, _ device:IADSB.Device?) {
+    func updateActive(_ label:UILabel, _ device:Device?) {
         guard let device = device else {
             label.text = "-"
             label.textColor = UIColor.darkGray

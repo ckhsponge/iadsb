@@ -8,8 +8,8 @@
 import Foundation
 
 // uses HTTP Get requests for retrieving GPS, Barometer and AHRS
-public extension IADSB.Stratux {
-    public class DeviceHttp: IADSB.DeviceHttp {
+public extension Stratux {
+    public class DeviceHttp: iADSB.DeviceHttp {
         public var urlBase = "http://192.168.10.1/"
         // for testing: "http://localhost:3000/stratux/situation.json"
         
@@ -17,7 +17,7 @@ public extension IADSB.Stratux {
         
         override public var connections:[Connection] {
             return [
-                IADSB.DeviceNetwork.Connection(url:"\(urlBase)/getSituation", types:[IADSB.Stratux.GPS.self,IADSB.Stratux.Barometer.self,IADSB.Stratux.AHRS.self])
+                DeviceNetwork.Connection(url:"\(urlBase)/getSituation", types:[Stratux.GPS.self,Stratux.Barometer.self,Stratux.AHRS.self])
                 // traffic is not available from http, only websockets
             ]
         }

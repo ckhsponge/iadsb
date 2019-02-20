@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol IADSBDelegate {
-    func update(manager:IADSB.Manager, device:IADSB.Device )
+    func update(manager:Manager, device:Device )
 }
 
 public protocol IADSBDelegateInactive: IADSBDelegate {

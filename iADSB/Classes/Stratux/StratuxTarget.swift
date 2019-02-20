@@ -7,8 +7,8 @@
 
 import Foundation
 
-public extension IADSB.Stratux {
-    public class Target: IADSB.Target {
+public extension Stratux {
+    public class Target: iADSB.Target {
         override public class var keyMapping:[String:String]? {
             return  [   "Lat":"latitude",
                         "Lng":"longitude",
@@ -34,9 +34,9 @@ public extension IADSB.Stratux {
         
         override public func afterDecode() {
             super.afterDecode()
-            self.speed = IADSB.Constants.metersPerSecond(knots: speed)
-            self.altitude = IADSB.Constants.meters(feet: altitude)
-            self.verticalSpeed = IADSB.Constants.metersPerSecond(feetPerMinute: self.verticalSpeed)
+            self.speed = Constants.metersPerSecond(knots: speed)
+            self.altitude = Constants.meters(feet: altitude)
+            self.verticalSpeed = Constants.metersPerSecond(feetPerMinute: self.verticalSpeed)
             // turn rate units? minutesPerTurn -> degreesPerSecond
         }
     }

@@ -21,10 +21,10 @@ class AHRSTableViewCell: ServiceTableViewCell {
     @IBOutlet var gLoadLabel: UILabel!
     @IBOutlet var timestampLabel: UILabel!
     
-    override func update(_ service:IADSB.Service) {
+    override func update(_ service:Service) {
         updateActive(activeLabel, service.device)
         deviceLabel.text = service.deviceName
-        guard let ahrs = service as? IADSB.AHRS else {
+        guard let ahrs = service as? AHRS else {
             deviceLabel.text = "none"
             pitchLabel.text = ""
             rollLabel.text = ""

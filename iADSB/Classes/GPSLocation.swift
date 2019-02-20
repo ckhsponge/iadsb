@@ -8,8 +8,8 @@
 import Foundation
 import CoreLocation
 
-public extension IADSB.GPS {
-    convenience init( location:CLLocation, previousGPS:IADSB.GPS? = nil, device:IADSB.Device ) {
+public extension GPS {
+    convenience init( location:CLLocation, previousGPS:GPS? = nil, device:Device ) {
         self.init()
         self.device = device
         horizontalAccuracy = positiveOrNil(location.horizontalAccuracy)
@@ -24,7 +24,7 @@ public extension IADSB.GPS {
         turnRate = turnRate( previousGPS:previousGPS )
     }
     
-    func verticalSpeedFrom( previousGPS:IADSB.GPS? ) -> Double? {
+    func verticalSpeedFrom( previousGPS:GPS? ) -> Double? {
         guard let previousGPS = previousGPS,
             let h1 = self.altitude, let h2 = previousGPS.altitude,
             let t1 = self.timestamp, let t2 = previousGPS.timestamp else {
@@ -33,7 +33,7 @@ public extension IADSB.GPS {
         return (h2 - h1) / (t2.timeIntervalSince(t1))
     }
     
-    func turnRate( previousGPS:IADSB.GPS? ) -> Double? {
+    func turnRate( previousGPS:GPS? ) -> Double? {
         guard let previousGPS = previousGPS,
             let c1 = self.courseTrue, let c2 = previousGPS.courseTrue,
             let t1 = self.timestamp, let t2 = previousGPS.timestamp else {
@@ -57,7 +57,7 @@ public extension IADSB.GPS {
     }
     
     public var location:CLLocation? {
-        return IADSB.GPS.location(latitude:latitude, longitude:longitude, horizontalAccuracy:horizontalAccuracy, verticalAccuracy:verticalAccuracy, altitude:altitude, courseTrue:courseTrue, speed:speed , timestamp:timestamp)
+        return GPS.location(latitude:latitude, longitude:longitude, horizontalAccuracy:horizontalAccuracy, verticalAccuracy:verticalAccuracy, altitude:altitude, courseTrue:courseTrue, speed:speed , timestamp:timestamp)
     }
     
     public class func location(latitude:Double?, longitude:Double?, horizontalAccuracy:Double?, verticalAccuracy:Double?, altitude:Double?, courseTrue:Double?, speed:Double? , timestamp:Date?) -> CLLocation? {

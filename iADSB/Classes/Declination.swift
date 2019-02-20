@@ -8,15 +8,13 @@
 import Foundation
 import ObjectiveWMM
 
-extension IADSB {
-    public struct Declination {
-        
-        public static func at(location:CLLocation) -> Double {
-            return ObjectiveWMM.declination(location: location)
-        }
-        
-        public static func at(coordinate:CLLocationCoordinate2D, elevation:Double? = nil, date:Date? = nil) -> Double {
-            return ObjectiveWMM.declination(coordinate:coordinate, elevation: elevation ?? 0.0, date: date);
-        }
+public struct Declination {
+    
+    public static func at(location:CLLocation) -> Double {
+        return ObjectiveWMM.declination(location: location)
+    }
+    
+    public static func at(coordinate:CLLocationCoordinate2D, elevation:Double? = nil, date:Date? = nil) -> Double {
+        return ObjectiveWMM.declination(coordinate:coordinate, elevation: elevation ?? 0.0, date: date);
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-public extension IADSB.CoreLocation {
-    public class GPS:IADSB.GPS {
+public extension CoreLocation {
+    public class GPS:iADSB.GPS {
     }
 }

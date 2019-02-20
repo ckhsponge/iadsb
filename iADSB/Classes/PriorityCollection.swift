@@ -7,40 +7,39 @@
 
 import Foundation
 
-public extension IADSB {
-    struct PriorityCollection:Sequence {
-        var array:[Device]
-        
-        init() {
-            self.array = [Device]()
-        }
-        
-        init(_ array:[Device]) {
-            self.array = array
-        }
-        
-        func objectsGreaterThan(priority:Int) -> [Device] {
-            return array.filter({ (device) -> Bool in
-                device.priority > priority
-            })
-        }
-        
-        
-        func objectsWith(priority:Int) -> [Device] {
-            return array.filter({ (device) -> Bool in
-                device.priority == priority
-            })
-        }
-        
-        
-        func objectsLessThan(priority:Int) -> [Device] {
-            return array.filter({ (device) -> Bool in
-                device.priority < priority
-            })
-        }
-        
-        public func makeIterator() -> IndexingIterator<[Device]> {
-            return array.makeIterator()
-        }
+struct PriorityCollection:Sequence {
+    var array:[Device]
+    
+    init() {
+        self.array = [Device]()
+    }
+    
+    init(_ array:[Device]) {
+        self.array = array
+    }
+    
+    func objectsGreaterThan(priority:Int) -> [Device] {
+        return array.filter({ (device) -> Bool in
+            device.priority > priority
+        })
+    }
+    
+    
+    func objectsWith(priority:Int) -> [Device] {
+        return array.filter({ (device) -> Bool in
+            device.priority == priority
+        })
+    }
+    
+    
+    func objectsLessThan(priority:Int) -> [Device] {
+        return array.filter({ (device) -> Bool in
+            device.priority < priority
+        })
+    }
+    
+    public func makeIterator() -> IndexingIterator<[Device]> {
+        return array.makeIterator()
     }
 }
+

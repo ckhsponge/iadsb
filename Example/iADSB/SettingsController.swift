@@ -14,7 +14,7 @@ class SettingsController: UIViewController {
     @IBOutlet var devicesStack: UIStackView!
     @IBOutlet var servicesStack: UIStackView!
     
-    var manager:IADSB.Manager { return AppDelegate.instance.manager }
+    var manager:Manager { return AppDelegate.instance.manager }
     var defaults:AppDefaults { return AppDelegate.instance.defaults }
     
     override func viewWillAppear(_ animated: Bool) {

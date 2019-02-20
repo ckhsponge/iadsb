@@ -8,94 +8,93 @@
 import Foundation
 import CoreLocation
 
-public extension IADSB {
-    public class GPS: ServiceJson,Codable {
-        
-        public var latitude:Double? = nil
-        public var longitude:Double? = nil
-        public var altitude:Double? = nil
-        public var horizontalAccuracy:Double? = nil
-        public var verticalAccuracy:Double? = nil
-        public var speed:Double? = nil
-        public var verticalSpeed:Double? = nil
-        public var courseTrue:Double? = nil
-        public var turnRate:Double? = nil
-        public var satelliteCount:Int? = nil
-        public var timestamp:Date? = nil
-        public static var minimumAccuracy:Double = 1000
-        static let inaccurate:Double = 99999
-        static let untimely:TimeInterval = 5.0 // seconds
-        
-        // constructs an instance from json data, MUST be defined in this class because Codable is on this class
-        override public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ServiceCodable? {
-            return try decoder.decode(self, from: data)
+public class GPS: ServiceJson,Codable {
+    
+    public var latitude:Double? = nil
+    public var longitude:Double? = nil
+    public var altitude:Double? = nil
+    public var horizontalAccuracy:Double? = nil
+    public var verticalAccuracy:Double? = nil
+    public var speed:Double? = nil
+    public var verticalSpeed:Double? = nil
+    public var courseTrue:Double? = nil
+    public var turnRate:Double? = nil
+    public var satelliteCount:Int? = nil
+    public var timestamp:Date? = nil
+    public static var minimumAccuracy:Double = 1000
+    static let inaccurate:Double = 99999
+    static let untimely:TimeInterval = 5.0 // seconds
+    
+    // constructs an instance from json data, MUST be defined in this class because Codable is on this class
+    override public class func decoderClass(_ decoder:JSONDecoder, data:Data) throws -> ServiceCodable? {
+        return try decoder.decode(self, from: data)
+    }
+    
+    override var comparableArray:[Double] {
+        return [createdAt.timeIntervalBeforeNow < GPS.untimely ? 0 : 1, self.horizontalAccuracy ?? GPS.inaccurate, self.verticalAccuracy ?? GPS.inaccurate]
+    }
+    
+    public var speedKnots:Double? {
+        get { return Constants.knots(metersPerSecond: speed) }
+        set { speed = Constants.metersPerSecond(knots: newValue) }
+    }
+    
+    public var verticalSpeedFPM:Double? {
+        return Constants.feetPerMinute(metersPerSecond: verticalSpeed);
+    }
+    
+    public var altitudeFeet:Double? {
+        guard let altitude = altitude else { return nil }
+        return Constants.feet(meters:altitude);
+    }
+    
+    public var horizontalAccuracyFeet:Double? {
+        return Constants.feet(meters:horizontalAccuracy);
+    }
+    
+    public var verticalAccuracyFeet:Double? {
+        return Constants.feet(meters:verticalAccuracy);
+    }
+    
+    public var courseMagnetic:Double? {
+        guard let courseTrue = courseTrue, let declination = magneticDeclination else { return nil }
+        return courseTrue - declination
+    }
+    
+    public var magneticDeclination:Double? {
+        guard let coordinate = coordinate else { return nil }
+        return Declination.at(coordinate: coordinate, elevation: altitude, date: timestamp)
+    }
+    
+    public var description:String {
+        return "\(String(describing: location)) -- altitude: \(String(describing: altitude)), VS: \(String(describing: verticalSpeed)), turnRate: \(String(describing: turnRate)), accuracy: \(String(describing: horizontalAccuracy))x\(String(describing: verticalAccuracy))"
+    }
+    
+    override public func afterDecode() {
+        super.afterDecode()
+        nilifyInacurates()
+    }
+    
+    public func nilifyInacurates() {
+        if let accuracy = horizontalAccuracy, accuracy < 0.0 || accuracy > GPS.minimumAccuracy {
+            self.horizontalAccuracy = nil
         }
-        
-        override var comparableArray:[Double] {
-            return [createdAt.timeIntervalBeforeNow < IADSB.GPS.untimely ? 0 : 1, self.horizontalAccuracy ?? IADSB.GPS.inaccurate, self.verticalAccuracy ?? IADSB.GPS.inaccurate]
+        if let accuracy = verticalAccuracy, accuracy < 0.0 || accuracy > GPS.minimumAccuracy {
+            self.verticalAccuracy = nil
         }
-        
-        public var speedKnots:Double? {
-            get { return IADSB.Constants.knots(metersPerSecond: speed) }
-            set { speed = IADSB.Constants.metersPerSecond(knots: newValue) }
+        if horizontalAccuracy == nil {
+            latitude = nil
+            longitude = nil
+            courseTrue = nil
+            speed = nil
+            turnRate = nil
         }
-        
-        public var verticalSpeedFPM:Double? {
-            return IADSB.Constants.feetPerMinute(metersPerSecond: verticalSpeed);
+        if verticalAccuracy == nil {
+            altitude = nil
+            verticalSpeed = nil
         }
-        
-        public var altitudeFeet:Double? {
-            guard let altitude = altitude else { return nil }
-            return IADSB.Constants.feet(meters:altitude);
-        }
-        
-        public var horizontalAccuracyFeet:Double? {
-            return IADSB.Constants.feet(meters:horizontalAccuracy);
-        }
-        
-        public var verticalAccuracyFeet:Double? {
-            return IADSB.Constants.feet(meters:verticalAccuracy);
-        }
-        
-        public var courseMagnetic:Double? {
-            guard let courseTrue = courseTrue, let declination = magneticDeclination else { return nil }
-            return courseTrue - declination
-        }
-        
-        public var magneticDeclination:Double? {
-            guard let coordinate = coordinate else { return nil }
-            return Declination.at(coordinate: coordinate, elevation: altitude, date: timestamp)
-        }
-        
-        public var description:String {
-            return "\(String(describing: location)) -- altitude: \(String(describing: altitude)), VS: \(String(describing: verticalSpeed)), turnRate: \(String(describing: turnRate)), accuracy: \(String(describing: horizontalAccuracy))x\(String(describing: verticalAccuracy))"
-        }
-        
-        override public func afterDecode() {
-            super.afterDecode()
-            nilifyInacurates()
-        }
-        
-        public func nilifyInacurates() {
-            if let accuracy = horizontalAccuracy, accuracy < 0.0 || accuracy > IADSB.GPS.minimumAccuracy {
-                self.horizontalAccuracy = nil
-            }
-            if let accuracy = verticalAccuracy, accuracy < 0.0 || accuracy > IADSB.GPS.minimumAccuracy {
-                self.verticalAccuracy = nil
-            }
-            if horizontalAccuracy == nil {
-                latitude = nil
-                longitude = nil
-                courseTrue = nil
-                speed = nil
-                turnRate = nil
-            }
-            if verticalAccuracy == nil {
-                altitude = nil
-                verticalSpeed = nil
-            }
-        }
-        
+    }
+    
 //        public init() {}
 
 //        required public init(from decoder: Decoder) throws {
@@ -107,14 +106,14 @@ public extension IADSB {
 //        public static func keyType() -> Key.Type {
 //            return CodingKeys.self
 //        }
-        
-        
+    
+    
 //        enum CodingKeys: String, CodingKey
 //        {
 //            case latitude = "GPSLatitude"
 //            case longitude = "GPSLongitude"
 //        }
-        
+    
 //        public class func from( attributes:[String:Any] ) -> Self {
 //            var mapped = [String:Any]()
 //            for (key,value) in attributes {
@@ -125,10 +124,9 @@ public extension IADSB {
 //            let gps = try? JSONDecoder().decode(self, from: jsonData!)
 //            return gps!
 //        }
-    }
 }
 
-//public extension IADSB.GPS {
+//public extension GPS {
 //    var location:CLLocation? = nil
 //}
 

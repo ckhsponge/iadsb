@@ -13,7 +13,7 @@ import iADSB
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let manager = IADSB.Manager()
+    let manager = Manager()
     let defaults = AppDefaults()
 
     static var instance:AppDelegate { return (UIApplication.shared.delegate! as! AppDelegate) }
@@ -26,16 +26,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func initDevices() {
-        var devices = [IADSB.Device]()
+        var devices = [Device]()
         for identifier in defaults.enabledDevices {
             switch identifier {
             case .stratux:
-                devices.append(IADSB.Stratux.Device(manager, priority: 10))
-//                devices.append(IADSB.Stratux.DeviceLocal(manager, priority: 10))
+                devices.append(Stratux.Device(manager, priority: 10))
+//                devices.append(Stratux.DeviceLocal(manager, priority: 10))
             case .stratuxHttp:
-                devices.append(IADSB.Stratux.DeviceHttp(manager, priority: 9))
+                devices.append(Stratux.DeviceHttp(manager, priority: 9))
             case .coreLocation:
-                devices.append(IADSB.CoreLocation.Device(manager, priority: 8))
+                devices.append(CoreLocation.Device(manager, priority: 8))
             }
         }
         manager.devices = devices
@@ -43,15 +43,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func testAttributes() {
         let attributes:[String:Any] = ["GPSLatitude": 37.7749,"GPSLongitude":-122.4194,"GPSVerticalAccuracy": 0,"GPSHorizontalAccuracy": 0]
-        let device = IADSB.DeviceNetwork(manager)
-        let gps = device.serviceFrom(IADSB.Stratux.GPS.self, attributes: attributes)
+        let device = DeviceNetwork(manager)
+        let gps = device.serviceFrom(Stratux.GPS.self, attributes: attributes)
         print("GPS attributes \(String(describing: gps?.description))")
     }
     
     func testJson() {
         let s = "      { \"GPSLastFixSinceMidnightUTC\": 78047.7,\n\"GPSLatitude\": 37.7749,\n\"GPSLongitude\":-122.4194,\n\"GPSVerticalAccuracy\": 0,\n\"GPSHorizontalAccuracy\": 0\n}"
-        let device = IADSB.DeviceNetwork(manager)
-        let gps = device.serviceFrom(IADSB.Stratux.GPS.self, jsonString: s)
+        let device = DeviceNetwork(manager)
+        let gps = device.serviceFrom(Stratux.GPS.self, jsonString: s)
         print("GPS json \(String(describing: gps?.description))")
     }
 

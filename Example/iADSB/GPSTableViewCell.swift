@@ -25,10 +25,10 @@ class GPSTableViewCell: ServiceTableViewCell {
     @IBOutlet var satelliteCountLabel: UILabel!
     @IBOutlet var timestampLabel: UILabel!
     
-    override func update(_ service:IADSB.Service) {
+    override func update(_ service:Service) {
         updateActive(activeLabel, service.device)
         deviceLabel.text = service.deviceName
-        guard let gps = service as? IADSB.GPS else {
+        guard let gps = service as? GPS else {
             deviceLabel.text = "none"
             latitudeLabel.text = ""
             longitudeLabel.text = ""

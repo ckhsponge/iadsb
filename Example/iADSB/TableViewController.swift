@@ -11,9 +11,9 @@ import iADSB
 
 class TableViewController: UITableViewController, IADSBDelegate {
     
-    var manager:IADSB.Manager { return AppDelegate.instance.manager }
+    var manager:Manager { return AppDelegate.instance.manager }
     var defaults:AppDefaults { return AppDelegate.instance.defaults }
-    var services = [IADSB.Service]()
+    var services = [Service]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class TableViewController: UITableViewController, IADSBDelegate {
         manager.start()
     }
     
-    func update(manager:IADSB.Manager, device:IADSB.Device) {
+    func update(manager:Manager, device:Device) {
         services = []
         for service in defaults.enabledServices {
             switch service {
@@ -68,13 +68,13 @@ class TableViewController: UITableViewController, IADSBDelegate {
         let service = services[index]
         var identifier:String
         switch service {
-        case is IADSB.GPS:
+        case is GPS:
             identifier = "GPSTableViewCell"
-        case is IADSB.Barometer:
+        case is Barometer:
             identifier = "BarometerTableViewCell"
-        case is IADSB.AHRS:
+        case is AHRS:
             identifier = "AHRSTableViewCell"
-        case is IADSB.Traffic:
+        case is Traffic:
             identifier = "TrafficTableViewCell"
         default:
             identifier = "GPSTableViewCell"

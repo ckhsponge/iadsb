@@ -46,15 +46,15 @@ class AppDefaults {
     
     // device like Stratux
     // uses the strings stored in defaults and returns enums
-    var disabledDevices:[IADSB.Device.Identifier] {
-        return disabledDevicesStrings.map { (string) -> IADSB.Device.Identifier? in
-            IADSB.Device.Identifier(rawValue: string)
+    var disabledDevices:[iADSB.Device.Identifier] {
+        return disabledDevicesStrings.map { (string) -> iADSB.Device.Identifier? in
+            Device.Identifier(rawValue: string)
             }.compactMap { $0 }
     }
     
-    var enabledDevices:[IADSB.Device.Identifier] {
+    var enabledDevices:[iADSB.Device.Identifier] {
         let disabled = disabledDevices
-        return IADSB.Device.Identifier.allCases.filter { !disabled.contains($0) }
+        return Device.Identifier.allCases.filter { !disabled.contains($0) }
     }
     
     func enableDevice(name:String?, enabled:Bool) {
@@ -70,15 +70,15 @@ class AppDefaults {
     }
     
     // uses the strings stored in defaults and returns enums
-    var disabledServices:[IADSB.Service.Category] {
-        return disabledServiceStrings.map { (string) -> IADSB.Service.Category? in
-            IADSB.Service.Category(rawValue: string)
+    var disabledServices:[iADSB.Service.Category] {
+        return disabledServiceStrings.map { (string) -> iADSB.Service.Category? in
+            Service.Category(rawValue: string)
             }.compactMap { $0 }
     }
     
-    var enabledServices:[IADSB.Service.Category] {
+    var enabledServices:[iADSB.Service.Category] {
         let disabled = disabledServices
-        return IADSB.Service.Category.allCases.filter { !disabled.contains($0) }
+        return Service.Category.allCases.filter { !disabled.contains($0) }
     }
     
     func enableService(name:String?, enabled:Bool) {

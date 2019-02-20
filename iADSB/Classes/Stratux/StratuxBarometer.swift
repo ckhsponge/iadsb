@@ -7,8 +7,8 @@
 
 import Foundation
 
-public extension IADSB.Stratux {
-    public class Barometer: IADSB.Barometer {
+public extension Stratux {
+    public class Barometer: iADSB.Barometer {
         override public class var keyMapping:[String:String]? { return  ["BaroTemperature": "temperature",
                                                                          "BaroPressureAltitude": "pressureAltitude",
                                                                          "BaroVerticalSpeed": "verticalSpeed",
@@ -17,8 +17,8 @@ public extension IADSB.Stratux {
 
         override public func afterDecode() {
             super.afterDecode()
-            self.pressureAltitude = IADSB.Constants.meters(feet: pressureAltitude)
-            self.verticalSpeed = IADSB.Constants.metersPerSecond(feetPerMinute: verticalSpeed)
+            self.pressureAltitude = Constants.meters(feet: pressureAltitude)
+            self.verticalSpeed = Constants.metersPerSecond(feetPerMinute: verticalSpeed)
         }
         
 //        enum StratuxCodingKeys: String, CodingKey

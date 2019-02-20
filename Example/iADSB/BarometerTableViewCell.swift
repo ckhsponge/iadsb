@@ -19,10 +19,10 @@ class BarometerTableViewCell: ServiceTableViewCell {
     @IBOutlet var verticalSpeedLabel: UILabel!
     @IBOutlet var timestampLabel: UILabel!
     
-    override func update(_ service:IADSB.Service) {
+    override func update(_ service:Service) {
         updateActive(activeLabel, service.device)
         deviceLabel.text = service.deviceName
-        guard let barometer = service as? IADSB.Barometer else {
+        guard let barometer = service as? Barometer else {
             deviceLabel.text = "none"
             temperatureLabel.text = ""
             temperatureFarenheitLabel.text = ""

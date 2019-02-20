@@ -8,7 +8,7 @@ import CoreLocation
 class TableOfContentsSpec: QuickSpec {
     class Delegate: IADSBDelegate {
         var updateCount:Int = 0
-        func update(manager: IADSB.Manager, device: IADSB.Device) {
+        func update(manager: Manager, device: Device) {
             updateCount += 1
         }
     }
@@ -28,8 +28,8 @@ class TableOfContentsSpec: QuickSpec {
     }
     
     override func spec() {
-        let manager = IADSB.Manager()
-        let device = IADSB.Device(manager)
+        let manager = Manager()
+        let device = Device(manager)
         manager.add(delegate: self.delegate)
         
         describe("has gps") {
@@ -44,7 +44,7 @@ class TableOfContentsSpec: QuickSpec {
             it("is magnetic") {
                 let sfo = CLLocation(latitude: 37 + 37.13/60.0, longitude: -122 - 22.53/60.0)
                 let trk = CLLocation(latitude: 39 + 19.20/60.0, longitude: -120 - 8.37/60.0)
-                expect(IADSB.Constants.Nonnull.headingMagnetic(from: sfo, to: trk)).to(beCloseTo(31.7, within: 0.5))
+                expect(Constants.Nonnull.headingMagnetic(from: sfo, to: trk)).to(beCloseTo(31.7, within: 0.5))
             }
         }
         describe("these will fail") {

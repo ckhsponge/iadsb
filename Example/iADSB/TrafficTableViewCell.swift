@@ -17,10 +17,10 @@ class TrafficTableViewCell: ServiceTableViewCell {
     @IBOutlet var targetsLabel: UILabel!
     @IBOutlet var countLabel: UILabel!
     
-    override func update(_ service:IADSB.Service) {
+    override func update(_ service:Service) {
         updateActive(activeLabel, service.device)
         deviceLabel.text = service.deviceName
-        guard let traffic = service as? IADSB.Traffic else {
+        guard let traffic = service as? Traffic else {
             deviceLabel.text = "none"
             countLabel.text = ""
             timestampLabel.text = ""
@@ -31,7 +31,7 @@ class TrafficTableViewCell: ServiceTableViewCell {
         timestampLabel.text = format(traffic.timestamp)
     }
     
-    public func format(traffic:IADSB.Traffic) -> String {
+    public func format(traffic:Traffic) -> String {
         let strings = traffic.targets.map { (target) -> String in
             var array:[String?] = [target.tailNumber]
 //            if let squawk = target.squawk {

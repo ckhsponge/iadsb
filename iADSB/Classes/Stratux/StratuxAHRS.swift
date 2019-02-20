@@ -7,8 +7,8 @@
 
 import Foundation
 
-public extension IADSB.Stratux {
-    public class AHRS: IADSB.AHRS {
+public extension Stratux {
+    public class AHRS: iADSB.AHRS {
         override public class var keyMapping:[String:String]? {
             return  ["AHRSPitch": "pitch",
                      "AHRSRoll": "roll",
