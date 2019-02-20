@@ -1,8 +1,8 @@
 {
   "name": "ObjectiveWMM",
-  "version": "0.1.0",
-  "summary": "A short description of ObjectiveWMM.",
-  "description": "TODO: Add long description of the pod here.",
+  "version": "0.7.0",
+  "summary": "An Objective-C iOS wrapper for the World Magnetic Model",
+  "description": "Given a geographic location, determine the magnetic declination using the U.S. DoD World Magnetic Model.\nThis is useful for converting true headings to magnetic headings.",
   "homepage": "https://github.com/ckhsponge/ObjectiveWMM",
   "license": {
     "type": "MIT",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/ckhsponge/ObjectiveWMM.git",
-    "tag": "0.1.0"
+    "tag": "0.7.0"
   },
   "source_files": "ObjectiveWMM/Classes/**/*",
   "resource_bundles": {

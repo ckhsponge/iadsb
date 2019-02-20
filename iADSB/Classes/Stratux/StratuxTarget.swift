@@ -31,6 +31,14 @@ public extension IADSB.Stratux {
                         "Timestamp":"timestamp"
             ]
         }
+        
+        override public func afterDecode() {
+            super.afterDecode()
+            self.speed = IADSB.Constants.metersPerSecond(knots: speed)
+            self.altitude = IADSB.Constants.meters(feet: altitude)
+            self.verticalSpeed = IADSB.Constants.metersPerSecond(feetPerMinute: self.verticalSpeed)
+            // turn rate units? minutesPerTurn -> degreesPerSecond
+        }
     }
 }
 

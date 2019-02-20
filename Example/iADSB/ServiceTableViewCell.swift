@@ -10,6 +10,13 @@ import UIKit
 import iADSB
 
 class ServiceTableViewCell: UITableViewCell {
+    
+//    let decimalFormatter:NumberFormatter = {
+//        let numberFormatter = NumberFormatter()
+//        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+//        return numberFormatter
+//    }()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -42,12 +49,12 @@ class ServiceTableViewCell: UITableViewCell {
     
     func format(_ i:Int?, suffix:String="", prefix:String="") -> String {
         guard let i = i else { return "" }
-        return "\(prefix)\(String(format: "%d", i))\(suffix)"
+        return "\(prefix)\(String.localizedStringWithFormat("%d", i))\(suffix)"
     }
     
-    func format(_ d:Double?, precision:Int, suffix:String="", prefix:String="") -> String {
+    func format(_ d:Double?, precision:Int, prefix:String="", suffix:String="") -> String {
         guard let d = d else { return "" }
-        return "\(prefix)\(String(format: "%.\(precision)f", d))\(suffix)"
+        return "\(prefix)\(String.localizedStringWithFormat("%.\(precision)f", d))\(suffix)"
     }
     
     func format(_ d:Date?) -> String {

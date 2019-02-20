@@ -341,7 +341,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-iADSB_Tests/Pods-iADSB_Tests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-iADSB_Tests/Pods-iADSB_Tests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
 				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
 			);
@@ -354,7 +354,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iADSB_Tests/Pods-iADSB_Tests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iADSB_Tests/Pods-iADSB_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B64AF87CBF513AC323081BCD /* [CP] Embed Pods Frameworks */ = {
@@ -365,7 +365,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-iADSB_Example/Pods-iADSB_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-iADSB_Example/Pods-iADSB_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectiveWMM/ObjectiveWMM.framework",
 				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
@@ -382,7 +382,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iADSB_Example/Pods-iADSB_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iADSB_Example/Pods-iADSB_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

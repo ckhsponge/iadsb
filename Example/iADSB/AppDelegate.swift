@@ -30,8 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         for identifier in defaults.enabledDevices {
             switch identifier {
             case .stratux:
-//                devices(IADSB.Stratux.Device(manager, priority: 10))
-                devices.append(IADSB.Stratux.DeviceLocal(manager, priority: 10))
+                devices.append(IADSB.Stratux.Device(manager, priority: 10))
+//                devices.append(IADSB.Stratux.DeviceLocal(manager, priority: 10))
             case .stratuxHttp:
                 devices.append(IADSB.Stratux.DeviceHttp(manager, priority: 9))
             case .coreLocation:

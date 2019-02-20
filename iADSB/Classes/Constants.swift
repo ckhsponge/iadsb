@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import CoreLocation
+import ObjectiveWMM
 
 extension IADSB {
     public struct Constants {
@@ -48,6 +50,38 @@ extension IADSB {
             public static func farenheit(celsius:Double) -> Double {
                 return celsius * 9.0/5.0 + 32.0
             }
+            public static func radians(degrees:Double) -> Double {
+                return degrees * Double.pi / 180.0
+            }
+            public static func degrees(radians:Double) -> Double {
+                return radians * 180.0 / Double.pi
+            }
+            public static func withinZeroTo360(_ degrees:Double) -> Double {
+                let f = floor(degrees / 360.0)
+                let r = (degrees - (360.0 * f))
+                return r
+            }
+            public static func headingTrue(from:CLLocation, to:CLLocation) -> Double {
+                //ATAN2(COS(lat1)*SIN(lat2)-SIN(lat1)*COS(lat2)*COS(lon2-lon1), SIN(lon2-lon1)*COS(lat2))
+                var lat1:Double = from.coordinate.latitude
+                var lon1:Double = from.coordinate.longitude
+                var lat2:Double = to.coordinate.latitude
+                var lon2:Double = to.coordinate.longitude
+                let dlon:Double = radians(degrees:lon2 - lon1)
+                lat1 = radians(degrees:lat1)
+                lon1 = radians(degrees:lon1)
+                lat2 = radians(degrees:lat2)
+                lon2 = radians(degrees:lon2)
+                let y:Double = sin(dlon) * cos(lat2)
+                let x:Double = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dlon)
+                let r:Double = atan2(y, x)
+                let heading:Double = degrees(radians:r)
+                //heading -= [self magneticDeviation];
+                return withinZeroTo360(heading)
+            }
+            public static func headingMagnetic(from:CLLocation, to:CLLocation) -> Double {
+                return headingTrue(from:from, to:to) - ObjectiveWMM.declination(location: from)
+            }
         }
         
         public static func nm(meters:Double?) -> Double? {
@@ -89,6 +123,14 @@ extension IADSB {
         public static func farenheit(celsius:Double?) -> Double? {
             guard let celsius = celsius else { return nil }
             return Nonnull.farenheit(celsius: celsius)
+        }
+        public static func headingTrue(from:CLLocation?, to:CLLocation?) -> Double? {
+            guard let from=from, let to=to else { return nil }
+            return Nonnull.headingTrue(from:from, to:to)
+        }
+        public static func headingMagnetic(from:CLLocation?, to:CLLocation?) -> Double? {
+            guard let from=from, let to=to else { return nil }
+            return Nonnull.headingMagnetic(from:from, to:to)
         }
     }
 }

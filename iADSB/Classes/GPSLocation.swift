@@ -49,25 +49,30 @@ public extension IADSB.GPS {
         return nil
     }
     
-    public var location:CLLocation? {
-        if let latitude = self.latitude, let longitude = self.longitude {
-            if let altitude = self.altitude, let horizontalAccuracy = self.horizontalAccuracy,
-                let verticalAccuracy = self.verticalAccuracy {
-                if let course = self.courseTrue, let speed = self.speed {
-                    return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, course: course, speed: speed, timestamp: self.timestamp ?? Date())
-                }
-                return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
-                                  altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, timestamp: self.timestamp ?? Date())
-            }
-            return CLLocation(latitude: latitude, longitude: longitude)
-        }
-        return nil
-    }
-    
     public var coordinate:CLLocationCoordinate2D? {
         guard let latitude = self.latitude, let longitude = self.longitude else {
             return nil
         }
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
+    
+    public var location:CLLocation? {
+        return IADSB.GPS.location(latitude:latitude, longitude:longitude, horizontalAccuracy:horizontalAccuracy, verticalAccuracy:verticalAccuracy, altitude:altitude, courseTrue:courseTrue, speed:speed , timestamp:timestamp)
+    }
+    
+    public class func location(latitude:Double?, longitude:Double?, horizontalAccuracy:Double?, verticalAccuracy:Double?, altitude:Double?, courseTrue:Double?, speed:Double? , timestamp:Date?) -> CLLocation? {
+        let horizontalAccuracy = horizontalAccuracy ?? -1.0
+        let verticalAccuracy = verticalAccuracy ?? -1.0
+        if let latitude = latitude, let longitude = longitude {
+            if let altitude = altitude {
+                if let course = courseTrue, let speed = speed {
+                    return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, course: course, speed: speed, timestamp: timestamp ?? Date())
+                }
+                return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+                                  altitude: altitude, horizontalAccuracy: horizontalAccuracy, verticalAccuracy: verticalAccuracy, timestamp: timestamp ?? Date())
+            }
+            return CLLocation(latitude: latitude, longitude: longitude)
+        }
+        return nil
     }
 }

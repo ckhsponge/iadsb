@@ -3,6 +3,7 @@
 import Quick
 import Nimble
 import iADSB
+import CoreLocation
 
 class TableOfContentsSpec: QuickSpec {
     class Delegate: IADSBDelegate {
@@ -36,6 +37,14 @@ class TableOfContentsSpec: QuickSpec {
                 self.expectUpdate() {
                     manager.update(device:device)
                 }
+            }
+        }
+        
+        describe("heading to") {
+            it("is magnetic") {
+                let sfo = CLLocation(latitude: 37 + 37.13/60.0, longitude: -122 - 22.53/60.0)
+                let trk = CLLocation(latitude: 39 + 19.20/60.0, longitude: -120 - 8.37/60.0)
+                expect(IADSB.Constants.Nonnull.headingMagnetic(from: sfo, to: trk)).to(beCloseTo(31.7, within: 0.5))
             }
         }
         describe("these will fail") {

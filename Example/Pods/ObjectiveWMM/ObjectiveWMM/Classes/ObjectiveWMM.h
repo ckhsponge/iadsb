@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Crookneck Consulting LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 //! Project version number for ObjectiveWMM.
 FOUNDATION_EXPORT double ObjectiveWMMVersionNumber;
 
