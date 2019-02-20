@@ -10,7 +10,7 @@ import Foundation
 // uses HTTP Get requests for retrieving GPS, Barometer and AHRS
 public extension Stratux {
     public class DeviceHttp: iADSB.DeviceHttp {
-        public var urlBase = "http://192.168.10.1/"
+        public var urlBase = "http://192.168.10.1"
         // for testing: "http://localhost:3000/stratux/situation.json"
         
         override public var name:String { return "StratuxH" }

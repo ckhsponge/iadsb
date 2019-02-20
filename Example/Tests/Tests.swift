@@ -8,7 +8,7 @@ import CoreLocation
 class TableOfContentsSpec: QuickSpec {
     class Delegate: IADSBDelegate {
         var updateCount:Int = 0
-        func update(manager: Manager, device: Device) {
+        func update(manager: Manager) {
             updateCount += 1
         }
     }

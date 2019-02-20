@@ -33,7 +33,7 @@ class TableViewController: UITableViewController, IADSBDelegate {
         manager.start()
     }
     
-    func update(manager:Manager, device:Device) {
+    func update(manager:Manager) {
         services = []
         for service in defaults.enabledServices {
             switch service {

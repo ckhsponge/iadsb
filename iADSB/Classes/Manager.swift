@@ -18,26 +18,33 @@ public class Manager {
     }
     lazy var deviceCollection = {
         PriorityCollection([
-            Stratux.Device(self, priority: 1),
-            CoreLocation.Device(self, priority: 0)
+            iADSB.Stratux.Device(self, priority: 1),
+            iADSB.CoreLocation.Device(self, priority: 0)
         ])
     }()
-    public var gpses = ServiceSet<GPS>()
-    public var barometers = ServiceSet<Barometer>()
-    public var ahrses = ServiceSet<AHRS>()
-    public var traffics = ServiceSet<Traffic>()
+    public var gpses = ServiceSet<iADSB.GPS>()
+    public var barometers = ServiceSet<iADSB.Barometer>()
+    public var ahrses = ServiceSet<iADSB.AHRS>()
+    public var traffics = ServiceSet<iADSB.Traffic>()
     public var gps:GPS? { return gpses.first }
     public var barometer:Barometer? { return barometers.first }
     public var ahrs:AHRS? { return ahrses.first }
     public var traffic:Traffic? { return traffics.first }
-    var delegates = ProtocolSet<IADSBDelegate>()
     
+//    private var hasUpdates:Bool = false
+    private var delegates = ProtocolSet<IADSBDelegate>()
+    
+    public var fireUpdateInterval:TimeInterval = 0.5 // must stop and start for changes to take effect
+    private var fireUpdateTimer:Timer?
     public var warmupInterval:TimeInterval? = 1 //5*60
     public var peerRetryInterval:TimeInterval? = 15
     public var superiorRetryInterval:TimeInterval? = 10 //30
     var warmupStartedAt:Date? = nil
     var peerRetriedAt:Date? = nil
     var superiorRetriedAt:Date? = nil
+    
+    // concurrent queue allows simultaneous reads
+    private let dispatchQueue = DispatchQueue( label: "net.toonsy.iADSB.manager", attributes: .concurrent)
     
     public init() {}
     
@@ -46,12 +53,26 @@ public class Manager {
         for device in devices {
             device.start()
         }
+        dispatchQueue.async(flags: .barrier) { [weak self] in
+            guard let self = self else { return }
+            self.fireUpdateTimer = Timer.scheduledTimer(withTimeInterval: self.fireUpdateInterval, repeats: true, block: { (timer) in
+                self.fireUpdate(delegates: self.delegates.toArray())
+            })
+            let runLoop = RunLoop.current
+            runLoop.add(self.fireUpdateTimer!, forMode: RunLoop.Mode.default)
+            runLoop.run()
+        }
     }
     
     public func stop() {
         warmupStartedAt = nil
         for device in devices {
             device.stop()
+        }
+        dispatchQueue.async(flags: .barrier) { [weak self] in
+            guard let self = self else { return }
+            self.fireUpdateTimer?.invalidate()
+            self.fireUpdateTimer = nil
         }
     }
     
@@ -142,33 +163,61 @@ public class Manager {
     
     // a device has new data, let's store it
     // all data available should be stored in case it is the best
-    public func update( device:Device ) {
+    public func update( device:iADSB.Device ) {
 //            print("\(String(describing: gps.verticalSpeedFPM))")
-        if let gps = device.gps { gpses.insert(gps) }
-        if let barometer = device.barometer { barometers.insert(barometer) }
-        if let ahrs = device.ahrs { ahrses.insert(ahrs) }
-        if let traffic = device.traffic { traffics.insert(traffic) }
-        let requiredDevices = self.requiredDevices()
-        checkPeers(requiredDevices)
-        checkSuperiors(requiredDevices)
-        checkRequired(requiredDevices)
-        for delegate in delegates {
-            delegate.update(manager:self, device: device)
+        dispatchQueue.async(flags: .barrier) { [weak self] in
+            guard let self = self else { return }
+            if let gps = device.gps { self.gpses.insert(gps) }
+            if let barometer = device.barometer { self.barometers.insert(barometer) }
+            if let ahrs = device.ahrs { self.ahrses.insert(ahrs) }
+            if let traffic = device.traffic { self.traffics.insert(traffic) }
+            let requiredDevices = self.requiredDevices()
+            self.checkPeers(requiredDevices)
+            self.checkSuperiors(requiredDevices)
+            self.checkRequired(requiredDevices)
         }
     }
     
-    public func fireInactive() {
-        for case let delegate as IADSBDelegateInactive in delegates {
-            delegate.iadsbInactive()
+//    private var delegatesSafe:[IADSBDelegate] {
+//        var safe:[IADSBDelegate]!
+//        dispatchQueue.sync {
+//            safe = self.delegates.toArray()
+//        }
+//        return safe
+//    }
+//    
+//    public func fireUpdate() {
+//        fireUpdate(delegates: delegatesSafe)
+//    }
+    
+    private func fireUpdate(delegates:[IADSBDelegate]) {
+        print("FireUpdate \(delegates.count)")
+        DispatchQueue.main.async {
+            for delegate in delegates {
+                delegate.update(manager:self)
+            }
         }
     }
+    
+//    public func fireInactive() {
+//        let safe = delegatesSafe
+//        DispatchQueue.main.async {
+//            for case let delegate as IADSBDelegateInactive in safe {
+//                delegate.iadsbInactive()
+//            }
+//        }
+//    }
     
     public func add( delegate:IADSBDelegate ) {
-        delegates.add(delegate)
+        dispatchQueue.async(flags: .barrier) { [weak self] in
+            self?.delegates.add(delegate)
+        }
     }
     
     public func remove( delegate:IADSBDelegate ) {
-        delegates.remove(delegate)
+        dispatchQueue.async(flags: .barrier) { [weak self] in
+            self?.delegates.remove(delegate)
+        }
     }
 }
 
